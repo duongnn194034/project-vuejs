@@ -14,11 +14,23 @@
         </p>
 
         <div class="d-flex flex-row justify-content-between">
-          <div class="input-group col-md-3 col-4 p-0">
+          <div class="input-group col-md-5 col-4 p-0">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">Quantity</span>
             </div>
-            <input class="form-control" type="number" v-bind:value="quantity" />
+            <input class="form-control" type="number" v-model="this.quantity" />
+            <button
+              type="button"
+              id="add-up-quantity"
+              class="btn quantity-btn"
+              @click="addUpQuantity()"
+            >+</button>
+            <button
+              type="button"
+              id="sub-down-quantity quantity-btn"
+              class="btn quantity-btn"
+              @click="subDownQuantity"
+            >-</button>
           </div>
 
           <div class="input-group col-md-3 col-4 p-0">
@@ -37,7 +49,7 @@
         <div class="features pt-3">
           <h5><strong>Features</strong></h5>
           <ul>
-            <li>Details</li>
+            <li>Placeholder</li>
           </ul>
         </div>
 
@@ -128,6 +140,15 @@ export default {
         );
     },
 
+    addUpQuantity() {
+      this.quantity = this.quantity + 1
+    },
+
+    subDownQuantity() {
+      if (this.quantity > 0)
+        this.quantity = this.quantity - 1
+    },
+
     listCartItems() {
       axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
         (response) => {
@@ -148,6 +169,14 @@ export default {
       (category) => category.id == this.product.categoryId
     );
     this.token = localStorage.getItem("token");
+  },
+  watch: {
+    quantity(value) {
+      if (value < 0) {
+        alert('Invalid value')
+        this.quantity = 1
+      }
+    }
   },
 };
 </script>
@@ -182,5 +211,9 @@ input[type="number"] {
   background-color: #131921;
   color: white;
   border-radius: 0;
+}
+
+#quantity-btn {
+  border-color: #131921;
 }
 </style>
