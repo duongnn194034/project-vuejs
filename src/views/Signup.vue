@@ -26,22 +26,11 @@
             <div class="form-row">
               <div class="col">
                 <div class="form-group">
-                  <label>First Name</label>
+                  <label>Full Name</label>
                   <input
                     type="name"
                     class="form-control"
-                    v-model="firstName"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input
-                    type="name"
-                    class="form-control"
-                    v-model="lastName"
+                    v-model="fullName"
                     required
                   />
                 </div>
@@ -93,8 +82,7 @@ export default {
   data() {
     return {
       email: null,
-      firstName: null,
-      lastName: null,
+      fullName: null,
       password: null,
       passwordConfirm: null,
     };
@@ -107,8 +95,7 @@ export default {
         // make the post body
         const user = {
           email: this.email,
-          firstName: this.firstName,
-          lastName: this.lastName,
+          fullName: this.fullName,
           password: this.password,
         };
 

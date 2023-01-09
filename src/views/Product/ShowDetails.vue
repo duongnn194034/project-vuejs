@@ -14,23 +14,24 @@
         </p>
 
         <div class="d-flex flex-row justify-content-between">
-          <div class="input-group col-md-5 col-4 p-0">
+          <div class="input-group col-md-auto col-4 p-0">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1">Quantity</span>
             </div>
-            <input class="form-control" type="number" v-model="this.quantity" />
-            <button
-              type="button"
-              id="add-up-quantity"
-              class="btn quantity-btn"
-              @click="addUpQuantity()"
-            >+</button>
-            <button
-              type="button"
-              id="sub-down-quantity quantity-btn"
-              class="btn quantity-btn"
-              @click="subDownQuantity"
-            >-</button>
+              <div class="col-md-1"></div>
+              <button
+                type="button"
+                id="sub-down-quantity"
+                class="btn btn-default col-md-1"
+                @click="subDownQuantity"
+              >-</button>
+              <input class="form-control col-md-2" type="number" v-model="this.quantity" />
+              <button
+                type="button"
+                id="add-up-quantity"
+                class="btn btn-default col-md-1"
+                @click="addUpQuantity()"
+              >+</button>
           </div>
 
           <div class="input-group col-md-3 col-4 p-0">
@@ -172,8 +173,7 @@ export default {
   },
   watch: {
     quantity(value) {
-      if (value < 0) {
-        alert('Invalid value')
+      if (value < 0 || value == '') {
         this.quantity = 1
       }
     }
@@ -211,9 +211,5 @@ input[type="number"] {
   background-color: #131921;
   color: white;
   border-radius: 0;
-}
-
-#quantity-btn {
-  border-color: #131921;
 }
 </style>
