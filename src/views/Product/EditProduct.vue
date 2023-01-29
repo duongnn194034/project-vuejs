@@ -50,6 +50,7 @@ export default {
   props : ["baseURL", "products", "categories"],
   methods : {
     async editProduct() {
+      console.log(this.product)
       axios.post(this.baseURL+"product/update/"+this.id, this.product)
       .then(res => {
         //sending the event to parent to handle

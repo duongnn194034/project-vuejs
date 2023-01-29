@@ -13,7 +13,7 @@
         ><h5 class="card-title">{{ category.categoryName }}</h5></router-link
       >
       <p class="card-text font-italic">
-        {{ category.description.substring(0, 65) }}...
+        {{ category.description?.substring(0, 65) }}...
       </p>
       <router-link
         id="edit-category"
