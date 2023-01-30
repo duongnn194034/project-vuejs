@@ -10,6 +10,7 @@
     <div class="row">
       <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
       <div v-for="product of category.products" :key="product.id" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
+        <p>{{ typeof(product) }}</p>
         <ProductBox :product="product">
         </ProductBox>
       </div>
