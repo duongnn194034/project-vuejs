@@ -10,7 +10,7 @@
       <div class="col-2"></div>
       <div class="col-md-3 embed-responsive embed-responsive-16by9">
         <!--                display image in left-->
-        <img v-bind:src="order.imageURL" class="w-100 card-img-top embed-responsive-item">
+        <img v-bind:src="order.imageUrl" class="w-100 card-img-top embed-responsive-item">
       </div>
       <div class="col-md-5 px-3">
         <div class="card-block px-3">
@@ -56,7 +56,7 @@
                     // get short date
                     orderdate: order.createdDate.substring(0,10),
                     // get image of the first orderItem of the order
-                    imageURL: order.orderItems[0].product.imageURL,
+                    imageUrl: order.orderItems[0].product.imageUrl,
                     // get total items
                     totalItems: order.orderItems.length
                   })

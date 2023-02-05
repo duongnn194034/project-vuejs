@@ -45,7 +45,7 @@ export default {
             let len = Object.keys(products.cartItems).length;
             for (let i = 0; i < len; i++)
               this.checkoutBodyArray.push({
-                imageUrl: products.cartItems[i].product.imageURL,
+                imageUrl: products.cartItems[i].product.imageUrl,
                 productName: products.cartItems[i].product.name,
                 quantity: products.cartItems[i].quantity,
                 price: products.cartItems[i].product.price,

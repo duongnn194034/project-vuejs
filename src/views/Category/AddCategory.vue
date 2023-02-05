@@ -20,7 +20,7 @@
           </div>
           <div class="form-group">
             <label>ImageURL</label>
-            <input type="url" class="form-control" v-model="imageURL" required>
+            <input type="url" class="form-control" v-model="imageUrl" required>
           </div>
           <button type="button" class="btn btn-primary" @click="addCategory">Submit</button>
         </form>
@@ -36,7 +36,7 @@ export default {
     return {
       categoryName : null,
       description : null,
-      imageURL : null,
+      imageUrl : null,
     }
   },
   props : ["baseURL", "categories"],
@@ -45,7 +45,7 @@ export default {
       const newCategory = {
         categoryName : this.categoryName,
         description : this.description,
-        imageUrl : this.imageURL,
+        imageUrl : this.imageUrl,
       }
 
       await axios({

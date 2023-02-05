@@ -3,21 +3,21 @@
     <div class="embed-responsive embed-responsive-16by9">
       <img
         class="card-img-top embed-responsive-item"
-        :src="product.imageURL"
+        :src="product.imageUrl"
         alt="Product Image"
       />
     </div>
     <div class="card-body">
-      <router-link :to="{ name: 'ShowDetails', params: { id: product.id } }"
-        ><h5 class="card-title">{{ product.name }}</h5></router-link
+      <router-link :to="{ name: 'ShowDetails', params: { id: product?.id } }"
+        ><h5 class="card-title">{{ product?.name }}</h5></router-link
       >
-      <p class="card-text">{{ product.price }}<sup>VND</sup></p>
+      <p class="card-text">{{ product?.price }}<sup>VND</sup></p>
       <p class="card-text font-italic">
-        {{ product.description.substring(0, 65) }}...
+        {{ product.description?.substring(0, 65) }}...
       </p>
       <router-link
         id="edit-product"
-        :to="{ name: 'EditProduct', params: { id: product.id } }"
+        :to="{ name: 'EditProduct', params: { id: product?.id } }"
         v-show="$route.name == 'AdminProduct'"
       >
         Edit
@@ -34,10 +34,13 @@ export default {
     showDetails() {
       this.$router.push({
         name: "ShowDetails",
-        params: { id: this.product.id },
+        params: { id: this.product?.id },
       });
     },
   },
+  mounted() {
+    console.log(this.product)
+  }
 };
 </script>
 

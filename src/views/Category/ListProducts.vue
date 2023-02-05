@@ -7,19 +7,17 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row hanh">
       <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
-      <div v-for="product of category.products" :key="product.id" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-        <p>{{ typeof(product) }}</p>
-        <ProductBox :product="product">
-        </ProductBox>
+      <div class="col-2" v-for="product in category?.products" :key="product?.id">
+        <ProductBox :product="product" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductBox from '../../components/Product/ProductBox';
+import ProductBox from '../../components/Product/ProductBox.vue';
 export default {
   name: 'ListProducts',
   data(){

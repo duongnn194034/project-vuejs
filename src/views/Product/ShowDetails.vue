@@ -3,7 +3,7 @@
     <div class="row pt-5">
       <div class="col-md-1"></div>
       <div class="col-md-4 col-12">
-        <img :src="product.imageURL" :alt="product.name" class="img-fluid" />
+        <img :src="product.imageUrl" :alt="product.name" class="img-fluid" />
       </div>
       <div class="col-md-6 col-12 pt-3 pt-md-0">
         <h4>{{ product.name }}</h4>
