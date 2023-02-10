@@ -20,7 +20,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!--      Search Bar-->
-      <form class="form-inline ml-auto mr-auto">
+      <form class="form-inline ml-auto mr-auto" @submit="submit">
         <div class="input-group">
           <input
             size="100"
@@ -29,6 +29,7 @@
             placeholder="Search Items"
             aria-label="Username"
             aria-describedby="basic-addon1"
+            v-model="query"
           />
           <div class="input-group-prepend">
             <span class="input-group-text" id="search-button-navbar">
@@ -39,6 +40,7 @@
                 fill="currentColor"
                 class="bi bi-search"
                 viewBox="0 0 16 16"
+                type="submit"
               >
                 <path
                   d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
@@ -144,6 +146,7 @@ export default {
   data() {
     return {
       token: null,
+      query: null
     };
   },
   methods: {
@@ -157,6 +160,12 @@ export default {
         icon: "success",
         closeOnClickOutside: false,
       });
+    },
+    submit() {
+      this.$router.push({
+        name: "ListProductsRe", 
+        params: { query: this.query} 
+      })
     },
   },
   mounted() {

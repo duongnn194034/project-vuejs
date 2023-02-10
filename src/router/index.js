@@ -11,6 +11,7 @@ import Product from '../views/Product/Product.vue'
 import AddProduct from '../views/Product/AddProduct.vue'
 import EditProduct from '../views/Product/EditProduct.vue'
 import ShowDetails from '../views/Product/ShowDetails.vue'
+import ListProductsRe from '../views/Product/ListProductsRe.vue'
 import Wishlist from '../views/Product/Wishlist.vue'
 import Cart from '../views/Cart/Cart.vue'
 import Checkout from '../views/Checkout/Checkout.vue'
@@ -55,6 +56,11 @@ const routes = [
     path: '/product',
     name: 'Product',
     component: Product
+  },
+  {
+    path: '/productRe/:query',
+    name: 'ListProductsRe',
+    component: ListProductsRe
   },
   {
     path: '/admin/product',
@@ -153,7 +159,7 @@ const routes = [
     path:'/order/:id',
     name:'OrderDetails',
     component: OrderDetails
-  }
+  },
 ]
 
 const router = createRouter({

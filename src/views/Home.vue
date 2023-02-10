@@ -46,7 +46,7 @@
   import CategoryBox from "../components/Category/CategoryBox";
   export default {
     name: 'Home',
-    components : { ProductBox, CategoryBox},
+    components : { ProductBox, CategoryBox },
     props : ["baseURL", "products", "categories"],
     data(){
       return{
