@@ -15,7 +15,8 @@
     "stripe": "^8.137.0",
     "sweetalert": "^2.1.2",
     "vue": "^3.2.36",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-simple-search-dropdown": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",

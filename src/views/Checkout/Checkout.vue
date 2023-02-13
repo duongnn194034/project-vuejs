@@ -42,15 +42,16 @@ export default {
         (response) => {
           if (response.status == 200) {
             let products = response.data;
+            console.log(products.cartItems[0].product)
             let len = Object.keys(products.cartItems).length;
             for (let i = 0; i < len; i++)
               this.checkoutBodyArray.push({
                 imageUrl: products.cartItems[i].product.imageUrl,
-                productName: products.cartItems[i].product.name,
+                name: products.cartItems[i].product.name,
                 quantity: products.cartItems[i].quantity,
                 price: products.cartItems[i].product.price,
                 productId: products.cartItems[i].product.id,
-                userId: products.cartItems[i].userId,
+                userId: products.cartItems[i].product.user.id,
               });
           }
         },
@@ -78,7 +79,7 @@ export default {
     },
   },
   mounted() {
-    // get the token
+    // get the token)
     this.token = localStorage.getItem('token');
     // get all the cart items
     this.stripe = Stripe(this.stripeAPIToken);
