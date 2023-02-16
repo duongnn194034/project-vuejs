@@ -64,7 +64,7 @@ export default {
     goToCheckout() {
       axios
         .post(
-          this.baseURL + 'order/create-checkout-session',
+          this.baseURL + `order/create-checkout-session?token=${this.token}`,
           this.checkoutBodyArray
         )
         .then((response) => {

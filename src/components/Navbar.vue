@@ -91,7 +91,7 @@
             Accounts
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link
+            <!-- <router-link
               class="dropdown-item"
               v-if="!token"
               :to="{ name: 'Signin' }"
@@ -99,7 +99,7 @@
             >
             <router-link class="dropdown-item" v-else :to="{ name: 'Wishlist' }"
               >Wishlist</router-link
-            >
+            > -->
             <router-link class="dropdown-item" :to="{ name: 'Admin' }"
               >Admin</router-link
             >

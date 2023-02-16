@@ -50,15 +50,16 @@
                 this.orders = response.data
                 // for each order populate orderList
                 this.orders.forEach((order) => {
+                  let date = new Date(order.createdAt)
                   this.orderList.push({
                     id: order.id,
-                    totalCost: order.totalPrice,
+                    totalCost: order.totalCost,
                     // get short date
-                    orderdate: order.createdDate.substring(0,10),
+                    orderdate: date.toString().substring(0,10),
                     // get image of the first orderItem of the order
-                    imageUrl: order.orderItems[0].product.imageUrl,
+                    imageUrl: order.orderItemList[0].product.imageUrl,
                     // get total items
-                    totalItems: order.orderItems.length
+                    totalItems: order.orderItemList.length
                   })
                 })
               }
