@@ -16,10 +16,10 @@
             <div class="col-md-5 px-3">
                 <div class="card-block px-3">
                     <h6 class="card-title" >{{orderItem.product.name}}</h6>
-                    <p id="item-price" class="mb-0 font-weight-bold">${{orderItem.product.price}} per unit</p>
+                    <p id="item-price" class="mb-0 font-weight-bold">{{orderItem.product.price}} VND per unit</p>
                     <p id="item-quantity" class="mb-0">Quantity : {{orderItem.quantity}}</p>
                     <p id="item-total-price" class="mb-0">
-                        Total Price : $<span class="font-weight-bold">{{ orderItem.price * orderItem.quantity}}</span>
+                        Total Price : <span class="font-weight-bold">{{ orderItem.price * orderItem.quantity}} VND</span>
                     </p>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="total-cost pt-2 text-right">
-            <h5>Total Cost : $ {{order.totalPrice}}</h5>
+            <h5>Total Cost : {{order?.totalCost}} VND</h5>
         </div>
     </div>
 
@@ -43,7 +43,7 @@ export default {
 data() {
     return {
         orderItems:[],
-        order: {},
+        order: null,
         token: null,
         orderID: 0
     }
@@ -54,7 +54,7 @@ methods:{
         axios.get(`${this.baseURL}order/${this.orderID}?token=${this.token}`).then((response) => {
             if(response.status === 200) {
                 this.order = response.data
-                this.orderItems = this.order.orderItems
+                this.orderItems = this.order.orderItemList
             }
             },
             (err)=>{

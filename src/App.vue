@@ -63,10 +63,6 @@ export default {
           }
         );
       }
-
-      //fetch user
-      await axios
-        .get(this.baseURL + '')
     },
     resetCartCount() {
       this.cartCount = 0;
