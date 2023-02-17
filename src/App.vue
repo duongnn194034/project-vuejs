@@ -20,6 +20,7 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -29,6 +30,7 @@ export default {
       key: 0,
       token: null,
       cartCount: 0,
+      user: null
     };
   },
 
@@ -61,6 +63,10 @@ export default {
           }
         );
       }
+
+      //fetch user
+      await axios
+        .get(this.baseURL + '')
     },
     resetCartCount() {
       this.cartCount = 0;

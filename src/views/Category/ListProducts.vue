@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <div class="row hanh">
+    <div class="row">
       <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
       <div class="col-2" v-for="product in category?.products" :key="product?.id">
         <ProductBox :product="product" />

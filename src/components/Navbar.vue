@@ -105,6 +105,16 @@
             >
             <router-link
               class="dropdown-item"
+              v-if="token"
+              :to="{ name: 'Profile'}"
+            >Profile</router-link>
+            <router-link
+              class="dropdown-item"
+              v-if="token"
+              :to="{ name: 'ChangePassword'}"
+            >Change Password</router-link>
+            <router-link
+              class="dropdown-item"
               v-if="!token"
               :to="{ name: 'Signin' }"
               >Log In</router-link

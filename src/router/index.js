@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Admin from '../views/Admin/Admin.vue'
 import Gallery from '../views/Admin/Gallery.vue'
 import AddImage from '../views/Admin/AddImage.vue'
+import Profile from '../views/Admin/Profile.vue'
+import ChangePassword from '../views/Admin/ChangePassword.vue'
 
 import PageNotFound from '../views/PageNotFound.vue'
 
@@ -58,8 +60,8 @@ const routes = [
     component: Product
   },
   {
-    path: '/productRe/:query',
-    name: 'ListProductsRe',
+    path: '/productSearch/:query',
+    name: 'ListProductsSearch',
     component: ListProductsRe
   },
   {
@@ -107,6 +109,16 @@ const routes = [
     path : '/category/show/:id',
     name : 'ListProducts',
     component: ListProducts
+  },
+  {
+    path: '/admin/profile',
+    name: 'Profile',
+    component: Profile
+  },
+  {
+    path: '/admin/password',
+    name: 'ChangePassword',
+    component: ChangePassword
   },
   //Page Not found
   {
