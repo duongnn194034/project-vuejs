@@ -42,7 +42,6 @@ export default {
         (response) => {
           if (response.status == 200) {
             let products = response.data;
-            console.log(products.cartItems[0].product)
             let len = Object.keys(products.cartItems).length;
             for (let i = 0; i < len; i++)
               this.checkoutBodyArray.push({

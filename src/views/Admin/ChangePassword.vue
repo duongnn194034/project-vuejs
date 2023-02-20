@@ -52,7 +52,6 @@ export default {
             } else {
                 await axios.post(`${this.baseURL}user/changePassword?token=${this.token}&password=${this.password}&newPassword=${this.newPass}`
                 ).then((res) => {
-                    console.log(res.data)
                     let status = res.data.success
                     let msg = res.data.message
                     if (status) {

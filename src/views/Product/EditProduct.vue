@@ -33,6 +33,7 @@
             <input type="number" class="form-control" v-model="product.price" required>
           </div>
           <button type="button" class="btn btn-primary" @click="editProduct">Submit</button>
+          <button type="button" class="btn btn-primary" @click="deleteProduct">Delete</button>
         </form>
       </div>
       <div class="col-3"></div>
@@ -50,7 +51,6 @@ export default {
   props : ["baseURL", "products", "categories"],
   methods : {
     async editProduct() {
-      console.log(this.product)
       axios.post(this.baseURL+"product/update/"+this.id, this.product)
       .then(res => {
         //sending the event to parent to handle
@@ -63,6 +63,30 @@ export default {
         });
       })
       .catch(err => console.log("err", err));
+    },
+    deleteProduct() {
+      swal({
+        text: "Are you sure to delete?",
+        buttons: {
+          confirm: {
+            text: "Delete",
+            value: "del"
+          },
+          cancel: true,
+          closeOnClickOutside: false,
+        }
+      }).then(value => {
+        if (value == "del") {
+          axios.post(this.baseURL+"product/delete/"+this.id)
+          .then(res => {
+            swal({
+              text: "Product has been deleted",
+              icon: "warning",
+            })
+          })
+          .catch(err => console.log(err))
+        }
+      })
     }
   },
   mounted() {
@@ -81,6 +105,9 @@ h4 {
   font-family: 'Roboto', sans-serif;
   color: #484848;
   font-weight: 700;
+}
+.btn {
+  margin-right: 20px;
 }
 
 </style>

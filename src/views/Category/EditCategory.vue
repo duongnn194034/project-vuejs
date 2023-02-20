@@ -23,6 +23,7 @@
             <input type="url" class="form-control" v-model="category.imageUrl" required>
           </div>
           <button type="button" class="btn btn-primary" @click="editCategory">Submit</button>
+          <button type="button" class="btn btn-primary" @click="editCategory">Delete</button>
         </form>
       </div>
       <div class="col-3"></div>

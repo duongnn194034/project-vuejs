@@ -30,7 +30,7 @@ export default {
       key: 0,
       token: null,
       cartCount: 0,
-      user: null
+      user: null,
     };
   },
 
@@ -56,6 +56,20 @@ export default {
             if (response.status == 200) {
               // update cart
               this.cartCount = Object.keys(response.data.cartItems).length;
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+
+      // fetch user
+      if (this.token) {
+        await axios.get(`${this.baseURL}user/get?token=${this.token}`).then(
+          (response) => {
+            if (response.status == 200) {
+              this.user = response.data
             }
           },
           (error) => {

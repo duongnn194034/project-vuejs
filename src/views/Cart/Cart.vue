@@ -99,7 +99,6 @@ export default {
           if (response.status == 200) {
             const result = response.data;
             // store cartitems and total price in two variables
-            console.log(result.cartItems)
             this.cartItems = result.cartItems;
             this.totalcost = result.totalCost;
           }
