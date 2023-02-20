@@ -16,7 +16,7 @@
         <div class="d-flex flex-row justify-content-between">
           <div class="input-group col-md-auto col-4 p-0">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Quantity</span>
+              <span class="input-group-text" id="basic-addon1">Số lượng</span>
             </div>
               <div class="col-md-1"></div>
               <button
@@ -54,14 +54,14 @@
           </ul>
         </div>
 
-        <button
+        <!-- <button
           id="wishlist-button"
           class="btn mr-3 p-1 py-0"
           :class="{ product_added_wishlist: isAddedToWishlist }"
           @click="addToWishList(this.id)"
         >
           {{ wishlistString }}
-        </button>
+        </button> -->
         <button
           id="show-cart-button"
           type="button"
