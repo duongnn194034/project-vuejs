@@ -24,7 +24,7 @@
               />
             </div>
             <div class="form-group">
-              <label>Password</label>
+              <label>Mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -33,29 +33,28 @@
               />
             </div>
             <small class="form-text text-muted"
-              >By continuing, you agree to our Conditions of Use and
-              Privacy Notice.</small
+              >Nhận tiếp tục nếu bạn đồng ý với điều khoản của chúng tôi</small
             >
             <button type="submit" class="btn btn-primary mt-2 py-0">
-              Continue
+              Tiếp tục
               <div
                 v-if="loading"
                 class="spinner-border spinner-border-sm"
                 role="status"
               >
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Đang tải...</span>
               </div>
             </button>
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >New to us?</small
+            >Chưa có tài khoản?</small
           >
           <p class="text-center">
             <router-link
               :to="{ name: 'Signup' }"
               class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
-              >Create Your Account</router-link
+              >Đăng kí</router-link
             >
           </p>
         </div>

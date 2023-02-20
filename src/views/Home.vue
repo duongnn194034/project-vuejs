@@ -5,7 +5,7 @@
 
       <div class="container py-5">
         <header class="text-left text-white py-5">
-          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Start Shopping</a></h3>
+          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Bắt đầu mua hàng</a></h3>
         </header>
       </div>
     </div>
@@ -13,7 +13,7 @@
     <div id="start-shopping" class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Top Categories</h2>
+          <h2 class="pt-3">Top Danh mục</h2>
         </div>
       </div>
       <div class="row">
@@ -28,7 +28,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Top Products</h2>
+          <h2 class="pt-3">Top Sản phẩm</h2>
         </div>
       </div>
       <div class="row">

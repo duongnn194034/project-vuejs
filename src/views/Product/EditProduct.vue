@@ -11,29 +11,29 @@
       <div class="col-md-6 px-5 px-md-0">
         <form v-if="product">
           <div class="form-group">
-            <label>Category</label>
+            <label>Danh mục</label>
             <select class="form-control" v-model="product.categoryId" required>
               <option v-for="category of categories" :key="category.id" :value="category.id">{{category.categoryName}}</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Name</label>
+            <label>Tên</label>
             <input type="text" class="form-control" v-model="product.name" required>
           </div>
           <div class="form-group">
-            <label>Description</label>
+            <label>Mô tả</label>
             <input type="text" class="form-control" v-model="product.description" required>
           </div>
           <div class="form-group">
-            <label>ImageURL</label>
+            <label>URL ảnh</label>
             <input type="url" class="form-control" v-model="product.imageUrl" required>
           </div>
           <div class="form-group">
             <label>Price</label>
             <input type="number" class="form-control" v-model="product.price" required>
           </div>
-          <button type="button" class="btn btn-primary" @click="editProduct">Submit</button>
-          <button type="button" class="btn btn-primary" @click="deleteProduct">Delete</button>
+          <button type="button" class="btn btn-primary" @click="editProduct">Xác nhận</button>
+          <!-- <button type="button" class="btn btn-primary" @click="deleteProduct">Delete</button> -->
         </form>
       </div>
       <div class="col-3"></div>

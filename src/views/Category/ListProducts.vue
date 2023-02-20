@@ -38,11 +38,11 @@ export default {
 
     this.len = this.category.products.length;
     if(this.len == 0) {
-      this.msg = "Sorry, no products found";
+      this.msg = "Không tìm thấy sản phẩm";
     } else if(this.len == 1) {
-      this.msg = "Only 1 product found";
+      this.msg = "Chỉ tìm thấy 1 sản phẩm";
     } else {
-      this.msg = this.len + " products found";
+      this.msg = "Tìm thấy " + this.len + " sản phẩm";
     }
   }
 }

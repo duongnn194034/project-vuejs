@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h4 class="pt-3">Your Orders</h4>
+        <h4 class="pt-3">Danh sách đơn hàng</h4>
       </div>
     </div>
     <!--        for each order display -->
@@ -15,11 +15,11 @@
       <div class="col-md-5 px-3">
         <div class="card-block px-3">
           <h6 class="card-title">
-            <router-link v-bind:to="'/order/'+order.id">Order No : {{order.id}}</router-link>
+            <router-link v-bind:to="'/order/'+order.id">Mã đơn hàng : {{order.id}}</router-link>
           </h6>
-          <p class="mb-0">{{order.totalItems}} item<span v-if="order.totalItems > 1">s</span></p>
-          <p id="item-price" class="mb-0 font-weight-bold">Total Cost : $ {{order.totalCost}}</p>
-          <p id="item-total-price">Ordered on : {{order.orderdate}}</p>
+          <p class="mb-0">{{order.totalItems}} sản phẩm</p>
+          <p id="item-price" class="mb-0 font-weight-bold">Tổng giá : $ {{order.totalCost}}</p>
+          <p id="item-total-price">Đặt vào ngày : {{order.orderdate}}</p>
         </div>
       </div>
       <div class="col-2"></div>

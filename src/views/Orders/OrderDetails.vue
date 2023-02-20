@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h4 class="pt-3">Order Id: {{orderID}}</h4>
+                <h4 class="pt-3">Mã đơn hàng: {{orderID}}</h4>
             </div>
         </div>
 
@@ -16,10 +16,10 @@
             <div class="col-md-5 px-3">
                 <div class="card-block px-3">
                     <h6 class="card-title" >{{orderItem.product.name}}</h6>
-                    <p id="item-price" class="mb-0 font-weight-bold">{{orderItem.product.price}} VND per unit</p>
-                    <p id="item-quantity" class="mb-0">Quantity : {{orderItem.quantity}}</p>
+                    <p id="item-price" class="mb-0 font-weight-bold">{{orderItem.product.price}} VND/sản phẩm</p>
+                    <p id="item-quantity" class="mb-0">Số lượng : {{orderItem.quantity}}</p>
                     <p id="item-total-price" class="mb-0">
-                        Total Price : <span class="font-weight-bold">{{ orderItem.price * orderItem.quantity}} VND</span>
+                        Tổng giá : <span class="font-weight-bold">{{ orderItem.price * orderItem.quantity}} VND</span>
                     </p>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="total-cost pt-2 text-right">
-            <h5>Total Cost : {{order?.totalCost}} VND</h5>
+            <h5>Tổng giá đơn hàng : {{order?.totalCost}} VND</h5>
         </div>
     </div>
 

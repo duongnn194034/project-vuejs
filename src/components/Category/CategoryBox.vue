@@ -20,7 +20,7 @@
         :to="{ name: 'EditCategory', params: { id: category.id } }"
         v-show="$route.name == 'AdminCategory'"
       >
-        Edit
+        Thay đổi
       </router-link>
     </div>
   </div>

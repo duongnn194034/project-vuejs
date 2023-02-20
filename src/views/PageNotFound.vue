@@ -1,9 +1,9 @@
 <template>
   <div class="not-found container">
     <h2>404</h2>
-    <h3>Page Not Found</h3>
-    <h5>No worries, get back to 
-      <router-link :to="{name : 'Home'}">Home</router-link>
+    <h3>Trang hiện không khả dụng</h3>
+    <h5>Quay lại  
+      <router-link :to="{name : 'Home'}">Trang chủ</router-link>
     </h5>
   </div>
 </template>

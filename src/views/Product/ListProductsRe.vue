@@ -22,7 +22,7 @@
     name: 'ListProductsRe',
     data() {
       return {
-        title: "Results for: ",
+        title: "Kết quả tìm kiếm cho: ",
         query : null,
         len : 0,
         msg : null,
@@ -37,11 +37,11 @@
         this.prods = this.products.filter((prod) => {return prod?.name?.toLowerCase().includes(this.query.toLowerCase())})  
         this.len = this.prods.length;
         if(this.len == 0) {
-            this.msg = "Sorry, no products found";
+            this.msg = "Không tìm thấy sản phẩm";
         } else if(this.len == 1) {
-            this.msg = "Only 1 product found";
+            this.msg = "Chỉ tìm thấy 1 sản phẩm";
         } else {
-            this.msg = this.len + " products found";
+            this.msg = "Tìm thấy " + this.len + " sản phẩm";
         }
     },
   }

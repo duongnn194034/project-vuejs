@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h4 class="pt-3">Change Password</h4>
+                <h4 class="pt-3">Đổi mật khẩu</h4>
             </div>
         </div>
         <div class="row">
@@ -10,18 +10,18 @@
                 <div class="col-md-6 px-5 px-md-0">
                     <form>
                         <div class="form-group">
-                            <label>Password</label>
+                            <label>Mật khẩu hiện tại</label>
                             <input type="text" class="form-control" v-model="password" required>
                         </div>
                         <div class="form-group">
-                            <label>New Password</label>
+                            <label>Mật khẩu mới</label>
                             <input type="text" class="form-control" v-model="newPass" required>
                         </div>
                         <div class="form-group">
-                            <label>Re-input New Password</label>
+                            <label>Nhập lại mật khẩu mới</label>
                             <input type="url" class="form-control" v-model="newPassRe" required>
                         </div>
-                        <button type="button" class="btn btn-primary" @click="saveChanged">Submit</button>
+                        <button type="button" class="btn btn-primary" @click="saveChanged">Xác nhận</button>
                     </form>
                 </div>
             <div class="col-3"></div>

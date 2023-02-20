@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-12 justify-content-center d-flex flex-row pt-5">
         <div id="signup-div" class="flex-item border">
-          <h2 class="pt-4 pl-4">Create Account</h2>
+          <h2 class="pt-4 pl-4">Tạo tài khoản</h2>
           <form @submit="signup" class="pt-4 pl-4 pr-4">
             <div class="form-group">
               <label>Email</label>
@@ -26,7 +26,7 @@
             <div class="form-row">
               <div class="col">
                 <div class="form-group">
-                  <label>Full Name</label>
+                  <label>Họ và tên</label>
                   <input
                     type="name"
                     class="form-control"
@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Password</label>
+              <label>Mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -46,7 +46,7 @@
               />
             </div>
             <div class="form-group">
-              <label>Confirm Password</label>
+              <label>Xác nhận mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -55,18 +55,18 @@
               />
             </div>
             <button type="submit" class="btn btn-primary mt-2 py-0">
-              Create Account
+              Tạo tài khoản
             </button>
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Already Have an Account?</small
+            >Đã có tài khoản?</small
           >
           <p class="text-center">
             <router-link
               class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
               :to="{ name: 'Signin' }"
-              >Signin Here</router-link
+              >Đăng nhập</router-link
             >
           </p>
         </div>

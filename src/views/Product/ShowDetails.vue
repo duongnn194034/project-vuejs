@@ -41,16 +41,16 @@
               class="btn"
               @click="addToCart(this.id)"
             >
-              Add to Cart
+              Thêm vào giỏ
               <ion-icon name="cart-outline" v-pre></ion-icon>
             </button>
           </div>
         </div>
 
         <div class="features pt-3">
-          <h5><strong>Features</strong></h5>
+          <h5><strong>Tính năng</strong></h5>
           <ul>
-            <li>Placeholder</li>
+            <li>Lorem ispum</li>
           </ul>
         </div>
 
@@ -68,7 +68,7 @@
           class="btn mr-3 p-1 py-0"
           @click="listCartItems()"
         >
-          Show Cart
+          Xem giỏ hàng
 
           <ion-icon name="cart-outline" v-pre></ion-icon>
         </button>

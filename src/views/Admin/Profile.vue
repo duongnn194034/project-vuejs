@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h4 class="pt-3">User Profile</h4>
+                <h4 class="pt-3">Thông tin tài khoản</h4>
             </div>
         </div>
         <div class="row">
@@ -10,26 +10,30 @@
                 <div class="col-md-6 px-5 px-md-0">
                     <form>
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>Họ và tên</label>
                             <input type="text" class="form-control" v-model="fullname" required>
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
+                            <label>Địa chỉ</label>
                             <input type="text" class="form-control" v-model="address" required>
                         </div>
                         <div class="form-group">
-                            <label>Phonenumber</label>
-                            <input type="url" class="form-control" v-model="phonenumber" required>
+                            <label>Số điện thoại</label>
+                            <input type="url" class="form-control" v-model="phoneNumber" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
                             <input type="url" class="form-control" v-model="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Role</label>
-                            <input type="url" class="form-control" v-model="role" required>
+                            <label>Vai trò</label>
+                            <!-- <input type="url" class="form-control" v-model="role" disabled> -->
+                            <select class="form-control" v-model="role">
+                                <option value="USER">USER</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
                         </div>
-                        <button type="button" class="btn btn-primary" @click="saveChanged">Save changed</button>
+                        <button type="button" class="btn btn-primary" @click="saveChanged">Lưu thay đổi</button>
                     </form>
                 </div>
             <div class="col-3"></div>
@@ -43,7 +47,7 @@ export default {
             token: null,
             fullname: null,
             address: null,
-            phonenumber: null,
+            phoneNumber: null,
             email: null,
             role: null
         }
@@ -52,22 +56,29 @@ export default {
     methods: {
         saveChanged() {
             swal({
-                text: "Confirm?",
+                icon: "warning",
+                text: "Xác nhận",
                 buttons: {
                     confirm: {
                         text: "OK",
-                        value: "OKl"
+                        value: "OK"
                     },
-                    cancel: true,
-                    closeOnClickOutside: false,
+                cancel: true,
+                closeOnClickOutside: false,
                 }
                     }).then(value => {
                         if (value == "OK") {
-                            axios.patch(this.baseURL+"product/update/"+this.id)
+                            axios.patch(this.baseURL+`user/update?token=${this.token}`, {
+                                fullname: this.fullname,
+                                address: this.address,
+                                phoneNumber: this.phoneNumber,
+                                email: this.email,
+                                role: this.role,
+                            })
                             .then(res => {
                                 swal({
-                                text: "Product has been deleted",
-                                icon: "warning",
+                                    text: "Thông tin người dùng đã được cập nhật",
+                                    icon: "success",
                             })
                     })
                 .catch(err => console.log(err))
@@ -81,9 +92,10 @@ export default {
         axios.get(`${this.baseURL}user/get?token=${this.token}`).then(
           (response) => {
             if (response.status == 200) {
+                console.log(response.data)
               this.fullname = response.data.fullname
               this.address = response.data.address
-              this.phonenumber = response.data.phonenumber
+              this.phoneNumber = response.data.phoneNumber
               this.email = response.data.email
               this.role = response.data.role
             }

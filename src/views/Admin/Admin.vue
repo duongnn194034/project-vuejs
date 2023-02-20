@@ -1,10 +1,10 @@
 <template>
   <div class="adminPanel container">
       <router-link :to="{name : 'AdminProduct'}">
-        <button type="button" class="btn btn-primary btn-lg">Admin Products</button>
+        <button type="button" class="btn btn-primary btn-lg">Thêm sản phẩm</button>
       </router-link>
       <router-link :to="{name : 'AdminCategory'}">
-        <button type="button" class="btn btn-primary btn-lg">Admin Categories</button>
+        <button type="button" class="btn btn-primary btn-lg">Thêm danh mục</button>
       </router-link>
       <!-- <router-link :to="{name : 'Gallery'}">
         <button type="button" class="btn btn-primary btn-lg">Admin Gallery</button>
