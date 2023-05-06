@@ -53,3 +53,6 @@ Thumbs.db
 #Output Log
 nohup.out
 
+node_modules
+package-lock.json
+
