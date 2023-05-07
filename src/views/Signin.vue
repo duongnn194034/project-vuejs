@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-12 justify-content-center d-flex flex-row pt-5">
         <div id="signin-div" class="flex-item border">
-          <h2 class="pt-4 pl-4">Sign-In</h2>
+          <h2 class="pt-4 pl-4">Sign In</h2>
           <form @submit="signin" class="pt-4 pl-4 pr-4">
             <div class="form-group">
               <label>Email</label>
@@ -24,7 +24,7 @@
               />
             </div>
             <div class="form-group">
-              <label>Mật khẩu</label>
+              <label>Password</label>
               <input
                 type="password"
                 class="form-control"
@@ -32,29 +32,34 @@
                 required
               />
             </div>
-            <small class="form-text text-muted"
-              >Nhận tiếp tục nếu bạn đồng ý với điều khoản của chúng tôi</small
-            >
             <button type="submit" class="btn btn-primary mt-2 py-0">
-              Tiếp tục
+              Continue
               <div
                 v-if="loading"
                 class="spinner-border spinner-border-sm"
                 role="status"
               >
-                <span class="sr-only">Đang tải...</span>
+                <span class="sr-only">Loading...</span>
               </div>
             </button>
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Chưa có tài khoản?</small
+            >Don't have a account?</small
           >
           <p class="text-center">
             <router-link
               :to="{ name: 'Signup' }"
               class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
-              >Đăng kí</router-link
+              >Register</router-link
+            >
+          </p>
+          <hr />
+          <p class="text-center">
+            <router-link
+              class="btn btn-secondary text-center mx-auto px-5 py-1 mb-2"
+              :to="{ name: 'Home' }"
+              >Back to Home</router-link
             >
           </p>
         </div>

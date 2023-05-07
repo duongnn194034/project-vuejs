@@ -5,7 +5,7 @@
 
       <div class="container py-5">
         <header class="text-left text-white py-5">
-          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Bắt đầu mua hàng</a></h3>
+          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Hire a car</a></h3>
         </header>
       </div>
     </div>
@@ -55,10 +55,10 @@
       }
     },
     mounted(){
-      this.category_size = this.categories.length;
+      // this.category_size = this.categories?.length;
       this.category_size = Math.min(6, this.category_size);
 
-      this.product_size = this.products.length;
+      // this.product_size = this.products?.length;
       this.product_size = Math.min(8, this.product_size);
     }
   }

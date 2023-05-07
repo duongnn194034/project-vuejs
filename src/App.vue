@@ -1,12 +1,9 @@
 <template>
   <Navbar
-    :cartCount="cartCount"
-    @resetCartCount="resetCartCount"
     v-if="!['Signup', 'Signin'].includes($route.name)"
   />
   <div style="min-height: 60vh">
     <router-view
-      v-if="products && categories"
       :baseURL="baseURL"
       :products="products"
       :categories="categories"
@@ -29,7 +26,6 @@ export default {
       categories: null,
       key: 0,
       token: null,
-      cartCount: 0,
       user: null,
     };
   },
@@ -37,36 +33,40 @@ export default {
   components: { Footer, Navbar },
   methods: {
     async fetchData() {
-      // fetch products
-      await axios
-        .get(this.baseURL + 'product/')
-        .then((res) => (this.products = res.data))
-        .catch((err) => console.log(err));
+    //   // fetch products
+    //   await axios
+    //     .get(this.baseURL + 'product/')
+    //     .then((res) => (this.products = res.data))
+    //     .catch((err) => console.log(err));
 
-      //fetch categories
-      await axios
-        .get(this.baseURL + 'category/')
-        .then((res) => (this.categories = res.data))
-        .catch((err) => console.log(err));
+    //   //fetch categories
+    //   await axios
+    //     .get(this.baseURL + 'category/')
+    //     .then((res) => (this.categories = res.data))
+    //     .catch((err) => console.log(err));
 
-      //fetch cart items
-      if (this.token) {
-        await axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
-          (response) => {
-            if (response.status == 200) {
-              // update cart
-              this.cartCount = Object.keys(response.data.cartItems).length;
-            }
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
+    //   //fetch cart items
+    //   if (this.token) {
+    //     await axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
+    //       (response) => {
+    //         if (response.status == 200) {
+    //           // update cart
+    //           this.cartCount = Object.keys(response.data.cartItems).length;
+    //         }
+    //       },
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //     );
+    //   }
 
       // fetch user
       if (this.token) {
-        await axios.get(`${this.baseURL}user/get?token=${this.token}`).then(
+        await axios.get(`${this.baseURL}user/get`, {
+          headers: {
+            token: this.token
+          }
+        }).then(
           (response) => {
             if (response.status == 200) {
               this.user = response.data
@@ -77,9 +77,6 @@ export default {
           }
         );
       }
-    },
-    resetCartCount() {
-      this.cartCount = 0;
     },
   },
   mounted() {

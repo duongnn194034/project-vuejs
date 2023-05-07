@@ -10,15 +10,11 @@
                 <div class="col-md-6 px-5 px-md-0">
                     <form>
                         <div class="form-group">
-                            <label>Họ và tên</label>
+                            <label>Full Name</label>
                             <input type="text" class="form-control" v-model="fullname" required>
                         </div>
                         <div class="form-group">
-                            <label>Địa chỉ</label>
-                            <input type="text" class="form-control" v-model="address" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Số điện thoại</label>
+                            <label>Phonenumber</label>
                             <input type="url" class="form-control" v-model="phoneNumber" required>
                         </div>
                         <div class="form-group">
@@ -26,14 +22,14 @@
                             <input type="url" class="form-control" v-model="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Vai trò</label>
+                            <label>Role</label>
                             <!-- <input type="url" class="form-control" v-model="role" disabled> -->
                             <select class="form-control" v-model="role">
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
-                        <button type="button" class="btn btn-primary" @click="saveChanged">Lưu thay đổi</button>
+                        <button type="button" class="btn btn-primary" @click="saveChanged">Save Changed</button>
                     </form>
                 </div>
             <div class="col-3"></div>
@@ -46,7 +42,6 @@ export default {
         return {
             token: null,
             fullname: null,
-            address: null,
             phoneNumber: null,
             email: null,
             role: null
@@ -68,12 +63,15 @@ export default {
                 }
                     }).then(value => {
                         if (value == "OK") {
-                            axios.patch(this.baseURL+`user/update?token=${this.token}`, {
+                            axios.patch(`${this.baseURL}user/update`, {
                                 fullname: this.fullname,
-                                address: this.address,
                                 phoneNumber: this.phoneNumber,
                                 email: this.email,
                                 role: this.role,
+                            }, {
+                                headers: {
+                                    token: this.token
+                                }
                             })
                             .then(res => {
                                 swal({
@@ -89,12 +87,14 @@ export default {
     mounted() {
         this.token = localStorage.getItem('token')
         if (this.token) {
-        axios.get(`${this.baseURL}user/get?token=${this.token}`).then(
+        axios.get(`${this.baseURL}user/get`, {
+            headers: {
+                token: this.token
+            }
+        }).then(
           (response) => {
             if (response.status == 200) {
-                console.log(response.data)
-              this.fullname = response.data.fullname
-              this.address = response.data.address
+              this.fullname = response.data.fullName
               this.phoneNumber = response.data.phoneNumber
               this.email = response.data.email
               this.role = response.data.role

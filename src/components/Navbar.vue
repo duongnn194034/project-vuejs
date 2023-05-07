@@ -19,39 +19,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!--      Search Bar-->
-      <form class="form-inline ml-auto mr-auto" @submit="submit">
-        <div class="input-group">
-          <input
-            size="100"
-            type="text"
-            class="form-control"
-            placeholder="Tìm kiếm sản phẩm"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            v-model="query"
-          />
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="search-button-navbar">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-search"
-                viewBox="0 0 16 16"
-                type="submit"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-      </form>
-
-      <!--      DropDowns-->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link class="nav-link text-light" :to="{ name: 'Home' }"
+              >Home</router-link>         
+        </li>
+      </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a
@@ -62,87 +35,39 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            v-if="token"
           >
-            Browse
+            Account
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <router-link class="dropdown-item" :to="{ name: 'Home' }"
-              >Trang chủ</router-link
-            >
-            <router-link class="dropdown-item" :to="{ name: 'Product' }"
-              >Sản phẩm</router-link
-            >
-            <router-link class="dropdown-item" :to="{ name: 'Category' }"
-              >Danh mục</router-link
-            >
-          </div>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link text-light dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Tài khoản
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <!-- <router-link
-              class="dropdown-item"
-              v-if="!token"
-              :to="{ name: 'Signin' }"
-              >Wishlist</router-link
-            >
-            <router-link class="dropdown-item" v-else :to="{ name: 'Wishlist' }"
-              >Wishlist</router-link
-            > -->
-            <router-link class="dropdown-item" :to="{ name: 'Admin' }"
-              >Gian hàng</router-link
-            >
             <router-link
               class="dropdown-item"
               v-if="token"
               :to="{ name: 'Profile'}"
-            >Thông tin tài khoản</router-link>
+            >Profile</router-link>
             <router-link
               class="dropdown-item"
               v-if="token"
               :to="{ name: 'ChangePassword'}"
-            >Đổi mật khẩu</router-link>
-            <router-link
-              class="dropdown-item"
-              v-if="!token"
-              :to="{ name: 'Signin' }"
-              >Đăng nhập</router-link
-            >
-            <router-link
-              class="dropdown-item"
-              v-if="!token"
-              :to="{ name: 'Signup' }"
-              >Đăng kí</router-link
-            >
+            >Change Password</router-link>
             <a class="dropdown-item" v-if="token" href="#" @click="signout"
-              >Đăng xuất</a
+              >Sign Out</a
             >
           </div>
         </li>
-
         <li class="nav-item">
-          <router-link class="nav-link text-light" :to="{ name: 'Order' }"
-            >Đơn hàng</router-link
-          >
+          <router-link
+            class="nav-link text-light"
+            v-if="!token"
+            :to="{ name: 'Signin' }"
+            >Sign In</router-link>
         </li>
         <li class="nav-item">
-          <div id="cart">
-            <span id="nav-cart-count">{{ cartCount }}</span>
-            <router-link class="text-light" :to="{ name: 'Cart' }"
-              ><i class="fa fa-shopping-cart" style="font-size:36px"></i
-            ></router-link>
-          </div>
+          <router-link
+            class="nav-link text-light"
+            v-if="!token"
+            :to="{ name: 'Signup' }"
+            >Sign Up</router-link>
         </li>
       </ul>
     </div>
@@ -152,7 +77,7 @@
 <script>
 export default {
   name: "Navbar",
-  props: ["cartCount"],
+  // props: [],
   data() {
     return {
       token: null,
@@ -163,19 +88,12 @@ export default {
     signout() {
       localStorage.removeItem("token");
       this.token = null;
-      this.$emit("resetCartCount");
       this.$router.push({ name: "Home" });
       swal({
         text: "Bạn đã đăng xuất",
         icon: "success",
         closeOnClickOutside: false,
       });
-    },
-    submit() {
-      this.$router.push({
-        name: "ListProductsSearch", 
-        params: { query: this.query} 
-      })
     },
   },
   mounted() {
