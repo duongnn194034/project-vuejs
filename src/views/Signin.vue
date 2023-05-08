@@ -45,7 +45,7 @@
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Don't have a account?</small
+            >Don't have an account?</small
           >
           <p class="text-center">
             <router-link

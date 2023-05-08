@@ -4,8 +4,10 @@
     <div id="background-div" class="page-holder bg-cover">
 
       <div class="container py-5">
-        <header class="text-left text-white py-5">
-          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Hire a car</a></h3>
+        <h1 class="pt-3 text-center text-custom" id="heading">Local vehicle hire</h1>
+        <h3 class="pt-3 text-center text-custom" id="heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+        <header class="text-center text-white py-5">
+          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Start</a></h3>
         </header>
       </div>
     </div>
@@ -13,29 +15,21 @@
     <div id="start-shopping" class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Top Danh mục</h2>
+          <h2 class="pt-3">Search by Location</h2>
         </div>
       </div>
       <div class="row">
-        <div v-for="index in this.category_size" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-          <CategoryBox :category="categories[index-1]">
-          </CategoryBox>
-        </div>
+        <div class=""></div>
       </div>
     </div>
-
     <hr>
-    <div class="container">
+    <div id="start-shopping" class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Top Sản phẩm</h2>
+          <h2 class="pt-3">Popular Motors</h2>
         </div>
       </div>
       <div class="row">
-        <div v-for="index in this.product_size" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-          <ProductBox :product="products[index-1]">
-          </ProductBox>
-        </div>
       </div>
     </div>
   </div>
@@ -55,11 +49,7 @@
       }
     },
     mounted(){
-      // this.category_size = this.categories?.length;
-      this.category_size = Math.min(6, this.category_size);
 
-      // this.product_size = this.products?.length;
-      this.product_size = Math.min(8, this.product_size);
     }
   }
 </script>
@@ -83,6 +73,10 @@
     font-weight: 400;
     opacity: 0.8;
     font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .text-custom {
+    color: #3d0080;
   }
 
   #content {

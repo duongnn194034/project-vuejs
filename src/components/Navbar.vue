@@ -24,6 +24,18 @@
           <router-link class="nav-link text-light" :to="{ name: 'Home' }"
               >Home</router-link>         
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link text-light" :to="{}"
+              >Hire a vehicle</router-link>         
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link text-light" :to="{}"
+              >Loan vehicles</router-link>         
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link text-light" :to="{}"
+              >Help</router-link>         
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
@@ -59,15 +71,15 @@
           <router-link
             class="nav-link text-light"
             v-if="!token"
-            :to="{ name: 'Signin' }"
-            >Sign In</router-link>
+            :to="{ name: 'Signup' }"
+            >Sign Up</router-link>
         </li>
         <li class="nav-item">
           <router-link
-            class="nav-link text-light"
+            class="nav-link bg-primary text-light rounded"
             v-if="!token"
-            :to="{ name: 'Signup' }"
-            >Sign Up</router-link>
+            :to="{ name: 'Signin' }"
+            >Sign In</router-link>
         </li>
       </ul>
     </div>
@@ -111,6 +123,13 @@ export default {
 
 .nav-link {
   color: rgba(255, 255, 255);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.nav-item {
+  padding-bottom: 0 !important;
+  margin-left: 1rem;
 }
 
 #search-button-navbar {

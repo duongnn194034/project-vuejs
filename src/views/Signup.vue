@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-12 justify-content-center d-flex flex-row pt-5">
         <div id="signup-div" class="flex-item border">
-          <h2 class="pt-4 pl-4">Create a account</h2>
+          <h2 class="pt-4 pl-4">Sign Up</h2>
           <form @submit="signup" class="pt-4 pl-4 pr-4">
             <div class="form-group">
               <label>Email</label>
@@ -46,6 +46,18 @@
               />
             </div>
             <div class="form-group">
+              <div class="form-row">
+                <img src="../assets/red_cross.svg" v-if="!checkLength" id="icon">
+                <img src="../assets/green_tick.svg" v-else id="icon">
+                <p class="form-text text-muted" id="des">Password is at least 8 characters long.</p>
+              </div>
+              <div class="form-row">
+                <img src="../assets/red_cross.svg" v-if="!checkNum" id="icon">
+                <img src="../assets/green_tick.svg" v-else id="icon">
+                <p class="form-text text-muted" id="des">Password contains a number and a letter.</p>
+              </div>
+            </div>
+            <div class="form-group">
               <label>Confirm Password</label>
               <input
                 type="password"
@@ -54,13 +66,13 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary mt-2 py-0">
-              Create a account
+            <button type="submit" class="btn btn-primary mt-2 py-0" v>
+              Create an account
             </button>
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Already have a account?</small
+            >Already have an account?</small
           >
           <p class="text-center">
             <router-link
@@ -84,51 +96,77 @@
 </template>
 
 <script>
+import swal from 'sweetalert';
+
 export default {
   name: "Signup",
   props: ["baseURL"],
   data() {
     return {
-      email: null,
-      fullName: null,
-      password: null,
-      passwordConfirm: null,
+      email: "",
+      fullName: "",
+      password: "",
+      passwordConfirm: "",
+      checkLength: false,
+      checkChar: false,
     };
+  },
+  watch: {
+    password(newPass, oldPass) {
+      if (newPass?.length >= 8 && !this.checkLength) {
+        this.checkLength = true;
+      } else if (newPass?.length < 8 && this.checkLength) {
+        this.checkLength = false;
+      }
+      if (/\d/g.test(newPass) && /[A-Za-z]/g.test(newPass) &&!this.checkNum) {
+        this.checkNum = true;
+      } else if ((!/\d/g.test(newPass) || !/[A-Za-z]/g.test(newPass)) && this.checkNum) {
+        this.checkNum = false;
+      }
+    }
   },
   methods: {
     async signup(e) {
       e.preventDefault();
       // if the password matches
-      if (this.password === this.passwordConfirm) {
-        // make the post body
-        const user = {
-          email: this.email,
-          fullName: this.fullName,
-          password: this.password,
-        };
+      if (this.checkLength && this.checkNum) {
+        if (this.password === this.passwordConfirm) {
+          // make the post body
+          const user = {
+            email: this.email,
+            fullName: this.fullName,
+            password: this.password,
+          };
 
-        // call the API
-        await axios
-          .post(`${this.baseURL}user/signup`, user)
-          .then(() => {
-            // redirect to home page
-            this.$router.replace("/");
-            swal({
-              text: "User signup successful. Please Login",
-              icon: "success",
-              closeOnClickOutside: false,
+          // call the API
+          await axios
+            .post(`${this.baseURL}user/signup`, user)
+            .then(() => {
+              // redirect to home page
+              this.$router.replace("/");
+              swal({
+                text: "User signup successful. Please Login",
+                icon: "success",
+                closeOnClickOutside: false,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
             });
-          })
-          .catch((err) => {
-            console.log(err);
+        } else {
+          // passwords are not matching
+          swal({
+            text: "Error! Passwords are not matching",
+            icon: "error",
+            closeOnClickOutside: false,
           });
+        }
       } else {
-        // passwords are not matching
         swal({
-          text: "Error! Passwords are not matching",
-          icon: "error",
-          closeOnClickOutside: false,
-        });
+            text: "Error! Password is not valid",
+            icon: "error",
+            closeOnClickOutside: false,
+          });
       }
     },
   },
@@ -149,6 +187,16 @@ export default {
   color: black;
   border-color: #a88734 #9c7e31 #846a29;
   border-radius: 0;
+}
+
+#des {
+  margin-left: 10px;
+}
+
+#icon {
+  width: 20px; 
+  height: 20px; 
+  margin-top: 0.25rem
 }
 
 #logo {
