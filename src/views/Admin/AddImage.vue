@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h4 class="pt-3">Thêm ảnh</h4>
+        <h4 class="pt-3">Add Image</h4>
       </div>
     </div>
 
@@ -10,7 +10,7 @@
       <div class="col-3"></div>
       <div class="col-md-6 px-5 px-md-0 pt-5">
         <div class="form-group">
-          <label for="myfile">Chọn ảnh :</label>
+          <label for="myfile">Select Image :</label>
           <input type="file" id="myfile" class="form-control-file" @change="onFileSelected">
         </div>
         <button type="button" class="btn btn-info" @click="onUpload">Upload</button>

@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "ProductBox",
+  name: "MotorBox",
   props: ["product"],
   methods: {
     showDetails() {

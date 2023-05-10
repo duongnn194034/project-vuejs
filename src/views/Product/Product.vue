@@ -10,18 +10,18 @@
     </div>
     <div class="row">
         <div v-for="product of products" :key="product.id" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-          <ProductBox :product="product">
-          </ProductBox>
+          <MotorBox :product="product">
+          </MotorBox>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductBox from '../../components/Product/ProductBox';
+import MotorBox from '../../components/Vehicle/MotorBox.vue';
 export default {
   name: 'Product',
-  components : {ProductBox},
+  components : {MotorBox},
   props : [ "baseURL" , "products" ],
   mounted(){
     if (this.$route.name=='AdminProduct' && !localStorage.getItem('token')) {

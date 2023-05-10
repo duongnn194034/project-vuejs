@@ -33,11 +33,11 @@ export default {
   components: { Footer, Navbar },
   methods: {
     async fetchData() {
-    //   // fetch products
-    //   await axios
-    //     .get(this.baseURL + 'product/')
-    //     .then((res) => (this.products = res.data))
-    //     .catch((err) => console.log(err));
+      // fetch offers
+      await axios
+        .get(this.baseURL + 'rental/motor')
+        .then((res) => (console.log(res.data)))
+        .catch((err) => console.log(err));
 
     //   //fetch categories
     //   await axios

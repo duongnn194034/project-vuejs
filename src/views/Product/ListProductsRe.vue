@@ -10,14 +10,14 @@
       <div class="row">
         <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
         <div class="col-2" v-for="product in prods" :key="product?.id">
-          <ProductBox :product="product"/>
+          <MotorBox :product="product"/>
         </div>
       </div>
     </div>
   </template>
   
   <script>
-  import ProductBox from '../../components/Product/ProductBox.vue';
+  import MotorBox from '../../components/Vehicle/MotorBox.vue';
   export default {
     name: 'ListProductsRe',
     data() {
@@ -29,7 +29,7 @@
         prods : null
       }
     },
-    components : {ProductBox},
+    components : {MotorBox},
     props : [ "baseURL" , "products"],
     mounted() {
         this.query = this.$route.params.query

@@ -9,15 +9,15 @@
     <div class="row">
       <div v-for="product of products" :key="product.id" 
       class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-        <ProductBox :product="product">
-        </ProductBox>
+        <MotorBox :product="product">
+        </MotorBox>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProductBox from '../../components/Product/ProductBox';
+import MotorBox from '../../components/Vehicle/MotorBox.vue';
 export default {
   data() {
       return {
@@ -25,8 +25,8 @@ export default {
           token:null
       }
   },
-  name: 'Product',
-  components : {ProductBox},
+  name: 'Motor',
+  components : {MotorBox},
   props : [ "baseURL"],
   methods : {
     fetchWishlist() {

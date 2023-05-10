@@ -36,11 +36,11 @@
 </template>
 
 <script>
-  import ProductBox from "../components/Product/ProductBox";
+  import MotorBox from "../components/Vehicle/MotorBox.vue";
   import CategoryBox from "../components/Category/CategoryBox";
   export default {
     name: 'Home',
-    components : { ProductBox, CategoryBox },
+    components : { MotorBox, CategoryBox },
     props : ["baseURL", "products", "categories"],
     data(){
       return{

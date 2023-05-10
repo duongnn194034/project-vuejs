@@ -2,7 +2,7 @@
   <div class="image-box">
     <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">
     <div class="middle">
-      <button class="btn btn-info" @click="copyToClipboard">Sao chép địa chỉ</button>
+      <button class="btn btn-info" @click="copyToClipboard">Copy URL</button>
     </div>
   </div>
 </template>
