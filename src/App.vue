@@ -38,17 +38,17 @@ export default {
     async fetchData() {
       // fetch motors
       await axios
-        .get(this.baseURL + '/motor?page=0')
+        .get(this.baseURL + 'motor?page=0')
         .then((res) => this.motors0 = res.data.content)
         .catch((err) => console.log(err));
 
       await axios
-        .get(this.baseURL + '/motor?page=1')
+        .get(this.baseURL + 'motor?page=1')
         .then((res) => this.motors1 = res.data.content)
         .catch((err) => console.log(err));
       
       await axios
-        .get(this.baseURL + '/motor?page=2')
+        .get(this.baseURL + 'motor?page=2')
         .then((res) => this.motors2 = res.data.content)
         .catch((err) => console.log(err));
 
