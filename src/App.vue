@@ -4,9 +4,11 @@
   />
   <div style="min-height: 60vh">
     <router-view
+      v-if="motors0 && motors1 && motors2"
       :baseURL="baseURL"
-      :products="products"
-      :categories="categories"
+      :motors0="motors0"
+      :motors1="motors1"
+      :motors2="motors2"
       @fetchData="fetchData"
     >
     </router-view>
@@ -22,8 +24,9 @@ export default {
   data() {
     return {
       baseURL: "http://localhost:8080/",
-      products: null,
-      categories: null,
+      motors0: null,
+      motors1: null,
+      motors2: null,
       key: 0,
       token: null,
       user: null,
@@ -33,17 +36,21 @@ export default {
   components: { Footer, Navbar },
   methods: {
     async fetchData() {
-      // fetch offers
+      // fetch motors
       await axios
-        .get(this.baseURL + 'rental/motor')
-        .then((res) => (console.log(res.data)))
+        .get(this.baseURL + '/motor?page=0')
+        .then((res) => this.motors0 = res.data.content)
         .catch((err) => console.log(err));
 
-    //   //fetch categories
-    //   await axios
-    //     .get(this.baseURL + 'category/')
-    //     .then((res) => (this.categories = res.data))
-    //     .catch((err) => console.log(err));
+      await axios
+        .get(this.baseURL + '/motor?page=1')
+        .then((res) => this.motors1 = res.data.content)
+        .catch((err) => console.log(err));
+      
+      await axios
+        .get(this.baseURL + '/motor?page=2')
+        .then((res) => this.motors2 = res.data.content)
+        .catch((err) => console.log(err));
 
     //   //fetch cart items
     //   if (this.token) {

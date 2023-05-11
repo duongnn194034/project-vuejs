@@ -30,6 +30,10 @@
         </div>
       </div>
       <div class="row">
+        <div v-for="index in this.motor_size" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
+          <MotorBox :motor="motors0[index-1]">
+          </MotorBox>
+        </div>
       </div>
     </div>
   </div>
@@ -37,15 +41,14 @@
 
 <script>
   import MotorBox from "../components/Vehicle/MotorBox.vue";
-  import CategoryBox from "../components/Category/CategoryBox";
   export default {
     name: 'Home',
-    components : { MotorBox, CategoryBox },
-    props : ["baseURL", "products", "categories"],
-    data(){
+    components : { MotorBox },
+    props : ["baseURL", "motors0", "motors1", "motors2", "categories"],
+    data() {
       return{
-        category_size:0,
-        product_size:0
+        category_size: 3,
+        motor_size: 3
       }
     },
     mounted(){

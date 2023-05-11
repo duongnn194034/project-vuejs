@@ -3,25 +3,18 @@
     <div class="embed-responsive embed-responsive-16by9">
       <img
         class="card-img-top embed-responsive-item"
-        :src="product.imageUrl"
-        alt="Product Image"
+        :src="motor.imageUrl"
+        alt="Motor Image"
       />
     </div>
     <div class="card-body">
-      <router-link :to="{ name: 'ShowDetails', params: { id: product?.id } }"
-        ><h5 class="card-title">{{ product?.name }}</h5></router-link
+      <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
+        ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
-      <p class="card-text">{{ product?.price }}<sup>VND</sup></p>
+      <p class="card-text">{{ motor.price }}<sup>VND</sup></p>
       <p class="card-text font-italic">
-        {{ product.description?.substring(0, 65) }}...
+        {{ motor.note }}...
       </p>
-      <router-link
-        id="edit-product"
-        :to="{ name: 'EditProduct', params: { id: product?.id } }"
-        v-show="$route.name == 'AdminProduct'"
-      >
-        Thay đổi
-      </router-link>
     </div>
   </div>
 </template>
@@ -29,12 +22,12 @@
 <script>
 export default {
   name: "MotorBox",
-  props: ["product"],
+  props: ["motor"],
   methods: {
     showDetails() {
       this.$router.push({
         name: "ShowDetails",
-        params: { id: this.product?.id },
+        params: { id: this.motor?.id },
       });
     },
   },
