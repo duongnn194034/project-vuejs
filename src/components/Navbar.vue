@@ -154,4 +154,8 @@ export default {
 #cart {
   position: relative;
 }
+
+.dropdown-menu {
+  left: -3.5rem;
+}
 </style>

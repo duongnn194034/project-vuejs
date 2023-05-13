@@ -19,7 +19,14 @@
         </div>
       </div>
       <div class="row">
-        <div class=""></div>
+        <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-xs-12 no-padding input-group">
+          <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
+            <input type="text" id="q" name="q" class="q search form-control pac-target-input" placeholder="Enter town or postcode" required="" autocomplete="off">
+          </div>
+          <div class="ccol-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
+            <button type="submit" class="btn btn-purple btn-full-width border-radius-5">Find motors</button>
+          </div>
+        </div>
       </div>
     </div>
     <hr>
@@ -29,14 +36,36 @@
           <h2 class="pt-3">Popular Motors</h2>
         </div>
       </div>
-      <div class="row">
-        <div v-for="index in this.motor_size" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
-          <MotorBox :motor="motors0[index-1]">
-          </MotorBox>
+        <div id="carouselMotorControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div v-for="index in this.indexs" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
+                  <MotorBox :motor="motors[index-1]">
+                  </MotorBox>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" v-for="item in this.activeIndexs">
+              <div class="row">
+                <div v-for="index in item" :key="index" class="col-md-6 col-xl-4 col-12 pt-3  justify-content-around d-flex">
+                  <MotorBox :motor="motors[index-1]">
+                  </MotorBox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselMotorControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselMotorControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -44,15 +73,41 @@
   export default {
     name: 'Home',
     components : { MotorBox },
-    props : ["baseURL", "motors0", "motors1", "motors2", "categories"],
+    props : ["baseURL", "motors", "categories"],
     data() {
       return{
-        category_size: 3,
-        motor_size: 3
+        indexs: [],
+        activeIndexs: []
+      }
+    },
+    methods: {
+      setUpArray() {
+        const carouselPage = 3;
+        let var1 = this.motors.length / carouselPage;
+        let var2 = this.motors.length % carouselPage;
+        let array = [];
+        for (let i = 0; i < var1; i++) {
+          let arr = [];
+          for (let j = 1; j <= carouselPage; j++) {
+            arr.push(j + carouselPage * i);
+          }
+          array.push(arr);
+        }
+        let tempArr = []
+        for (let i = var2 - 1; i >= 0; i--) {
+          tempArr.push(this.motors.length - i);
+        }
+        if (var2) {
+          array.push(tempArr);
+        }
+        this.indexs = array[0];
+        if (array.length > 1) {
+          this.activeIndexs = array.slice(1);
+        }
       }
     },
     mounted(){
-
+      this.setUpArray();
     }
   }
 </script>
@@ -64,6 +119,18 @@
 
   .bg-cover {
     background-size: cover !important;
+  }
+
+  .carousel-control-prev {
+    justify-content: left;
+    left: -10px;
+    width: 20px;
+  }
+
+  .carousel-control-next {
+    justify-content: right;
+    right: -10px;
+    width: 20px;
   }
 
   #background-div {
@@ -88,5 +155,28 @@
 
   h2 {
     font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .btn-purple {
+    background-color: #7a00ff;
+    border: 1px solid #7a00ff;
+    box-shadow: 0 0 20px 1px rgba(0,0,0,.1);
+    color: #fff
+  }
+
+  .btn-purple:active,.btn-purple:focus,.btn-purple:hover {
+    background-color: #490099;
+    border-color: #490099;
+    color: #fff
+  }
+
+  .input-group {
+    float: left;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    margin-left: 20%
   }
 </style>

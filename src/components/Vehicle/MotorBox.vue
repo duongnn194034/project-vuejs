@@ -6,23 +6,52 @@
         :src="motor.imageUrl"
         alt="Motor Image"
       />
+      <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
+      </div>
     </div>
     <div class="card-body">
       <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
-      <p class="card-text">{{ motor.price }}<sup>VND</sup></p>
       <p class="card-text font-italic">
-        {{ motor.note }}...
+        {{ motor.address }}
       </p>
+      <div class="star-container">
+        <div class="stars">
+          <img class="star" src="../../assets/star.svg"
+            v-if="this.stars > 0" 
+            v-for="index in (this.stars > 0 ? this.stars : 1)" :key="index"
+          >
+          <img class="star" src="../../assets/star-half.svg"
+            v-if="this.halfStars > 0" 
+            v-for="index in (this.halfStars > 0 ? this.halfStars : 1)" :key="index"
+          >
+          <img class="star opaque" src="../../assets/star.svg" 
+            v-if="this.opaqueStars > 0" 
+            v-for="index in (this.opaqueStars > 0 ? this.opaqueStars : 1)" :key="index"
+          >
+        </div>
+        <span class="total">{{ motor.ratingTotal }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// import axios from 'axios';
+
 export default {
   name: "MotorBox",
   props: ["motor"],
+  data() {
+    return {
+      // address: ''
+      stars: 0,
+      halfStars: 0,
+      opaqueStars: 5
+    }
+  },
   methods: {
     showDetails() {
       this.$router.push({
@@ -30,9 +59,27 @@ export default {
         params: { id: this.motor?.id },
       });
     },
+    // async fetchAddress(lat, lng) {
+    //   await axios
+    //     .get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=geojson`)
+    //     .then((res) => {
+    //       let geoRes = res.data.features[0].properties
+    //       this.address = `${geoRes.name} ${geoRes.addresstype}` 
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
+    calStar(star) {
+      console.log(star);
+      this.stars = Math.round(star);
+      if (star - Math.trunc(star) > 0.25 && star - Math.trunc(star) < 0.75) {
+        this.halfStars = 1;
+      }
+      this.opaqueStars = 5 - this.stars - this.halfStars;
+    }
   },
   mounted() {
-    
+    // this.fetchAddress(this.motor.location.x, this.motor.location.y)
+    this.calStar(this.motor.ratingScore);
   }
 };
 </script>
@@ -62,5 +109,41 @@ a {
 
 #edit-product {
   float: right;
+}
+
+.btn-danger {
+    background-color: #e81056;
+    border: 1px solid #e81056;
+    box-shadow: 0 0 20px 1px rgba(0,0,0,.1);
+    color: #fff
+}
+
+.price {
+  left: 3px;
+  bottom: 0px;
+  position: absolute;
+}
+.star-container {
+  display: inline-block;
+}
+
+.stars {
+  margin-right: 5px;
+  float: left;
+}
+
+.star {
+  width: 17px;
+  height: 17px;
+  margin-right: 2px;
+}
+
+.opaque {
+  opacity: 0.2;
+}
+
+.total {
+  vertical-align: middle;
+  font-size: 16px;
 }
 </style>
