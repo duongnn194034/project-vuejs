@@ -69,7 +69,6 @@ export default {
     //     .catch((err) => console.log(err));
     // }
     calStar(star) {
-      console.log(star);
       this.stars = Math.round(star);
       if (star - Math.trunc(star) > 0.25 && star - Math.trunc(star) < 0.75) {
         this.halfStars = 1;

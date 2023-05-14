@@ -14,22 +14,15 @@ import AddProduct from '../views/Product/AddProduct.vue'
 import EditProduct from '../views/Product/EditProduct.vue'
 import ShowDetails from '../views/Product/ShowDetails.vue'
 import ListProductsRe from '../views/Product/ListProductsRe.vue'
-import Wishlist from '../views/Product/Wishlist.vue'
-import Cart from '../views/Cart/Cart.vue'
 import Checkout from '../views/Checkout/Checkout.vue'
-import Order from '../views/Orders/Order.vue'
 
-import Category from '../views/Category/Category.vue'
-import AddCategory from '../views/Category/AddCategory.vue'
-import EditCategory from '../views/Category/EditCategory.vue'
-import ListProducts from '../views/Category/ListProducts.vue'
+import LoanMotor from '../views/Motor/LoanMotor.vue'
+
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
 
 import Success from '../helper/payment/Success.vue'
 import Failed from '../helper/payment/Failed.vue'
-
-import OrderDetails from "../views/Orders/OrderDetails";
 
 const routes = [
   {
@@ -84,32 +77,13 @@ const routes = [
     name : 'ShowDetails',
     component: ShowDetails
   },
-  //Category routes
+  // Motor routes
   {
-    path: '/category',
-    name: 'Category',
-    component: Category
+    path: '/motor/loan',
+    name: 'LoanMotor',
+    component: LoanMotor
   },
-  {
-    path: '/admin/category',
-    name: 'AdminCategory',
-    component: Category
-  },
-  {
-    path: '/admin/category/add',
-    name: 'AddCategory',
-    component: AddCategory
-  },
-  {
-    path: '/admin/category/:id',
-    name: 'EditCategory',
-    component: EditCategory
-  },
-  {
-    path : '/category/show/:id',
-    name : 'ListProducts',
-    component: ListProducts
-  },
+  // Profile
   {
     path: '/admin/profile',
     name: 'Profile',
@@ -138,24 +112,9 @@ const routes = [
     component: Signin
   },
   {
-    path: '/wishlist',
-    name: 'Wishlist',
-    component: Wishlist
-  },
-  {
-    path : '/cart',
-    name : 'Cart',
-    component : Cart
-  },
-  {
     path : '/checkout',
     name : 'Checkout',
     component : Checkout
-  },
-  {
-    path : '/order',
-    name : 'Order',
-    component : Order
   },
   {
     path: '/payment/success',
@@ -166,11 +125,6 @@ const routes = [
     path: '/payment/failed',
     name: 'FailedPayment',
     component:Failed
-  },
-  {
-    path:'/order/:id',
-    name:'OrderDetails',
-    component: OrderDetails
   },
 ]
 

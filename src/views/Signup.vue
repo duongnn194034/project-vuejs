@@ -47,13 +47,13 @@
             </div>
             <div class="form-group">
               <div class="form-row">
-                <img src="../assets/red_cross.svg" v-if="!checkLength" id="icon">
-                <img src="../assets/green_tick.svg" v-else id="icon">
+                <img src="../assets/red_cross.svg" v-show="!checkLength" id="icon">
+                <img src="../assets/green_tick.svg" v-show="checkLength" id="icon">
                 <p class="form-text text-muted" id="des">Password is at least 8 characters long.</p>
               </div>
               <div class="form-row">
-                <img src="../assets/red_cross.svg" v-if="!checkNum" id="icon">
-                <img src="../assets/green_tick.svg" v-else id="icon">
+                <img src="../assets/red_cross.svg" v-show="!checkNum" id="icon">
+                <img src="../assets/green_tick.svg" v-show="checkNum" id="icon">
                 <p class="form-text text-muted" id="des">Password contains a number and a letter.</p>
               </div>
             </div>

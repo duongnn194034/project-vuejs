@@ -29,12 +29,12 @@
               >Hire a vehicle</router-link>         
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-light" :to="{}"
+          <router-link class="nav-link text-light" :to="{ name: 'LoanMotor' }"
               >Loan vehicles</router-link>         
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-light" :to="{}"
-              >Help</router-link>         
+          <router-link class="nav-link text-light" v-if="token" :to="{}"
+              >Your vehicles</router-link>         
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
