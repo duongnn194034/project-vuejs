@@ -23,9 +23,9 @@
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
             <input type="text" id="q" name="q" class="q search form-control" placeholder="Enter town or postcode" required="" v-model="query" autocomplete="off">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
-              <div v-for="address in this.suggestedAddress" @click="select">
-                <strong>{{ address.display_name }}</strong>
-                <input type="hidden" value="test">
+              <div v-for="(address, index) in this.suggestedAddress" :key="index" @click="select">
+                <strong :value="index">{{ address.display_name }}</strong>
+                <input type="hidden" name="query" :value="index">
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
 
 <script>
   import axios from "axios";
-import MotorBox from "../components/Vehicle/MotorBox.vue";
+  import MotorBox from "../components/Vehicle/MotorBox.vue";
   export default {
     name: 'Home',
     components : { MotorBox },
@@ -88,6 +88,7 @@ import MotorBox from "../components/Vehicle/MotorBox.vue";
         query: '',
         suggest: false,
         suggestedAddress: [],
+        loading: false,
       }
     },
     methods: {
@@ -107,7 +108,9 @@ import MotorBox from "../components/Vehicle/MotorBox.vue";
         for (let i = var2 - 1; i >= 0; i--) {
           tempArr.push(this.motors.length - i);
         }
-        array.push(tempArr);
+        if (var2) {
+          array.push(tempArr);
+        }
         this.indexs = array[0];
         if (array.length > 1) {
           this.activeIndexs = array.slice(1);
@@ -123,12 +126,23 @@ import MotorBox from "../components/Vehicle/MotorBox.vue";
       },
       select(event) {
         event.preventDefault();
-        this.query = event.target.textContent;
+        if (event.target.lastChild.value != undefined) {
+          let ad = this.suggestedAddress[event.target.lastChild.value];
+          this.loading = true;
+          axios
+            .get(`${this.baseURL}motor/loc?lat=${ad.lat}&lng=${ad.lon}`)
+            .then((res) => {
+              this.loading = false;
+              this.$router.push({
+                name: "ListMotors",
+                params: { motorRes: res.data.content, query: this.query }
+              })
+            })
+        }
       },
       submit(event) {
-        // await axios
-        //   .get(`https://nominatim.openstreetmap.org/ui/reverse?lat=`)
-      }
+        this.su
+      } 
     },
     watch: {
       query(newQuery) {
@@ -234,5 +248,19 @@ import MotorBox from "../components/Vehicle/MotorBox.vue";
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

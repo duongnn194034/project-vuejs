@@ -17,6 +17,7 @@ import ListProductsRe from '../views/Product/ListProductsRe.vue'
 import Checkout from '../views/Checkout/Checkout.vue'
 
 import LoanMotor from '../views/Motor/LoanMotor.vue'
+import ListMotors from '../views/Motor/ListMotors.vue'
 
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
@@ -82,6 +83,11 @@ const routes = [
     path: '/motor/loan',
     name: 'LoanMotor',
     component: LoanMotor
+  },
+  {
+    path: '/motor/list',
+    name: 'ListMotors',
+    component: ListMotors
   },
   // Profile
   {
