@@ -21,7 +21,13 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-xs-12 no-padding input-group">
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
-            <input type="text" id="q" name="q" class="q search form-control pac-target-input" placeholder="Enter town or postcode" required="" autocomplete="off">
+            <input type="text" id="q" name="q" class="q search form-control" placeholder="Enter town or postcode" required="" v-model="query" autocomplete="off">
+            <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
+              <div v-for="address in this.suggestedAddress" @click="select">
+                <strong>{{ address.display_name }}</strong>
+                <input type="hidden" value="test">
+              </div>
+            </div>
           </div>
           <div class="ccol-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
             <button type="submit" class="btn btn-purple btn-full-width border-radius-5">Find motors</button>
@@ -69,7 +75,8 @@
 </template>
 
 <script>
-  import MotorBox from "../components/Vehicle/MotorBox.vue";
+  import axios from "axios";
+import MotorBox from "../components/Vehicle/MotorBox.vue";
   export default {
     name: 'Home',
     components : { MotorBox },
@@ -77,13 +84,16 @@
     data() {
       return{
         indexs: [],
-        activeIndexs: []
+        activeIndexs: [],
+        query: '',
+        suggest: false,
+        suggestedAddress: [],
       }
     },
     methods: {
       setUpArray() {
         const carouselPage = 3;
-        let var1 = this.motors.length / carouselPage;
+        let var1 = Math.floor(this.motors.length / carouselPage);
         let var2 = this.motors.length % carouselPage;
         let array = [];
         for (let i = 0; i < var1; i++) {
@@ -97,13 +107,33 @@
         for (let i = var2 - 1; i >= 0; i--) {
           tempArr.push(this.motors.length - i);
         }
-        if (var2) {
-          array.push(tempArr);
-        }
+        array.push(tempArr);
         this.indexs = array[0];
         if (array.length > 1) {
           this.activeIndexs = array.slice(1);
         }
+      },
+      async fetchAddress(query) {
+        await axios
+          .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
+          .then((res) => {
+            this.suggestedAddress = res.data
+          })
+          .catch((err) => console.log(err));
+      },
+      select(event) {
+        event.preventDefault();
+        this.query = event.target.textContent;
+      },
+      submit(event) {
+        // await axios
+        //   .get(`https://nominatim.openstreetmap.org/ui/reverse?lat=`)
+      }
+    },
+    watch: {
+      query(newQuery) {
+        this.fetchAddress(newQuery);
+        this.suggest = true;
       }
     },
     mounted(){
@@ -179,4 +209,30 @@
     z-index: 2;
     margin-left: 20%
   }
+
+  .autocomplete-items {
+  position: absolute;
+  z-index: 99;
+  left: 15px;
+  right: 15px;
+  top: 100%;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
 </style>

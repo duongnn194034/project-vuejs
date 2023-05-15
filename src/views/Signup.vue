@@ -112,7 +112,7 @@ export default {
     };
   },
   watch: {
-    password(newPass, oldPass) {
+    password(newPass) {
       if (newPass?.length >= 8 && !this.checkLength) {
         this.checkLength = true;
       } else if (newPass?.length < 8 && this.checkLength) {

@@ -1,6 +1,6 @@
 <template>
   <div class="card h-100 w-100">
-    <div class="embed-responsive embed-responsive-16by9">
+    <div class="">
       <img
         class="card-img-top embed-responsive-item"
         :src="imageURL"
@@ -59,15 +59,6 @@ export default {
         params: { id: this.motor?.id },
       });
     },
-    // async fetchAddress(lat, lng) {
-    //   await axios
-    //     .get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=geojson`)
-    //     .then((res) => {
-    //       let geoRes = res.data.features[0].properties
-    //       this.address = `${geoRes.name} ${geoRes.addresstype}` 
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
     calStar(star) {
       this.stars = Math.round(star);
       if (star - Math.trunc(star) > 0.25 && star - Math.trunc(star) < 0.75) {
@@ -86,7 +77,6 @@ export default {
     }
   },
   mounted() {
-    // this.fetchAddress(this.motor.location.x, this.motor.location.y)
     this.calStar(this.motor.ratingScore);
   }
 };
