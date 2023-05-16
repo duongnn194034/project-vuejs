@@ -17,8 +17,8 @@
         >
         <div class="info-container">
           <img src="../../assets/geopin-dark-grey.svg" alt="geopin" id="icon">
-          <p class="pr-2">{{ this.rounded(dist.value) }} {{ dist.unit }}</p>
-          <div class="star-container">
+          <span class="pr-2">{{ this.rounded(dist.value) }} {{ dist.unit }} - </span>
+          <span class="pr-2">{{ this.motor.type }} - </span>
           <div class="stars">
             <img class="star" src="../../assets/star.svg"
               v-if="this.stars > 0" 
@@ -35,6 +35,17 @@
           </div>
           <span class="total">{{ motor.ratingTotal }}</span>
         </div>
+        <hr>
+        <div class="feature-container">
+          <span class="h6 d-block ml-3"><strong>Features:</strong></span>
+          <button 
+            v-for="key in this.features" 
+            :key="key" 
+            type="button" class="btn btn-secondary" 
+            data-bs-toggle="tooltip" data-bs-placement="right" :title="this.toolTip[key]"
+          >
+            {{ key }}
+          </button>
         </div>
       </div>
     </div>
@@ -47,10 +58,17 @@ export default {
   props: ["motor", "dist"],
   data() {
     return {
-      // address: ''
+      features: [],
       stars: 0,
       halfStars: 0,
-      opaqueStars: 5
+      opaqueStars: 5,
+      toolTip: {
+        "Fuel Cost": "Guest have to refill fuel before returning.",
+        "Damage Insurance": "Damage Insurance included.",
+        "Stolen Insurance": "Stolen Insurance included.",
+        "Order Canceling": "Order can be canceled at least 2 days before ordered date.",
+        "Adjust": "Tax, others fee included.",
+      }
     }
   },
   methods: {
@@ -69,6 +87,11 @@ export default {
     },
     rounded(decimal) {
       return Math.round(decimal * 100) / 100;
+    },
+    stringfy(string) {
+      return string
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/^./, function(str){ return str.toUpperCase(); })
     }
   },
   computed: {
@@ -82,6 +105,13 @@ export default {
   },
   mounted() {
     this.calStar(this.motor.ratingScore);
+    for (let key in this.motor.feature) {
+      if (this.motor.feature[key]) {
+        this.features.push(this.stringfy(key));
+      }
+    }
+    this.features.concat(this.motor.feature.others);
+    console.log(this.features);
   }
 };
 </script>
@@ -124,7 +154,8 @@ a {
 
 .info-container {
   display: flex;
-  vertical-align: baseline;
+  vertical-align: middle;
+  align-items: center;
 }
 
 .btn-danger {
@@ -151,8 +182,7 @@ a {
 }
 
 .star {
-  width: 17px;
-  height: 17px;
+  width: 1rem;
   margin-right: 2px;
 }
 
