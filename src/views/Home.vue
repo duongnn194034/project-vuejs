@@ -24,8 +24,9 @@
             <input type="text" id="q" name="q" class="q search form-control" placeholder="Enter town or postcode" required="" v-model="query" autocomplete="off">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(address, index) in this.suggestedAddress" :key="index" @click="select">
-                <strong :value="index">{{ address.display_name }}</strong>
-                <input type="hidden" name="query" :value="index">
+                <router-link class="text-decoration-none text-dark" :to="{ name: 'ListMotors', query: { query: this.query, lat: address.lat, lon: address.lon }}">
+                  <strong>{{ address.display_name }}</strong>
+                </router-link>
               </div>
             </div>
           </div>
@@ -88,7 +89,6 @@
         query: '',
         suggest: false,
         suggestedAddress: [],
-        loading: false,
       }
     },
     methods: {
@@ -116,32 +116,15 @@
           this.activeIndexs = array.slice(1);
         }
       },
-      async fetchAddress(query) {
-        await axios
+      fetchAddress(query) {
+        axios
           .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
           .then((res) => {
             this.suggestedAddress = res.data
           })
           .catch((err) => console.log(err));
       },
-      select(event) {
-        event.preventDefault();
-        if (event.target.lastChild.value != undefined) {
-          let ad = this.suggestedAddress[event.target.lastChild.value];
-          this.loading = true;
-          axios
-            .get(`${this.baseURL}motor/loc?lat=${ad.lat}&lng=${ad.lon}`)
-            .then((res) => {
-              this.loading = false;
-              this.$router.push({
-                name: "ListMotors",
-                params: { motorRes: res.data.content, query: this.query }
-              })
-            })
-        }
-      },
       submit(event) {
-        this.su
       } 
     },
     watch: {
@@ -233,34 +216,20 @@
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
-}
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-bottom: 1px solid #d4d4d4;
-}
-.autocomplete-items div:hover {
-  /*when hovering an item:*/
-  background-color: #e9e9e9;
-}
-.autocomplete-active {
-  /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important;
-  color: #ffffff;
-}
-
-.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  }
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+  }
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
 </style>

@@ -140,7 +140,7 @@ export default {
 
           // call the API
           await axios
-            .post(`${this.baseURL}user/signup`, user)
+            .post(`${this.baseURL}user/signUp`, user)
             .then(() => {
               // redirect to home page
               this.$router.replace("/");

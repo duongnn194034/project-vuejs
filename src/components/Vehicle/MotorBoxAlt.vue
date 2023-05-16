@@ -1,38 +1,41 @@
 <template>
   <div class="card h-100 w-100">
-    <div class="">
+    <div class="image-container">
       <img
-        class="card-img-top embed-responsive-item"
+        class="card-img-top"
         :src="imageURL"
         alt="Motor Image"
       />
-      <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
-      </div>
     </div>
     <div class="card-body">
-      <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
-        ><h5 class="card-title">{{ motor.model }}</h5></router-link
-      >
-      <p class="card-text font-italic">
-        {{ motor.address ? motor.address : '...' }}
-      </p>
-      <div class="star-container">
-        <div class="stars">
-          <img class="star" src="../../assets/star.svg"
-            v-if="this.stars > 0" 
-            v-for="index in (this.stars > 0 ? this.stars : 1)" :key="index"
-          >
-          <img class="star" src="../../assets/star-half.svg"
-            v-if="this.halfStars > 0" 
-            v-for="index in (this.halfStars > 0 ? this.halfStars : 1)" :key="index"
-          >
-          <img class="star opaque" src="../../assets/star.svg" 
-            v-if="this.opaqueStars > 0" 
-            v-for="index in (this.opaqueStars > 0 ? this.opaqueStars : 1)" :key="index"
-          >
+      <div class="details-container clearfix">
+        <div class="price btn" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <span><strong>{{ motor.price }}VND</strong>/hour</span>
         </div>
-        <span class="total">{{ motor.ratingTotal }} rate(s)</span>
+        <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
+          ><h5 class="card-title">{{ motor.model }}</h5></router-link
+        >
+        <div class="info-container">
+          <img src="../../assets/geopin-dark-grey.svg" alt="geopin" id="icon">
+          <p class="pr-2">{{ this.rounded(dist.value) }} {{ dist.unit }}</p>
+          <div class="star-container">
+          <div class="stars">
+            <img class="star" src="../../assets/star.svg"
+              v-if="this.stars > 0" 
+              v-for="index in (this.stars > 0 ? this.stars : 1)" :key="index"
+            >
+            <img class="star" src="../../assets/star-half.svg"
+              v-if="this.halfStars > 0" 
+              v-for="index in (this.halfStars > 0 ? this.halfStars : 1)" :key="index"
+            >
+            <img class="star opaque" src="../../assets/star.svg" 
+              v-if="this.opaqueStars > 0" 
+              v-for="index in (this.opaqueStars > 0 ? this.opaqueStars : 1)" :key="index"
+            >
+          </div>
+          <span class="total">{{ motor.ratingTotal }}</span>
+        </div>
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +44,7 @@
 <script>
 export default {
   name: "MotorBox",
-  props: ["motor"],
+  props: ["motor", "dist"],
   data() {
     return {
       // address: ''
@@ -63,6 +66,9 @@ export default {
         this.halfStars = 1;
       }
       this.opaqueStars = 5 - this.stars - this.halfStars;
+    },
+    rounded(decimal) {
+      return Math.round(decimal * 100) / 100;
     }
   },
   computed: {
@@ -81,12 +87,17 @@ export default {
 </script>
 
 <style scoped>
-.embed-responsive .card-img-top {
+.card-img-top {
   object-fit: cover;
+  overflow: hidden;
 }
 
 a {
   text-decoration: none;
+}
+
+.card-body {
+  padding: 10px 5px
 }
 
 .card-title {
@@ -107,20 +118,31 @@ a {
   float: right;
 }
 
+.details-container {
+  position: relative;
+}
+
+.info-container {
+  display: flex;
+  vertical-align: baseline;
+}
+
 .btn-danger {
-    background-color: #e81056;
-    border: 1px solid #e81056;
-    box-shadow: 0 0 20px 1px rgba(0,0,0,.1);
-    color: #fff
+  background-color: #e81056;
+  border: 1px solid #e81056;
+  box-shadow: 0 0 20px 1px rgba(0,0,0,.1);
+  color: #fff
 }
 
 .price {
-  left: 3px;
-  bottom: 0px;
+  right: 0;
+  top: -30px;
   position: absolute;
-}
-.star-container {
-  display: inline-block;
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,.1);
+  background-color: #eee;
+  z-index: 99;
+  border-radius: 5px;
+  overflow: visible;
 }
 
 .stars {
@@ -141,5 +163,9 @@ a {
 .total {
   vertical-align: middle;
   font-size: 16px;
+}
+
+#icon {
+  height: 20px;
 }
 </style>

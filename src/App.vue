@@ -38,22 +38,6 @@ export default {
         .then((res) => this.motors = res.data)
         .catch((err) => console.log(err));
 
-
-    //   //fetch cart items
-    //   if (this.token) {
-    //     await axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
-    //       (response) => {
-    //         if (response.status == 200) {
-    //           // update cart
-    //           this.cartCount = Object.keys(response.data.cartItems).length;
-    //         }
-    //       },
-    //       (error) => {
-    //         console.log(error);
-    //       }
-    //     );
-    //   }
-
       // fetch user
       if (this.token) {
         await axios.get(`${this.baseURL}user/get`, {

@@ -6,11 +6,11 @@
         :src="imageURL"
         alt="Motor Image"
       />
+    </div>
+    <div class="card-body">
       <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
       </div>
-    </div>
-    <div class="card-body">
       <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
@@ -105,6 +105,7 @@ a {
   color: #484848;
   font-size: 1.1rem;
   font-weight: 400;
+  margin-top: 15px;
 }
 
 .card-title:hover {
@@ -113,6 +114,10 @@ a {
 
 .card-text {
   font-size: 0.9rem;
+}
+
+.card-body {
+  position: relative;
 }
 
 #edit-product {
@@ -128,8 +133,9 @@ a {
 
 .price {
   left: 3px;
-  bottom: 0px;
+  top: -25px;
   position: absolute;
+  overflow: visible !important;
 }
 .star-container {
   display: inline-block;
