@@ -96,10 +96,11 @@ export default {
   },
   computed: {
     imageURL() {
-      if (this.motor.imageUrl == null || this.motor.imageUrl == undefined) {
+      let url = this.motor.imageUrl;
+      if (url == null || url == undefined) {
         return '';
       } else {
-        return this.motor.imageUrl;
+        return url;
       }
     }
   },
@@ -110,7 +111,9 @@ export default {
         this.features.push(this.stringfy(key));
       }
     }
-    this.features = this.features.concat(this.motor.feature.others);
+    if (this.motor.feature.others) {
+      this.features = this.features.concat(this.motor.feature.others);
+    }
   }
 };
 </script>

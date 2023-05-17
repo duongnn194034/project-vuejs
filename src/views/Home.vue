@@ -116,8 +116,8 @@
           this.activeIndexs = array.slice(1);
         }
       },
-      fetchAddress(query) {
-        axios
+      async fetchAddress(query) {
+        await axios
           .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
           .then((res) => {
             this.suggestedAddress = res.data
@@ -128,9 +128,12 @@
       } 
     },
     watch: {
-      query(newQuery) {
-        this.fetchAddress(newQuery);
-        this.suggest = true;
+      query: {
+        handler(newQuery) {
+          this.fetchAddress(newQuery);
+          this.suggest = true;
+        },
+        immediate: true
       }
     },
     mounted(){

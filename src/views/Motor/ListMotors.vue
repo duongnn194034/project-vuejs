@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-5 no-padding pt-4">
         <div>
-          <input placeholder="Town, City or Postcode" class="form-control pac-target-input" autocomplete="off">
+          <input placeholder="Town, City or Postcode" class="form-control pac-target-input" autocomplete="off" :value="this.query">
         </div>
       </div>
       <div class="col-sm-12 col-md-7 dates no-padding bg-white d-flex pt-4">
@@ -21,7 +21,7 @@
 
     <div class="row">
       <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
-      <div class="col-4" v-for="motor in motors" :key="motor.content.id">
+      <div class="col-4 pt-3" v-for="motor in motors" :key="motor.content.id">
         <MotorBoxAlt :motor="motor.content" :dist="motor.distance"/>
       </div>
     </div>
@@ -35,16 +35,21 @@ export default {
   components: { MotorBoxAlt },
   data() {
     return {
-      title: "Kết quả tìm kiếm cho: ",
       len : 0,
       motors : null,
       loading: true,
+      query: null,
     }
   },
   props : [ "baseURL" ],
+  computed: {
+    title() {
+      return "Kết quả tìm kiếm cho: " + this.query;
+    }
+  },
   async mounted() {
     let q = this.$route.query;
-    this.title = this.title.concat(q.query)
+    this.query = q.query;
     await axios.get(`${this.baseURL}motor/loc?lat=${q.lat}&lng=${q.lon}`)
       .then((res) => {
         this.motors = res.data.content;

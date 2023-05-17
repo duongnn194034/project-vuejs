@@ -59,15 +59,6 @@ export default {
         params: { id: this.motor?.id },
       });
     },
-    // async fetchAddress(lat, lng) {
-    //   await axios
-    //     .get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=geojson`)
-    //     .then((res) => {
-    //       let geoRes = res.data.features[0].properties
-    //       this.address = `${geoRes.name} ${geoRes.addresstype}` 
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
     calStar(star) {
       this.stars = Math.round(star);
       if (star - Math.trunc(star) > 0.25 && star - Math.trunc(star) < 0.75) {

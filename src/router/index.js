@@ -9,13 +9,9 @@ import ChangePassword from '../views/Admin/ChangePassword.vue'
 
 import PageNotFound from '../views/PageNotFound.vue'
 
-import Product from '../views/Product/Product.vue'
-import AddProduct from '../views/Product/AddProduct.vue'
-import EditProduct from '../views/Product/EditProduct.vue'
-import ShowDetails from '../views/Product/ShowDetails.vue'
-import ListProductsRe from '../views/Product/ListProductsRe.vue'
 import Checkout from '../views/Checkout/Checkout.vue'
 
+import ShowDetails from '../views/Motor/ShowDetails.vue'
 import LoanMotor from '../views/Motor/LoanMotor.vue'
 import ListMotors from '../views/Motor/ListMotors.vue'
 
@@ -47,34 +43,8 @@ const routes = [
     name : 'AddImage',
     component : AddImage
   },
-  //Product routes
   {
-    path: '/product',
-    name: 'Product',
-    component: Product
-  },
-  {
-    path: '/productSearch/:query',
-    name: 'ListProductsSearch',
-    component: ListProductsRe
-  },
-  {
-    path: '/admin/product',
-    name: 'AdminProduct',
-    component: Product
-  },
-  {
-    path: '/admin/product/add',
-    name: 'AddProduct',
-    component: AddProduct
-  },
-  {
-    path: '/admin/product/:id',
-    name: 'EditProduct',
-    component: EditProduct,
-  },
-  {
-    path : '/product/show/:id',
+    path : '/motor/show/:id',
     name : 'ShowDetails',
     component: ShowDetails
   },
