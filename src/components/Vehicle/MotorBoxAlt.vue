@@ -41,7 +41,7 @@
           <button 
             v-for="key in this.features" 
             :key="key" 
-            type="button" class="btn btn-secondary" 
+            type="button" class="btn btn-secondary ml-2" 
             data-bs-toggle="tooltip" data-bs-placement="right" :title="this.toolTip[key]"
           >
             {{ key }}
@@ -86,7 +86,7 @@ export default {
       this.opaqueStars = 5 - this.stars - this.halfStars;
     },
     rounded(decimal) {
-      return Math.round(decimal * 100) / 100;
+      return Math.round((decimal + Number.EPSILON) * 100) / 100;
     },
     stringfy(string) {
       return string
@@ -106,12 +106,11 @@ export default {
   mounted() {
     this.calStar(this.motor.ratingScore);
     for (let key in this.motor.feature) {
-      if (this.motor.feature[key]) {
+      if (this.motor.feature[key] == true) {
         this.features.push(this.stringfy(key));
       }
     }
-    this.features.concat(this.motor.feature.others);
-    console.log(this.features);
+    this.features = this.features.concat(this.motor.feature.others);
   }
 };
 </script>

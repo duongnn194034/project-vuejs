@@ -2,6 +2,18 @@
   <div class="loader" v-if="loading"></div>
   <div class="container-fluid body" v-else>
     <div class="row">
+      <div class="col-xs-12 col-md-5 no-padding pt-4">
+        <div>
+          <input placeholder="Town, City or Postcode" class="form-control pac-target-input" autocomplete="off">
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-7 dates no-padding bg-white d-flex pt-4">
+        <div class="dateBox dtBox row1">
+          <label> Pick up date </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-12 text-center">
         <h4 class="pt-3">{{ title }}</h4>
       </div>
@@ -15,7 +27,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import MotorBoxAlt from '../../components/Vehicle/MotorBoxAlt.vue';
@@ -79,5 +90,16 @@ h5 {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+label {
+  position: absolute;
+  padding-left: 15px;
+  line-height: 50px;
+}
+
+.no-padding {
+  padding-left: 0;
+  padding-right: 0;
 }
 </style>
