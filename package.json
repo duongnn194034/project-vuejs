@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.7",
     "axios": "^0.21.4",
     "bootstrap": "^4.5.3",
     "eslint-plugin-vue": "^7.3.0",
@@ -14,6 +15,7 @@
     "popper.js": "^1.16.1",
     "stripe": "^8.137.0",
     "sweetalert": "^2.1.2",
+    "v-calendar": "^3.0.3",
     "vue": "^3.2.36",
     "vue-router": "^4.2.0",
     "vue-simple-search-dropdown": "^1.0.1"

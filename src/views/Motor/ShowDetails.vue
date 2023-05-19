@@ -97,18 +97,23 @@
         </div>
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
-        <div class="card w-100 h-100 position-sticky"></div>
+        <div class="card w-100 h-100 position-sticky">
+          <Calendar class="w-100 border-0" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Calendar } from 'v-calendar';
+import 'v-calendar/style.css';
 export default {
   data() {
     return {
       id: null,
       token: null,
+      date: new Date(),
       motor: { 
         imageUrl: [],
         feature: {
@@ -126,6 +131,7 @@ export default {
     };
   },
   props: ["baseURL"],
+  components: {Calendar},
   methods: {
     async fetchData() {
       await axios
