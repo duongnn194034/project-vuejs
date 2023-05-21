@@ -97,8 +97,30 @@
         </div>
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
-        <div class="card w-100 h-100 position-sticky">
-          <Calendar class="w-100 border-0" />
+        <div class="card w-100 sticky-container">
+          <Calendar 
+            expanded 
+            borderless
+            :disabled-dates="disabledDates"
+            :attributes="attributes" 
+          />
+          <div class="card-body pt-0">
+            <section class="pb-4">
+              <h6>Pick-up</h6>
+              <input type="datetime-local" class="form-control" :value="startTime"/>
+              <h6>Drop-off</h6>
+              <input type="datetime-local" class="form-control" :value="endTime"/>
+            </section>
+            <section>
+              <div class="d-flex justify-content-around pb-4">
+                <span><strong>{{ motor.price }}₫</strong>/hour</span>
+                <span><strong>{{ motor.price * 24 }}₫</strong>/day</span>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50">Offer</button>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
@@ -106,14 +128,18 @@
 </template>
 
 <script>
-import { Calendar } from 'v-calendar';
+import axios from 'axios';
+import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 export default {
   data() {
     return {
       id: null,
       token: null,
-      date: new Date(),
+      attributes: [],
+      startTime: null,
+      endTime: null,
+      disabledDates: null,
       motor: { 
         imageUrl: [],
         feature: {
@@ -131,7 +157,7 @@ export default {
     };
   },
   props: ["baseURL"],
-  components: {Calendar},
+  components: { Calendar, DatePicker },
   methods: {
     async fetchData() {
       await axios
@@ -160,6 +186,26 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+    async fetchDate() {
+      await axios
+        .get(`${this.baseURL}offer/${this.id}`)
+        .then(res => {
+          let dates = [];
+          if (!res.data) return;
+          res.data.forEach(element => {
+            dates.push([new Date(element.startTime), new Date(element.endTime)]);
+          });
+          this.attributes.push({
+            key: "busy",
+            highlight: "red",
+            dates: dates,
+            popover: {
+              label: "Not available"
+            } 
+          });
+        })
+        .catch(err => console.log(err));
+    },
     stringfy(string) {
       return string
         .replace(/([A-Z])/g, ' $1')
@@ -173,7 +219,14 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id;
+    const today = new Date();
+    const yesterday = new Date();
+    this.startTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    this.endTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    yesterday.setDate(today.getDate() - 1);
+    this.disabledDates = { end: yesterday };
     this.fetchData();
+    this.fetchDate();
     this.token = localStorage.getItem("token");
   }
 };
@@ -198,6 +251,15 @@ h2, h3, h5 {
   line-height: 28px;
 }
 
+.sticky-container {
+  position: sticky;
+  top: 20px;
+}
+
+/* .image-container {
+
+} */
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -221,7 +283,7 @@ input::-webkit-inner-spin-button {
 }
 
 img.motor {
-  height: 90%;
+  aspect-ratio: 3 / 2;
 }
 
 abbr {
@@ -231,5 +293,10 @@ abbr {
 #map { 
   height: 300px;
   margin: 0 -1.25rem -1.25rem; 
+}
+section h6 {
+  padding-bottom: 0.3rem;
+  padding-top: 0.5rem;
+  font-size: 18px;
 }
 </style>

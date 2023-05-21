@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 import Admin from '../views/Admin/Admin.vue'
-import Gallery from '../views/Admin/Gallery.vue'
-import AddImage from '../views/Admin/AddImage.vue'
 import Profile from '../views/Admin/Profile.vue'
 import ChangePassword from '../views/Admin/ChangePassword.vue'
 
@@ -32,16 +30,6 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin
-  },
-  {
-    path : '/admin/gallery',
-    name : 'Gallery',
-    component : Gallery
-  },
-  {
-    path : '/admin/gallery/add',
-    name : 'AddImage',
-    component : AddImage
   },
   {
     path : '/motor/show/:id',

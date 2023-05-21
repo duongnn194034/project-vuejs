@@ -1,11 +1,5 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center">
-        <h4 class="pt-3">Add Image</h4>
-      </div>
-    </div>
-
+  <div class="container border p-3 add-image" v-if="!image">
     <div class="row">
       <div class="col-3"></div>
       <div class="col-md-6 px-5 px-md-0 pt-5">
@@ -13,20 +7,26 @@
           <label for="myfile">Select Image :</label>
           <input type="file" id="myfile" class="form-control-file" @change="onFileSelected">
         </div>
-        <button type="button" class="btn btn-info" @click="onUpload">Upload</button>
+        <button type="button" class="btn btn-info" @click="onUpload">OK</button>
       </div>
-      <div class="col-3"></div>
     </div>
+  </div>
+  <div v-else>
+    <ImageBox :image="image" />
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import ImageBox from './ImageBox.vue';
 export default {
     data(){
         return {
-            selectedFile : null
+            selectedFile : null,
+            image: null,
         }
     },
+    components: { ImageBox },
     props : ["baseURL"],
     methods : {
         onFileSelected(event){
@@ -42,7 +42,7 @@ export default {
                 });
                 return;
             }
-            if(this.selectedFile.type !== "image/jpeg" && this.selectedFile.type !== "image/png" &&
+            if (this.selectedFile.type !== "image/jpeg" && this.selectedFile.type !== "image/png" &&
                this.selectedFile.type !== "image/jpg") {
                 //file format is not correct
                 swal({
@@ -61,20 +61,14 @@ export default {
                 data : formData,
             })
             .then(res => {
-                this.$router.push({name : "Gallery"});
-                swal({
-                    text: "Image Added Successfully!",
-                    icon: "success",
-                    closeOnClickOutside: false,
-                });
+              this.image = res.data;
+              this.$emit("addImage", res.data.url);
             })
             .catch(err => console.log(err))
         }
     },
     mounted() {
-        if (!localStorage.getItem('token')) {
-            this.$router.push({name : 'Signin'});
-        }
+
     }
 }
 </script>
@@ -85,5 +79,10 @@ h4 {
   color: #484848;
   font-weight: 700;
 }
-
+.add-image {
+  margin-top: 20px;
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
 </style>

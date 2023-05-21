@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <div class="ccol-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
+          <div class="col-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
             <button type="submit" class="btn btn-purple btn-full-width border-radius-5">Find motors</button>
           </div>
         </div>

@@ -23,7 +23,6 @@
                         </div>
                         <div class="form-group">
                             <label>Role</label>
-                            <!-- <input type="url" class="form-control" v-model="role" disabled> -->
                             <select class="form-control" v-model="role">
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
