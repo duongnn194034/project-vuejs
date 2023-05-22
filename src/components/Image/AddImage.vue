@@ -2,7 +2,7 @@
   <div class="container border p-3 add-image" v-if="!image">
     <div class="row">
       <div class="col-3"></div>
-      <div class="col-md-6 px-5 px-md-0 pt-5">
+      <div class="col-md-6 px-5 px-md-0 pt-5 text-center">
         <div class="form-group">
           <label for="myfile">Select Image :</label>
           <input type="file" id="myfile" class="form-control-file" @change="onFileSelected">
@@ -80,7 +80,7 @@ h4 {
   font-weight: 700;
 }
 .add-image {
-  margin-top: 20px;
+  margin: 20px;
   width: 300px;
   height: 300px;
   position: relative;

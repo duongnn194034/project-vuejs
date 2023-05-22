@@ -13,7 +13,8 @@
     <section v-if="vehicle == 'Motor'">
       <h3 class="py-3 text-center">Add your motorbike</h3>
       <div class="row py-3">
-        <div class="col-md-3 col-xs-6" v-for="i in index">
+        <div class="float-left" v-for="i in index">
+          <label class="ml-5">Motor Images</label>
           <AddImage :baseURL="baseURL"  @addImage="addImage" />
         </div>
       </div>
@@ -28,12 +29,16 @@
             <input type="text" class="form-control" v-model="model" required>
           </div>
           <div class="form-group col-md-4">
+            <label>License Plate</label>
+            <input type="text" class="form-control" v-model="license" required>
+          </div>
+          <div class="form-group col-md-4">
             <label>Engine Size</label>
             <input type="text" class="form-control" v-model="engineSize" required>
           </div>
           <div class="form-group col-md-4">
-            <label>Price<span>(/hour)</span></label>
-            <input type="number" class="form-control" v-model="price" required>
+            <label>Fuel</label>
+            <input type="text" class="form-control" v-model="fuel" required>
           </div>
           <div class="form-group col-md-4">
             <label>Type</label>
@@ -41,6 +46,10 @@
               <option value="AUTOMATIC">AUTOMATIC</option>
               <option value="MANUAL">MANUAL</option>
             </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Price</label>
+            <input type="number" class="form-control" v-model="price" required>
           </div>
           <div class="form-group col-12">
             <label>Note</label>
@@ -63,7 +72,9 @@ export default {
         type: null,
         production: null,
         model: null,
+        license: null,
         engineSize: null,
+        fuel: null,
         price: 0,
         note: null,
       } 
