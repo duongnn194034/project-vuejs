@@ -42,7 +42,7 @@
           </div>
           <div class="form-group col-md-4">
             <label>Type</label>
-            <select class="form-control" v-model="type">
+            <select class="form-control" v-model="type" required>
               <option value="AUTOMATIC">AUTOMATIC</option>
               <option value="MANUAL">MANUAL</option>
             </select>
@@ -51,17 +51,83 @@
             <label>Price</label>
             <input type="number" class="form-control" v-model="price" required>
           </div>
+          <div class="form-group col-md-4">
+            <label>Year</label>
+            <input type="number" class="form-control" v-model="year">
+          </div>
           <div class="form-group col-12">
             <label>Note</label>
             <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control"></textarea>
           </div>
-          <button type="button" class="btn btn-primary" @click="saveChanged">Confirm</button>
+          <div class="row">
+            <label class="col-12">Feature</label>
+            <div class="form-group col-md-6">
+              <label for="minAge">Minimum Age</label>
+              <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Minimum Driving</label>
+              <input type="number" class="form-control" v-model="minDriving" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Minimum Duration</label>
+              <input type="number" class="form-control" v-model="minDur" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Maximum Duration</label>
+              <input type="number" class="form-control" v-model="maxDur" required>
+            </div>
+            <div class="form-group col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
+                <label class="form-check-label" for="damageInsurance">
+                  Damage Insurance included.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI">
+                <label class="form-check-label" for="stolenInsurance">
+                  Stolen Insurance included.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC">
+                <label class="form-check-label" for="orderCanceling">
+                  Order can be cancel at least 2 days before.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC">
+                <label class="form-check-label" for="fuelCost">
+                  Fuel cost included.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ">
+                <label class="form-check-label" for="adjust">
+                  Tax, other charge included.
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="others" v-model="oCheck">
+                <label class="form-check-label" for="others">
+                  Others.
+                </label>
+                <input class="form-control" type="text" placeholder="List other features, seperated by commas." 
+                  :disabled="!oCheck"
+                  v-model="others"
+                >
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" @click="submit">Confirm</button>
         </form>
       </div>
     </section>
   </div>
 </template>
 <script>
+import axios from 'axios';
 import AddImage from '../../components/Image/AddImage.vue';
 export default {
     data() {
@@ -76,7 +142,19 @@ export default {
         engineSize: null,
         fuel: null,
         price: 0,
+        year: null,
         note: null,
+        dI: false,
+        sI: false,
+        fC: false,
+        oC: false,
+        aJ: false,
+        oCheck: false,
+        others: null,
+        minAge: 0,
+        minDriving: 0,
+        minDur: null,
+        maxDur: null,
       } 
     },
     props: ["baseURL"],
@@ -85,6 +163,21 @@ export default {
       addImage(url) {
         this.index = this.index + 1;
         this.URLs.push(url);
+      },
+      async submit() {
+        await xios.post(`${this.baseURL}offer`,
+        {
+          
+        },
+        {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
+        .then(res => {
+          this.$router.push()
+        })
+        .catch(err => console.log(err));
       }
     },
     mounted() {
@@ -96,4 +189,12 @@ export default {
 }
 </script>
 <style scoped>
+.form-group > label, label.col-12 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.col-md-6 > label {
+  font-size: 16px !important;
+}
 </style>
