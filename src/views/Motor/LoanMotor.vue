@@ -57,8 +57,12 @@
           </div>
           <div class="form-group col-12">
             <label>Address</label>
-            <input class="form-control map">
             <div class="form-control map" id="map"></div>
+            <input class="form-control map" type="text" placeholder="Search your address here." v-model="address">
+          </div>
+          <div class="form-group col-12">
+            <label>Max Distance</label>
+            <input class="form-control" type="number" v-model="radius">
           </div>
           <div class="form-group col-12">
             <label>Note</label>
@@ -161,6 +165,8 @@ export default {
         minDriving: 0,
         minDur: null,
         maxDur: null,
+        address: null,
+        radius: 0,
       } 
     },
     props: ["baseURL"],
@@ -237,12 +243,12 @@ export default {
 
 div.map {
   margin: 0;
-  border-top-right-radius: 0 !important;
-  border-top-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
 
 input.map {
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 </style>
