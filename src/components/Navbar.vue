@@ -33,7 +33,7 @@
               >Loan vehicles</router-link>         
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-light" v-if="token" :to="{}"
+          <router-link class="nav-link text-light" v-if="token" :to="{ name: 'YourMotors' }"
               >Your vehicles</router-link>         
         </li>
       </ul>

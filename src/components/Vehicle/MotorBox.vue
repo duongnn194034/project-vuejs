@@ -77,7 +77,6 @@ export default {
     }
   },
   mounted() {
-    // this.fetchAddress(this.motor.location.x, this.motor.location.y)
     this.calStar(this.motor.ratingScore);
   }
 };

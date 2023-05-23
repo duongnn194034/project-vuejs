@@ -172,9 +172,9 @@ export default {
           if (this.motor.feature.others) {
             this.features = this.features.concat(this.motor.feature.others);
           }
-          var map = L.map('map').setView([this.motor.location.y, this.motor.location.x], 17);
+          var map = L.map('map').setView([this.motor.location.y, this.motor.location.x], 15);
           L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-              maxZoom: 15,
+              maxZoom: 20,
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           }).addTo(map);
           var circle = L.circle([this.motor.location.y, this.motor.location.x], {

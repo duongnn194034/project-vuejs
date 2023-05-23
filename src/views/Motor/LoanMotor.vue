@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <section v-if="vehicle == 'Motor'">
+    <section v-show="vehicle == 'Motor'">
       <h3 class="py-3 text-center">Add your motorbike</h3>
       <div class="row py-3">
         <div class="float-left" v-for="i in index">
@@ -54,6 +54,11 @@
           <div class="form-group col-md-4">
             <label>Year</label>
             <input type="number" class="form-control" v-model="year">
+          </div>
+          <div class="form-group col-12">
+            <label>Address</label>
+            <input class="form-control map">
+            <div class="form-control map" id="map"></div>
           </div>
           <div class="form-group col-12">
             <label>Note</label>
@@ -129,6 +134,7 @@
 <script>
 import axios from 'axios';
 import AddImage from '../../components/Image/AddImage.vue';
+import swal from 'sweetalert';
 export default {
     data() {
       return {
@@ -158,6 +164,7 @@ export default {
       } 
     },
     props: ["baseURL"],
+    name: 'LoanMotor',
     components: { AddImage },
     methods: {
       addImage(url) {
@@ -165,9 +172,29 @@ export default {
         this.URLs.push(url);
       },
       async submit() {
-        await xios.post(`${this.baseURL}offer`,
+        await axios.post(`${this.baseURL}offer`,
         {
-          
+          production: this.production,
+          model: this.model,
+          type: this.type,
+          price: this.price,
+          license: this.license,
+          engineSize: this.engineSize,
+          fuel: this.fuel,
+          year: this.year,
+          note: this.note,
+          imageUrl: this.URLs,
+          feature: {
+            damageInsurance: this.dI,
+            stolenInsurance: this.sI,
+            adjust: this.aJ,
+            orderCanceling: this.oC,
+            fuelCost: this.fC,
+            minAge: this.minAge,
+            minDriving: this.minDriving,
+            minDur: this.minDur,
+            maxDur: this.maxDur
+          }
         },
         {
           headers: {
@@ -175,16 +202,26 @@ export default {
           }
         })
         .then(res => {
-          this.$router.push()
+          swal({
+            text: res.data.message,
+            icon: "success",
+            closeOnClickOutside: true
+          });
+          this.$router.push({ name: "YourMotors"});
         })
         .catch(err => console.log(err));
       }
     },
     mounted() {
-        if (localStorage.getItem("token") == null) {
-            this.$router.push({ name: 'Home'});
-            return;
-        }
+      if (localStorage.getItem("token") == null) {
+        this.$router.push({ name: 'Home'});
+        return;
+      }
+      var map = L.map('map').setView([0, 0], 15);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        maxZoom: 15,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
     }
 }
 </script>
@@ -196,5 +233,16 @@ export default {
 
 .col-md-6 > label {
   font-size: 16px !important;
+}
+
+div.map {
+  margin: 0;
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+input.map {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 </style>

@@ -12,6 +12,7 @@ import Checkout from '../views/Checkout/Checkout.vue'
 import ShowDetails from '../views/Motor/ShowDetails.vue'
 import LoanMotor from '../views/Motor/LoanMotor.vue'
 import ListMotors from '../views/Motor/ListMotors.vue'
+import YourMotors from '../views/Motor/YourMotors.vue'
 
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
@@ -31,12 +32,12 @@ const routes = [
     name: 'Admin',
     component: Admin
   },
+  // motor route
   {
     path : '/motor/show/:id',
     name : 'ShowDetails',
     component: ShowDetails
   },
-  // Motor routes
   {
     path: '/motor/loan',
     name: 'LoanMotor',
@@ -46,6 +47,11 @@ const routes = [
     path: '/motor/list',
     name: 'ListMotors',
     component: ListMotors
+  },
+  {
+    path: '/motor/show',
+    name: 'YourMotors',
+    component: YourMotors
   },
   // Profile
   {
