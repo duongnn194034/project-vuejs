@@ -57,11 +57,17 @@
           </div>
           <div class="form-group col-12">
             <label>Address</label>
-            <div class="form-control map" id="map"></div>
-            <input class="form-control map" type="text" placeholder="Search your address here." v-model="address">
+            <div id="map"></div>
+            <input class="form-control map" type="text" placeholder="Search your address here." v-model="query" @input="input">
+            <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
+              <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
+                <strong>{{ ad.display_name }}</strong>
+                <input type="hidden" :value="index">
+              </div>
+            </div>
           </div>
           <div class="form-group col-12">
-            <label>Max Distance</label>
+            <label>Max Distance (km)</label>
             <input class="form-control" type="number" v-model="radius">
           </div>
           <div class="form-group col-12">
@@ -166,7 +172,12 @@ export default {
         minDur: null,
         maxDur: null,
         address: null,
+        lng: 0,
+        lat: 0,
         radius: 0,
+        suggest: false,
+        query: "",
+        suggestedAddress: [],
       } 
     },
     props: ["baseURL"],
@@ -190,6 +201,10 @@ export default {
           year: this.year,
           note: this.note,
           imageUrl: this.URLs,
+          address: this.address,
+          radius: this.radius,
+          lng: this.lng,
+          lat: this.lat,
           feature: {
             damageInsurance: this.dI,
             stolenInsurance: this.sI,
@@ -216,6 +231,32 @@ export default {
           this.$router.push({ name: "YourMotors"});
         })
         .catch(err => console.log(err));
+      },
+      async fetchAddress(query) {
+        await axios
+          .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=3`)
+          .then((res) => {
+            this.suggestedAddress = res.data
+          })
+          .catch((err) => console.log(err));
+      },
+      select(event) {
+        let index = 0;
+        if (event.target.lastChild.value != undefined) {
+          index = event.target.lastChild.value;
+
+        } else {
+          index = event.target.parentNode.lastChild.value;
+        }
+        this.query = this.suggestedAddress[index].display_name;
+        this.lat = this.suggestedAddress[index].lat;
+        this.lng = this.suggestedAddress[index].lon;
+        this.address = this.query;
+        this.suggest = false;
+      },
+      input(event) {
+        this.suggest = true;
+        this.fetchAddress(this.query);
       }
     },
     mounted() {
@@ -223,9 +264,9 @@ export default {
         this.$router.push({ name: 'Home'});
         return;
       }
-      var map = L.map('map').setView([0, 0], 15);
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 15,
+      var map = L.map('map').setView([51.505, -0.09], 13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
     }
@@ -241,14 +282,38 @@ export default {
   font-size: 16px !important;
 }
 
-div.map {
-  margin: 0;
-  border-bottom-right-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
+#map {
+  margin: 0 !important;
 }
 
 input.map {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
+}
+
+.autocomplete-items {
+  position: absolute;
+  z-index: 99;
+  left: 15px;
+  right: 15px;
+  top: 100%;
+  border: 2px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 2px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
 }
 </style>

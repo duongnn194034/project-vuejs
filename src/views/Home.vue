@@ -23,7 +23,7 @@
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
             <input type="text" id="q" name="q" class="q search form-control" placeholder="Enter town or postcode" required="" v-model="query" autocomplete="off">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
-              <div v-for="(address, index) in this.suggestedAddress" :key="index" @click="select">
+              <div v-for="(address, index) in this.suggestedAddress" :key="index">
                 <router-link class="text-decoration-none text-dark" :to="{ name: 'ListMotors', query: { query: this.query, lat: address.lat, lon: address.lon }}">
                   <strong>{{ address.display_name }}</strong>
                 </router-link>
