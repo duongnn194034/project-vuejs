@@ -75,16 +75,16 @@
               <h5 class="pb-3 mt-4">Restrictions</h5>
               <div class="row">
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Age: {{ motor.feature.minAge }}</span>
+                  <span>Minimum Age: {{ motor.minAge }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Driving Years: {{ motor.feature.minDriving }}</span>
+                  <span>Minimum Driving Years: {{ motor.minDriving }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Minimum Duration: {{ motor.feature.minDur }}</span>
+                  <span>Minimum Duration: {{ motor.minDur }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Maximum Duration: {{ motor.feature.maxDur }}</span>
+                  <span>Maximum Duration: {{ motor.maxDur }}</span>
                 </div>
               </div>
             </section>
@@ -172,7 +172,7 @@ export default {
           if (this.motor.feature.others) {
             this.features = this.features.concat(this.motor.feature.others);
           }
-          var map = L.map('map').setView([this.motor.location.y, this.motor.location.x], 15);
+          var map = L.map('map').setView([this.motor.location.y, this.motor.location.x], 12);
           L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
               maxZoom: 20,
               attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -181,7 +181,7 @@ export default {
               color: 'red',
               fillColor: '#f03',
               fillOpacity: 0.5,
-              radius: this.motor.radius ? this.motor.radius : 1000
+              radius: this.motor.radius ? this.motor.radius * 1000 : 1000
           }).addTo(map);
         })
         .catch((err) => console.log(err));

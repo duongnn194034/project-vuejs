@@ -58,7 +58,7 @@
           <div class="form-group col-12">
             <label>Address</label>
             <div id="map"></div>
-            <input class="form-control map" type="text" placeholder="Search your address here." v-model="query" @input="input">
+            <input class="form-control map" type="text" placeholder="Search your address here or double click on map." v-model="query" @input="input">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
                 <strong>{{ ad.display_name }}</strong>
@@ -74,67 +74,81 @@
             <label>Note</label>
             <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control"></textarea>
           </div>
-          <div class="row">
-            <label class="col-12">Feature</label>
-            <div class="form-group col-md-6">
-              <label for="minAge">Minimum Age</label>
-              <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge">
-            </div>
-            <div class="form-group col-md-6">
-              <label>Minimum Driving</label>
-              <input type="number" class="form-control" v-model="minDriving" required>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Minimum Duration</label>
+          <div class="form-group col-md-6">
+            <label for="minAge">Minimum Age</label>
+            <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Minimum Driving</label>
+            <input type="number" class="form-control" v-model="minDriving" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Minimum Duration</label>
+            <div class="input-group">
               <input type="number" class="form-control" v-model="minDur" required>
-            </div>
-            <div class="form-group col-md-6">
-              <label>Maximum Duration</label>
-              <input type="number" class="form-control" v-model="maxDur" required>
-            </div>
-            <div class="form-group col-12">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
-                <label class="form-check-label" for="damageInsurance">
-                  Damage Insurance included.
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI">
-                <label class="form-check-label" for="stolenInsurance">
-                  Stolen Insurance included.
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC">
-                <label class="form-check-label" for="orderCanceling">
-                  Order can be cancel at least 2 days before.
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC">
-                <label class="form-check-label" for="fuelCost">
-                  Fuel cost included.
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ">
-                <label class="form-check-label" for="adjust">
-                  Tax, other charge included.
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="others" v-model="oCheck">
-                <label class="form-check-label" for="others">
-                  Others.
-                </label>
-                <input class="form-control" type="text" placeholder="List other features, seperated by commas." 
-                  :disabled="!oCheck"
-                  v-model="others"
-                >
-              </div>
+              <select class="form-control" v-model="minDurUnit">
+                <option value="hour" selected>hour(s)</option>
+                <option value="day">day(s)</option>
+                <option value="week">week(s)</option>
+                <option value="month">month(s)</option>
+              </select>
             </div>
           </div>
+          <div class="form-group col-md-6">
+            <label>Maximum Duration</label>
+            <div class="input-group">
+              <input type="number" class="form-control" v-model="maxDur" required>
+              <select class="form-control" v-model="maxDurUnit">
+                <option value="hour" selected>hour(s)</option>
+                <option value="day">day(s)</option>
+                <option value="week">week(s)</option>
+                <option value="month">month(s)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label>Feature</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
+              <label class="form-check-label" for="damageInsurance">
+                Damage Insurance included.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI">
+              <label class="form-check-label" for="stolenInsurance">
+                Stolen Insurance included.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC">
+              <label class="form-check-label" for="orderCanceling">
+                Order can be cancel at least 2 days before.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC">
+              <label class="form-check-label" for="fuelCost">
+                Fuel cost included.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ">
+              <label class="form-check-label" for="adjust">
+                Tax, other charge included.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="others" v-model="oCheck">
+              <label class="form-check-label" for="others">
+                Others.
+              </label>
+              <input class="form-control" type="text" placeholder="List other features, seperated by commas." 
+                :disabled="!oCheck"
+                v-model="others"
+              >
+              </div>
+            </div>
           <button type="button" class="btn btn-primary" @click="submit">Confirm</button>
         </form>
       </div>
@@ -151,6 +165,7 @@ export default {
         vehicle: "",
         index: 1,
         URLs: [],
+        images: [],
         type: null,
         production: null,
         model: null,
@@ -169,8 +184,10 @@ export default {
         others: null,
         minAge: 0,
         minDriving: 0,
-        minDur: null,
-        maxDur: null,
+        minDur: 0,
+        maxDur: 0,
+        minDurUnit: 'hour',
+        maxDurUnit: 'hour',
         address: null,
         lng: 0,
         lat: 0,
@@ -178,6 +195,7 @@ export default {
         suggest: false,
         query: "",
         suggestedAddress: [],
+        map: null,
       } 
     },
     props: ["baseURL"],
@@ -187,9 +205,10 @@ export default {
       addImage(url) {
         this.index = this.index + 1;
         this.URLs.push(url);
+        this.images.push(url.slice(`${this.baseURL}fileUpload/files/`.length));
       },
       async submit() {
-        await axios.post(`${this.baseURL}offer`,
+        await axios.post(`${this.baseURL}motor/add`,
         {
           production: this.production,
           model: this.model,
@@ -205,16 +224,17 @@ export default {
           radius: this.radius,
           lng: this.lng,
           lat: this.lat,
+          minAge: this.minAge,
+          minDriving: this.minDriving,
+          minDur: this.calDuration(this.minDur, this.minDurUnit),
+          maxDur: this.calDuration(this.maxDur, this.maxDurUnit),
           feature: {
             damageInsurance: this.dI,
             stolenInsurance: this.sI,
             adjust: this.aJ,
             orderCanceling: this.oC,
             fuelCost: this.fC,
-            minAge: this.minAge,
-            minDriving: this.minDriving,
-            minDur: this.minDur,
-            maxDur: this.maxDur
+            others: this.others?.split(',')
           }
         },
         {
@@ -240,6 +260,19 @@ export default {
           })
           .catch((err) => console.log(err));
       },
+      calDuration(value, unit) {
+        switch (unit) {
+          case 'hour':
+            return value * 3600 * 1000;
+          case 'day':
+            return value * 24 * 3600 * 1000;
+          case 'week':
+            return value * 7 * 24 * 3600 * 1000;
+          case 'month':
+            return value * 30 * 24 * 3600 * 1000;
+        }
+
+      },
       select(event) {
         let index = 0;
         if (event.target.lastChild.value != undefined) {
@@ -252,11 +285,40 @@ export default {
         this.lat = this.suggestedAddress[index].lat;
         this.lng = this.suggestedAddress[index].lon;
         this.address = this.query;
+        this.map.setView([this.lat, this.lng], 13);
         this.suggest = false;
       },
       input(event) {
         this.suggest = true;
         this.fetchAddress(this.query);
+      },
+      async mapDblClick(event) {
+        const popup = L.popup();
+        popup
+          .setLatLng(event.latlng)
+          .setContent("Your address is here.")
+          .openOn(this.map);
+        this.lat = event.latlng.lat;
+        this.lng = event.latlng.lng;
+        await axios
+          .get(`https://nominatim.openstreetmap.org/reverse?lat=${this.lat}&lon=${this.lng}&format=jsonv2`)
+          .then(res => {
+            if (res.data.address.city_district) {
+              this.address = res.data.address.city_district;
+            } else if (res.data.address.city) {
+              this.address = res.data.address.city;
+            } else if (res.data.address.country) {
+              this.address = res.data.address.country;
+            } else {
+              this.address = res.data.name;
+            }
+            this.query = this.address; 
+          })
+          .catch(err => console.log(err));
+        this.map.setView([this.lat, this.lng], 13);
+      },
+      adConfirm(event) {
+        console.log(event);
       }
     },
     mounted() {
@@ -264,22 +326,19 @@ export default {
         this.$router.push({ name: 'Home'});
         return;
       }
-      var map = L.map('map').setView([51.505, -0.09], 13);
+      this.map = L.map('map').setView([51.505, -0.09], 13);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(map);
+      }).addTo(this.map);
+      this.map.on('dblclick', this.mapDblClick);
     }
 }
 </script>
 <style scoped>
-.form-group > label, label.col-12 {
+.form-group > label {
   font-size: 18px;
   font-weight: 300;
-}
-
-.col-md-6 > label {
-  font-size: 16px !important;
 }
 
 #map {
@@ -289,6 +348,10 @@ export default {
 input.map {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
+}
+
+.input-group {
+  margin: 0;
 }
 
 .autocomplete-items {

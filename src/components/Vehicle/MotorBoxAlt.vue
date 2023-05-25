@@ -41,7 +41,7 @@
           <button 
             v-for="key in this.features" 
             :key="key" 
-            type="button" class="btn btn-secondary ml-2" 
+            type="button" class="btn btn-secondary ml-2 mb-2" 
             data-bs-toggle="tooltip" data-bs-placement="right" :title="this.toolTip[key]"
           >
             {{ key }}
@@ -122,6 +122,7 @@ export default {
 .card-img-top {
   object-fit: cover;
   overflow: hidden;
+  aspect-ratio: 1 / 1;
 }
 
 a {
