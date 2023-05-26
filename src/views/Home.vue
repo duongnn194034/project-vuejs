@@ -1,5 +1,6 @@
 <template>
-  <div id="home">
+  <div class="loader" v-if="loading"></div>
+  <div id="home" v-else @click="close">
     <!-- Page Wrapper -->
     <div id="background-div" class="page-holder bg-cover">
 
@@ -21,17 +22,17 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-xs-12 no-padding input-group">
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
-            <input type="text" id="q" name="q" class="q search form-control" placeholder="Enter town or postcode" required="" v-model="query" autocomplete="off">
+            <input type="text" class="search form-control" placeholder="Enter town or postcode" v-model="query" autocomplete="off" @submit="submit">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(address, index) in this.suggestedAddress" :key="index">
-                <router-link class="text-decoration-none text-dark" :to="{ name: 'ListMotors', query: { query: this.query, lat: address.lat, lon: address.lon }}">
+                <router-link class="text-decoration-none text-dark" :to="{ name: 'ListMotors', query: { query: address.display_name, lat: address.lat, lon: address.lon }}">
                   <strong>{{ address.display_name }}</strong>
                 </router-link>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
-            <button type="submit" class="btn btn-purple btn-full-width border-radius-5">Find motors</button>
+            <button type="submit" class="btn btn-purple btn-full-width border-radius-5" @click="submit">Find motors</button>
           </div>
         </div>
       </div>
@@ -89,6 +90,7 @@
         query: '',
         suggest: false,
         suggestedAddress: [],
+        loading: false,
       }
     },
     methods: {
@@ -120,11 +122,25 @@
         await axios
           .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
           .then((res) => {
-            this.suggestedAddress = res.data
+            if (query == this.query) {
+              this.suggestedAddress = res.data;
+            }
           })
           .catch((err) => console.log(err));
       },
-      submit(event) {
+      async submit() {
+        this.loading = true;
+        await axios
+          .get(`https://nominatim.openstreetmap.org/search?q=${this.query}&format=json&limit=1`)
+          .then((res) => {
+            this.$router.push({ name: 'ListMotors', query: { query: this.query, lat: res.data[0].lat, lon: res.data[0].lon }})
+          })
+          .catch((err) => console.log(err));
+      },
+      close(event) {
+        if (event.target.tagName != 'router-link' && event.target.id != 'autocomplete-list') {
+          this.suggest = false;
+        }
       } 
     },
     watch: {
@@ -234,5 +250,22 @@
     /*when navigating through the items using the arrow keys:*/
     background-color: DodgerBlue !important;
     color: #ffffff;
+  }
+
+  .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  margin-left: calc(50% - 60px);
+  margin-top: calc(30vh - 60px);
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>

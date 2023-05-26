@@ -100,7 +100,7 @@ export default {
       if (url == null || url == undefined) {
         return '';
       } else {
-        return url;
+        return url[0];
       }
     }
   },
@@ -122,7 +122,7 @@ export default {
 .card-img-top {
   object-fit: cover;
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 2;
 }
 
 a {

@@ -85,25 +85,27 @@
           <div class="form-group col-md-6">
             <label>Minimum Duration</label>
             <div class="input-group">
-              <input type="number" class="form-control" v-model="minDur" required>
-              <select class="form-control" v-model="minDurUnit">
-                <option value="hour" selected>hour(s)</option>
-                <option value="day">day(s)</option>
-                <option value="week">week(s)</option>
-                <option value="month">month(s)</option>
-              </select>
+              <input type="number" class="form-control" id="minDay" v-model="minDurDay" required>
+              <div class="input-group-append">
+                <label class="input-group-text" for="minDay">Day(s)</label>
+              </div>
+              <input type="number" class="form-control" id="minHour" v-model="minDurHour" required>
+              <div class="input-group-append">
+                <label class="input-group-text" for="minHour">Hour(s)</label>
+              </div>
             </div>
           </div>
           <div class="form-group col-md-6">
             <label>Maximum Duration</label>
             <div class="input-group">
-              <input type="number" class="form-control" v-model="maxDur" required>
-              <select class="form-control" v-model="maxDurUnit">
-                <option value="hour" selected>hour(s)</option>
-                <option value="day">day(s)</option>
-                <option value="week">week(s)</option>
-                <option value="month">month(s)</option>
-              </select>
+              <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required>
+              <div class="input-group-append">
+                <label class="input-group-text" for="maxDay">Day(s)</label>
+              </div>
+              <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required>
+              <div class="input-group-append">
+                <label class="input-group-text" for="maxHour">Hour(s)</label>
+              </div>
             </div>
           </div>
           <div class="form-group col-12">
@@ -184,10 +186,10 @@ export default {
         others: null,
         minAge: 0,
         minDriving: 0,
-        minDur: 0,
-        maxDur: 0,
-        minDurUnit: 'hour',
-        maxDurUnit: 'hour',
+        minDurHour: 0,
+        maxDurHour: 0,
+        minDurDay: 0,
+        maxDurDay: 0,
         address: null,
         lng: 0,
         lat: 0,
@@ -226,8 +228,8 @@ export default {
           lat: this.lat,
           minAge: this.minAge,
           minDriving: this.minDriving,
-          minDur: this.calDuration(this.minDur, this.minDurUnit),
-          maxDur: this.calDuration(this.maxDur, this.maxDurUnit),
+          minDur: this.calDuration(this.minDurDay, this.minDurHour),
+          maxDur: this.calDuration(this.maxDurDay, this.maxDurHour),
           feature: {
             damageInsurance: this.dI,
             stolenInsurance: this.sI,
@@ -244,7 +246,7 @@ export default {
         })
         .then(res => {
           swal({
-            text: res.data.message,
+            text: "Your motor has been ready for rent.",
             icon: "success",
             closeOnClickOutside: true
           });
@@ -256,22 +258,14 @@ export default {
         await axios
           .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=3`)
           .then((res) => {
-            this.suggestedAddress = res.data
+            if (query == this.query) {
+              this.suggestedAddress = res.data;
+            }
           })
           .catch((err) => console.log(err));
       },
-      calDuration(value, unit) {
-        switch (unit) {
-          case 'hour':
-            return value * 3600 * 1000;
-          case 'day':
-            return value * 24 * 3600 * 1000;
-          case 'week':
-            return value * 7 * 24 * 3600 * 1000;
-          case 'month':
-            return value * 30 * 24 * 3600 * 1000;
-        }
-
+      calDuration(day, hour) {
+        return (day * 24 + hour) * 3600 * 1000;
       },
       select(event) {
         let index = 0;
@@ -285,7 +279,12 @@ export default {
         this.lat = this.suggestedAddress[index].lat;
         this.lng = this.suggestedAddress[index].lon;
         this.address = this.query;
-        this.map.setView([this.lat, this.lng], 13);
+        this.map.flyTo([this.lat, this.lng], 13);
+        const popup = L.popup();
+        popup
+          .setLatLng([this.lat, this.lng])
+          .setContent("Your address is here.")
+          .openOn(this.map);
         this.suggest = false;
       },
       input(event) {
@@ -315,10 +314,17 @@ export default {
             this.query = this.address; 
           })
           .catch(err => console.log(err));
-        this.map.setView([this.lat, this.lng], 13);
+        this.map.flyTo([this.lat, this.lng], 13);
       },
-      adConfirm(event) {
-        console.log(event);
+      animationStab() {
+        L.Popup.prototype._animateZoom = function (e) {
+          if (!this._map) {
+            return
+          }
+          var pos = this._map._latLngToNewLayerPoint(this._latlng, e.zoom, e.center),
+            anchor = this._getAnchor()
+          L.DomUtil.setPosition(this._container, pos.add(anchor))
+        }
       }
     },
     mounted() {
@@ -332,6 +338,7 @@ export default {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(this.map);
       this.map.on('dblclick', this.mapDblClick);
+      this.animationStab();
     }
 }
 </script>

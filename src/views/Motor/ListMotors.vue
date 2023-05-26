@@ -1,15 +1,36 @@
 <template>
   <div class="loader" v-if="loading"></div>
   <div class="container-fluid body" v-else>
-    <div class="row">
-      <div class="col-xs-12 col-md-5 no-padding pt-4">
-        <div>
-          <input placeholder="Town, City or Postcode" class="form-control pac-target-input" autocomplete="off" :value="this.query">
-        </div>
+    <div class="row mt-4">
+      <div class="col-xs-12 col-md-5 no-padding">
+        <input class="form-control location-input" type="text" placeholder="Town, city or Postcode" v-model="query">
       </div>
-      <div class="col-sm-12 col-md-7 dates no-padding bg-white d-flex pt-4">
-        <div class="dateBox dtBox row1">
-          <label> Pick up date </label>
+      <div class="col-sm-12 col-md-7 no-padding">
+        <div class="input-group m-0">
+          <DatePicker v-model="pickUp">
+            <template #default="{ togglePopover }">
+              <input
+                class="form-control datetime-input-1"
+                type="text"
+                placeholder="Pick-up time"
+                :value="pickUp?.toLocaleDateString()"
+                readonly
+                @click="togglePopover"
+              >
+            </template>
+          </DatePicker>
+          <DatePicker v-model="dropOff">
+            <template #default="{ togglePopover }">
+              <input
+                class="form-control datetime-input-2"
+                type="text"
+                placeholder="Drop-off time"
+                :value="dropOff?.toLocaleDateString()"
+                readonly
+                @click="togglePopover"
+              >
+            </template>
+          </DatePicker>
         </div>
       </div>
     </div>
@@ -30,18 +51,25 @@
 <script>
 import axios from 'axios';
 import MotorBoxAlt from '../../components/Vehicle/MotorBoxAlt.vue';
+import { DatePicker } from 'v-calendar';
+import 'v-calendar/style.css';
 export default {
   name: 'ListMotors',
-  components: { MotorBoxAlt },
+  components: { MotorBoxAlt, DatePicker },
   data() {
     return {
       len : 0,
       motors : null,
       loading: true,
       query: null,
+      pickUp: null,
+      dropOff: null,
     }
   },
   props : [ "baseURL" ],
+  methods: {
+
+  },
   computed: {
     title() {
       return "Kết quả tìm kiếm cho: " + this.query;
@@ -106,5 +134,28 @@ label {
 .no-padding {
   padding-left: 0;
   padding-right: 0;
+}
+
+.form-control {
+  height: 43px !important;
+  font-size: 18px;
+}
+
+.form-control[readonly] {
+  background-color: #fff;
+}
+
+.location-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.datetime-input-1 {
+  border-radius: 0;
+}
+
+.datetime-input-2 {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 </style>

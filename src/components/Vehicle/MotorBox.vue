@@ -72,7 +72,7 @@ export default {
       if (this.motor.imageUrl == null || this.motor.imageUrl == undefined) {
         return '';
       } else {
-        return this.motor.imageUrl;
+        return this.motor.imageUrl[0];
       }
     }
   },
