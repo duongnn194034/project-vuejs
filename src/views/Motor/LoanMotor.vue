@@ -329,7 +329,7 @@ export default {
     },
     mounted() {
       if (localStorage.getItem("token") == null) {
-        this.$router.push({ name: 'Home'});
+        this.$router.push({ name: 'Signin'});
         return;
       }
       this.map = L.map('map').setView([51.505, -0.09], 13);

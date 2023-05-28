@@ -25,7 +25,7 @@
               >Home</router-link>         
         </li>
         <li class="nav-item">
-          <router-link class="nav-link text-light" :to="{}"
+          <router-link class="nav-link text-light" :to="{ name: 'ListMotors' }"
               >Hire a vehicle</router-link>         
         </li>
         <li class="nav-item">

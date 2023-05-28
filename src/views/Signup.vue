@@ -108,7 +108,7 @@ export default {
       password: "",
       passwordConfirm: "",
       checkLength: false,
-      checkChar: false,
+      checkNum: false,
     };
   },
   watch: {

@@ -77,14 +77,18 @@ export default {
   },
   async mounted() {
     let q = this.$route.query;
-    this.query = q.query;
-    await axios.get(`${this.baseURL}motor/loc?lat=${q.lat}&lng=${q.lon}`)
+    this.query = q.query ? q.query : "";
+    if (q.lat && q.lon) {
+      await axios.get(`${this.baseURL}motor/loc?lat=${q.lat}&lng=${q.lon}`)
       .then((res) => {
         this.motors = res.data.content;
         this.len = this.motors ? this.motors.length : 0;
         this.loading = false;
       })
       .catch((error) => console.log(error));
+    } else {
+      this.loading = false;
+    }
   },
 }
 </script>
