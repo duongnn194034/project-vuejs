@@ -129,6 +129,7 @@
           .catch((err) => console.log(err));
       },
       async submit() {
+        if (!this.query) return;
         this.loading = true;
         await axios
           .get(`https://nominatim.openstreetmap.org/search?q=${this.query}&format=json&limit=1`)
