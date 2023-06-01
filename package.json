@@ -6,6 +6,11 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "dependencies": {
     "@popperjs/core": "^2.11.7",
     "axios": "^0.21.4",
@@ -22,7 +27,7 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-router": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.2.45",
     "core-js": "^3.27.0",

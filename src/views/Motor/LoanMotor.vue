@@ -287,7 +287,7 @@ export default {
           .openOn(this.map);
         this.suggest = false;
       },
-      input(event) {
+      input() {
         this.suggest = true;
         this.fetchAddress(this.query);
       },

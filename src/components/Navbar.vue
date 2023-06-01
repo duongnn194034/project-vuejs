@@ -32,10 +32,6 @@
           <router-link class="nav-link text-light" :to="{ name: 'LoanMotor' }"
               >Loan vehicles</router-link>         
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link text-light" v-if="token" :to="{ name: 'YourMotors' }"
-              >Your vehicles</router-link>         
-        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
@@ -49,7 +45,7 @@
             aria-expanded="false"
             v-if="token"
           >
-            Account
+            {{ this.user?.fullName }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <router-link
@@ -57,11 +53,11 @@
               v-if="token"
               :to="{ name: 'Profile'}"
             >Profile</router-link>
-            <router-link
-              class="dropdown-item"
-              v-if="token"
-              :to="{ name: 'ChangePassword'}"
-            >Change Password</router-link>
+            <router-link 
+              class="dropdown-item" 
+              v-if="token" 
+              :to="{ name: 'YourMotors' }"
+            >My vehicles</router-link>         
             <a class="dropdown-item" v-if="token" href="#" @click="signout"
               >Sign Out</a
             >
@@ -89,7 +85,7 @@
 <script>
 export default {
   name: "Navbar",
-  // props: [],
+  props: ["user"],
   data() {
     return {
       token: null,

@@ -11,6 +11,15 @@
 export default {
   name : 'ImageBox',
   props : ["image"],
+  computed: {
+    url() {
+      if (this.image.url) {
+        return this.image.url;
+      } else {
+        return require("../../assets/defaultAvatar.jpg");
+      }
+    }
+  },
   methods : {
     copyToClipboard(){
       const image = this.$refs.rimage;

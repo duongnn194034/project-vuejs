@@ -1,12 +1,14 @@
 <template>
   <Navbar
     v-if="!['Signup', 'Signin'].includes($route.name)"
+    :user="user"
   />
   <div style="min-height: 60vh">
     <router-view
       v-if="motors"
       :baseURL="baseURL"
       :motors="motors"
+      :user="user"
       @fetchData="fetchData"
     >
     </router-view>
@@ -34,7 +36,7 @@ export default {
     async fetchData() {
       // fetch motors
       await axios
-        .get(this.baseURL + 'motor')
+        .get(this.baseURL + 'motor?limit=9')
         .then((res) => this.motors = res.data)
         .catch((err) => console.log(err));
 

@@ -3,7 +3,13 @@
   <div class="container-fluid body" v-else>
     <div class="row mt-4">
       <div class="col-xs-12 col-md-5 no-padding">
-        <input class="form-control location-input" type="text" placeholder="Town, city or Postcode" v-model="query">
+        <input class="form-control location-input" type="text" placeholder="Town, city or Postcode" v-model="query" @input="input">
+        <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
+          <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
+            <strong>{{ ad.display_name }}</strong>
+            <input type="hidden" :value="index">
+          </div>
+        </div>
       </div>
       <div class="col-sm-12 col-md-6 no-padding">
         <div class="input-group m-0">
@@ -20,8 +26,8 @@
             </template>
           </DatePicker>
           <select class="form-control col-md-2" v-model="puTime">
-            <option value="" selected>--Time--</option>
-            <option v-for="value in timestamp" :value="value">{{ value }}</option>
+            <option value="-1" selected>--Time--</option>
+            <option v-for="(value, index) in timestamp" :value="index">{{ value }}</option>
           </select>
           <DatePicker v-model="dropOff">
             <template #default="{ togglePopover }">
@@ -36,13 +42,13 @@
             </template>
           </DatePicker>
           <select class="form-control col-md-2" v-model="doTime">
-            <option value="" selected>--Time--</option>
-            <option v-for="value in timestamp" :value="value">{{ value }}</option>
+            <option value="-1" selected>--Time--</option>
+            <option v-for="(value, index) in timestamp" :value="index">{{ value }}</option>
           </select>
         </div>
       </div>
       <div class="col-md-1">
-          <button type="submit" class="btn btn-purple">GO</button>
+          <button type="submit" class="btn btn-purple" @click="click">GO</button>
       </div>
     </div>
     <div class="row">
@@ -64,44 +70,107 @@ import axios from 'axios';
 import MotorBoxAlt from '../../components/Vehicle/MotorBoxAlt.vue';
 import { DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
+import swal from 'sweetalert';
 export default {
   name: 'ListMotors',
   components: { MotorBoxAlt, DatePicker },
   data() {
     return {
       len : 0,
+      title: "Result for: ",
       motors : null,
       loading: true,
       query: null,
+      lat: null,
+      lng: null,
       pickUp: null,
       dropOff: null,
-      puTime: '',
-      doTime: '',
+      puTime: -1,
+      doTime: -1,
       timestamp: ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
-    '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00',
-    '21:30', '22:00', '22:30', '23:00'],
+    '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', 
+    '21:00', '21:30', '22:00', '22:30', '23:00'],
+      suggestedAddress: [],
     }
   },
   props : [ "baseURL" ],
   methods: {
-
-  },
-  computed: {
-    title() {
-      return "Kết quả tìm kiếm cho: " + this.query;
-    }
-  },
-  async mounted() {
-    let q = this.$route.query;
-    this.query = q.query ? q.query : "";
-    if (q.lat && q.lon) {
-      await axios.get(`${this.baseURL}motor/loc?lat=${q.lat}&lng=${q.lon}`)
+    async fetchMotor(lat, lon, timestamp) {
+      let url = `${this.baseURL}motor/loc?lat=${lat}&lng=${lon}`;
+      if (timestamp?.start) url = url + `&start=${timestamp?.start}`
+      if (timestamp?.end) url = url + `&end=${timestamp?.end}`
+      await axios.get(url)
       .then((res) => {
         this.motors = res.data.content;
         this.len = this.motors ? this.motors.length : 0;
+        this.title = "Result for: " + this.query;
         this.loading = false;
       })
       .catch((error) => console.log(error));
+    },
+    async click() {
+      this.loading = true;
+      if (this.query && (!this.lat || !this.lng)) {
+        await axios
+        .get(`https://nominatim.openstreetmap.org/search?q=${this.query}&format=json&limit=1`)
+        .then((res) => {
+          this.lat = res.data[0].lat;
+          this.lng = res.data[0].lon;
+        })
+        .catch((err) => console.log(err));
+      }
+      let ts = {};
+      if (this.pickUp && this.puTime < 0 || !this.pickUp && this.puTime >= 0
+        || this.dropOff && this.doTime < 0 || !this.dropOff && this.doTime >=0) {
+          swal({
+            text: "Select both date and time",
+            icon: "warning",
+            closeOnClickOutside: true
+          });
+          this.loading = false;
+          return;
+      }
+      if (this.pickUp) {
+        ts.start = this.pickUp.getTime() + 6 * 3600 * 1000 + this.puTime * 30 * 60 * 1000;
+      }
+      if (this.dropOff) {
+        ts.end = this.dropOff.getTime() + 6 * 3600 * 1000 + this.doTime * 30 * 60 * 1000;
+      }
+      this.fetchMotor(this.lat, this.lng, ts);
+    },
+    async fetchAddress(query) {
+      await axios
+        .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
+        .then((res) => {
+          if (query == this.query) {
+            this.suggestedAddress = res.data;
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+    input() {
+      this.suggest = true;
+      this.fetchAddress(this.query);
+    },
+    select(event) {
+        let index = 0;
+        if (event.target.lastChild.value != undefined) {
+          index = event.target.lastChild.value;
+
+        } else {
+          index = event.target.parentNode.lastChild.value;
+        }
+        this.query = this.suggestedAddress[index].display_name;
+        this.lat = this.suggestedAddress[index].lat;
+        this.lng = this.suggestedAddress[index].lon;
+        this.suggest = false;
+      },
+  },
+  mounted() {
+    let q = this.$route.query;
+    this.query = q.query ? q.query : "";
+    if (q.lat && q.lon) {
+      this.fetchMotor(q.lat, q.lon);
     } else {
       this.loading = false;
     }
@@ -177,5 +246,31 @@ label {
 .datetime-input-2 {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.autocomplete-items {
+  position: absolute;
+  z-index: 99;
+  left: 15px;
+  right: 15px;
+  top: 100%;
+  border: 2px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 2px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
 }
 </style>
