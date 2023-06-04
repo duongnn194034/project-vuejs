@@ -12,13 +12,15 @@
     </div>
   </div>
   <div v-else>
-    <ImageBox :image="image" />
+    <ImageCircle v-if="rounded" :image="image" />
+    <ImageBox v-else :image="image" />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import ImageBox from './ImageBox.vue';
+import ImageCircle from './ImageCircle.vue';
 export default {
     data(){
         return {
@@ -26,8 +28,8 @@ export default {
             image: null,
         }
     },
-    components: { ImageBox },
-    props : ["baseURL"],
+    components: { ImageBox, ImageCircle },
+    props : ["baseURL", "rounded"],
     methods : {
         onFileSelected(event){
             //this will always update the selected file whenever user changes files

@@ -1,9 +1,6 @@
 <template>
   <div class="image-box">
     <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">
-    <div class="middle">
-      <button class="btn btn-info" @click="copyToClipboard">Copy URL</button>
-    </div>
   </div>
 </template>
 
@@ -11,28 +8,15 @@
 export default {
   name : 'ImageBox',
   props : ["image"],
-  methods : {
-    copyToClipboard(){
-      const image = this.$refs.rimage;
-      
-      // new element needs to be created before coping to clipboard
-      const el = document.createElement('textarea');
-      el.value = image.src;
-      el.setAttribute('readonly', '');
-      el.style.position = 'absolute';
-      el.style.left = '-9999px';
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-
-      swal({
-        text: "Image Address copied to Clipboard!",
-        icon: "success",
-        closeOnClickOutside: false,
-      });
+  computed: {
+    url() {
+      if (this.image.url) {
+        return this.image.url;
+      } else {
+        return "../../assets/defaultAvatar.jpg";
+      }
     }
-  }
+  },
 }
 </script>
 
@@ -42,6 +26,7 @@ export default {
   width:300px;
   height:300px;
   margin:20px;
+  border-radius: 150px;
 }
 
 .image-box img{
@@ -50,7 +35,7 @@ export default {
   height: 100%;
   transition: .5s ease;
   backface-visibility: hidden;
-  border-radius: 150px;
+  border-radius: 5px;
   padding : 5px;
   border : .5px solid rgb(216, 216, 216);
 }

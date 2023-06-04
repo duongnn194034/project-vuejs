@@ -30,8 +30,8 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <ImageBox v-if="!editMode" :image="image" class="round"/>
-                <AddImage v-else class="round"/>
+                <ImageCircle v-if="!editMode" :image="image" class="round"/>
+                <AddImage v-else :baseURL="baseURL" @addImage="(url) => this.imageUrl = url" class="round" rounded="true"/>
             </div>
             <div class="col-md-8 px-5 px-md-0">
                 <form>
@@ -62,7 +62,7 @@
     </div>
 </template>
 <script>
-import ImageBox from '../../components/Image/ImageBox.vue'
+import ImageCircle from '../../components/Image/ImageCircle.vue';
 import AddImage from '../../components/Image/AddImage.vue'
 export default {
     data() {
@@ -81,7 +81,8 @@ export default {
         }
     },
     props: ["baseURL", "user", "motors"],
-    components: { ImageBox, AddImage },
+    emits: ["fetchData"],
+    components: { ImageCircle, AddImage },
     methods: {
         saveChanged() {
             swal({
@@ -102,7 +103,7 @@ export default {
                         phoneNumber: this.phoneNumber,
                         email: this.email,
                         role: this.role,
-                        avatarUrl: this.image.url
+                        avatarUrl: this.imageUrl
                     }, {
                         headers: {
                             token: this.token
@@ -135,6 +136,8 @@ export default {
               this.email = response.data.email
               this.role = response.data.role
               this.image.url = response.data.avatarUrl;
+              this.imageUrl = this.image.url;
+              console.log(response.data);
             }
           },
           (error) => {
