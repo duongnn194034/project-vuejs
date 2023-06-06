@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 
 import Profile from '../views/Admin/Profile.vue'
 import ChangePassword from '../views/Admin/ChangePassword.vue'
+import License from '../views/Admin/License.vue'
 
 import PageNotFound from '../views/PageNotFound.vue'
 
@@ -56,6 +57,11 @@ const routes = [
     path: '/admin/password',
     name: 'ChangePassword',
     component: ChangePassword
+  },
+  {
+    path: '/admin/license',
+    name: 'IdLicense',
+    component: License
   },
   //Page Not found
   {

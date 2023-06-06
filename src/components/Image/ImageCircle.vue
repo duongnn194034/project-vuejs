@@ -1,6 +1,6 @@
 <template>
   <div class="image-box">
-    <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">
+    <img :src="url" :alt="image.name" class="img-fluid my-image" ref="rimage">
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
       if (this.image.url) {
         return this.image.url;
       } else {
-        return "../../assets/defaultAvatar.jpg";
+        return "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg";
       }
     }
   },

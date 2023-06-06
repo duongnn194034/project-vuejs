@@ -98,7 +98,7 @@ export default {
       this.token = null;
       this.$router.push({ name: "Home" });
       swal({
-        text: "Bạn đã đăng xuất",
+        text: "You has signed out.",
         icon: "success",
         closeOnClickOutside: false,
       });
