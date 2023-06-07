@@ -94,11 +94,17 @@ export default {
                     })
                     .then(() => {
                         swal({
-                            text: "Thông tin người dùng đã được cập nhật",
+                            text: "User profile has been updated.",
                             icon: "success",
                         })
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        console.log(err);
+                        swal({
+                            text: err,
+                            icon: "error",
+                        })
+                    })
                 }
             });
             this.editMode = false;
@@ -106,26 +112,14 @@ export default {
     },
     mounted() {
         this.token = localStorage.getItem('token')
-        if (this.token) {
-        axios.get(`${this.baseURL}user/get`, {
-            headers: {
-                token: this.token
-            }
-        }).then(
-          (response) => {
-            if (response.status == 200) {
-              this.fullname = response.data.fullName
-              this.phoneNumber = response.data.phoneNumber
-              this.email = response.data.email
-              this.role = response.data.role
-              this.image.url = response.data.avatarUrl;
-            }
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
+        if (this.token) {       
+              this.fullname = this.user.fullName
+              this.phoneNumber = this.user.phoneNumber
+              this.email = this.user.email
+              this.role = this.user.role
+              this.image.url = this.user.avatarUrl;
+              this.biography = this.user.biography;
+        }
     }
 }
 </script>

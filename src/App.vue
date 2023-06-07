@@ -5,7 +5,7 @@
   />
   <div style="min-height: 60vh">
     <router-view
-      v-if="motors"
+      v-if="motors && user"
       :baseURL="baseURL"
       :motors="motors"
       :user="user"
