@@ -4,7 +4,7 @@
     <div class="row mt-4">
       <div class="col-xs-12 col-md-5 no-padding">
         <input class="form-control location-input" type="text" placeholder="Town, city or Postcode" v-model="query" @input="input">
-        <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
+        <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-show="this.suggest">
           <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
             <strong>{{ ad.display_name }}</strong>
             <input type="hidden" :value="index">
@@ -91,6 +91,7 @@ export default {
     '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', 
     '21:00', '21:30', '22:00', '22:30', '23:00'],
       suggestedAddress: [],
+      suggest: false,
     }
   },
   props : [ "baseURL" ],
@@ -108,6 +109,7 @@ export default {
       })
       .catch((error) => console.log(error));
     },
+
     async click() {
       this.loading = true;
       if (this.query && (!this.lat || !this.lng)) {
@@ -138,6 +140,7 @@ export default {
       }
       this.fetchMotor(this.lat, this.lng, ts);
     },
+
     async fetchAddress(query) {
       await axios
         .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`)
@@ -148,10 +151,12 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+
     input() {
       this.suggest = true;
       this.fetchAddress(this.query);
     },
+    
     select(event) {
         let index = 0;
         if (event.target.lastChild.value != undefined) {

@@ -186,6 +186,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+
     async fetchDate() {
       await axios
         .get(`${this.baseURL}offer/${this.id}`)
@@ -206,6 +207,7 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    
     stringfy(string) {
       return string
         .replace(/([A-Z])/g, ' $1')

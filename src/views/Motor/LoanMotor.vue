@@ -209,6 +209,7 @@ export default {
         this.URLs.push(url);
         this.images.push(url.slice(`${this.baseURL}fileUpload/files/`.length));
       },
+      
       async submit() {
         await axios.post(`${this.baseURL}motor/add`,
         {
@@ -254,6 +255,7 @@ export default {
         })
         .catch(err => console.log(err));
       },
+
       async fetchAddress(query) {
         await axios
           .get(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=3`)
@@ -264,9 +266,11 @@ export default {
           })
           .catch((err) => console.log(err));
       },
+
       calDuration(day, hour) {
         return (day * 24 + hour) * 3600 * 1000;
       },
+
       select(event) {
         let index = 0;
         if (event.target.lastChild.value != undefined) {
@@ -287,10 +291,12 @@ export default {
           .openOn(this.map);
         this.suggest = false;
       },
+
       input() {
         this.suggest = true;
         this.fetchAddress(this.query);
       },
+
       async mapDblClick(event) {
         const popup = L.popup();
         popup
@@ -316,6 +322,7 @@ export default {
           .catch(err => console.log(err));
         this.map.flyTo([this.lat, this.lng], 13);
       },
+
       animationStab() {
         L.Popup.prototype._animateZoom = function (e) {
           if (!this._map) {
@@ -327,12 +334,13 @@ export default {
         }
       }
     },
+
     mounted() {
       if (localStorage.getItem("token") == null) {
         this.$router.push({ name: 'Signin'});
         return;
       }
-      this.map = L.map('map').setView([51.505, -0.09], 13);
+      this.map = L.map('map').setView([21.03, 105.85], 13);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'

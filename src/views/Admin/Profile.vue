@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Role</label>
-                        <select class="form-control" v-model="role" :disabled="!editMode">
+                        <select class="form-control" v-model="role" disabled>
                             <option value="USER">USER</option>
                             <option value="ADMIN">ADMIN</option>
                         </select>
@@ -70,22 +70,21 @@ export default {
         saveChanged() {
             swal({
                 icon: "warning",
-                text: "Xác nhận",
+                text: "Confirm",
                 buttons: {
                     confirm: {
                         text: "OK",
                         value: "OK"
                     },
-                cancel: true,
-                closeOnClickOutside: false,
-                }
+                    cancel: true,
+                },
             }).then(value => {
                 if (value == "OK") {
                     axios.patch(`${this.baseURL}user/update`, {
                         fullname: this.fullname,
                         phoneNumber: this.phoneNumber,
                         email: this.email,
-                        role: this.role,
+                        biography: this.biography,
                         avatarUrl: this.image.url
                     }, {
                         headers: {
@@ -105,9 +104,9 @@ export default {
                             icon: "error",
                         })
                     })
+                this.editMode = false;    
                 }
             });
-            this.editMode = false;
         }
     },
     mounted() {

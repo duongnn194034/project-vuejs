@@ -20,7 +20,7 @@
 
       <div class="form-group col-md-6">
         <label>Account number</label>
-        <input type="text" class="form-control" placeholder="Account number" v-model="number">
+        <input type="text" class="form-control" inputmode="numeric" placeholder="Account number" v-model="number">
       </div>
 
       <div class="form-group col-md-6">
@@ -70,7 +70,8 @@ export default {
         swal({
           text: "Bank info has been updated.",
           icon: "success",
-        })
+        });
+        this.$emit("fetchData");
       })
       .catch((err) => {
         console.log(err);

@@ -7,6 +7,8 @@
         <i class="pl-2 py-2"><b>Notes:</b> Your Id Details is not public to others. See our <a>policy</a></i>
       </div>
     </div>
+  </div>
+  <div class="container">
     <div class="row">
       <div v-if="!this.user?.verified" class="col-12 text-center align-items-center h5 mt-3">
         <span>You seem to have not verified yet.</span>
@@ -88,6 +90,10 @@ export default {
 <style scoped>
 dd > img {
   max-width: 60%;
+}
+
+dl > dt {
+  text-align: right;
 }
 
 h4 {

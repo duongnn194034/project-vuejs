@@ -5,6 +5,7 @@ import Profile from '../views/Admin/Profile.vue'
 import ChangePassword from '../views/Admin/ChangePassword.vue'
 import License from '../views/Admin/License.vue'
 import Bank from '../views/Admin/Bank.vue'
+import Address from '../views/Admin/Address.vue'
 
 import PageNotFound from '../views/PageNotFound.vue'
 
@@ -68,6 +69,11 @@ const routes = [
     path: '/admin/bank',
     name: 'Bank',
     component: Bank
+  },
+  {
+    path: '/admin/address',
+    name: 'Address',
+    component: Address
   },
   //Page Not found
   {

@@ -13,7 +13,7 @@
                 <router-link class="nav-link" id="bank" :to="{ name: 'Bank' }">Bank Details</router-link>
               </li>
               <li class="nav-item pb-0">
-                <router-link class="nav-link" id="address" :to="{}">Address</router-link>
+                <router-link class="nav-link" id="address" :to="{ name: 'Address' }">Address</router-link>
               </li>
               <li class="nav-item pb-0">
                 <router-link class="nav-link" id="reviews" :to="{}">My Reviews</router-link>
