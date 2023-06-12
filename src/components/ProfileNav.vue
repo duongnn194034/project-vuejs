@@ -16,7 +16,7 @@
                 <router-link class="nav-link" id="address" :to="{ name: 'Address' }">Address</router-link>
               </li>
               <li class="nav-item pb-0">
-                <router-link class="nav-link" id="reviews" :to="{}">My Reviews</router-link>
+                <router-link class="nav-link" id="password" :to="{ name: 'ChangePassword' }">Change Password</router-link>
               </li>
             </ul>
           </div>

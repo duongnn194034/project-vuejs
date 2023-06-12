@@ -57,7 +57,12 @@
               class="dropdown-item" 
               v-if="token" 
               :to="{ name: 'YourMotors' }"
-            >My vehicles</router-link>         
+            >My vehicles</router-link>
+            <router-link 
+              class="dropdown-item" 
+              v-if="token" 
+              :to="{ name: 'YourMotors' }"
+            >My bookings</router-link>          
             <a class="dropdown-item" v-if="token" href="#" @click="signout"
               >Sign Out</a
             >
@@ -152,6 +157,6 @@ export default {
 }
 
 .dropdown-menu {
-  left: -3.5rem;
+  left: -2.5rem;
 }
 </style>

@@ -140,6 +140,7 @@ export default {
       startTime: null,
       endTime: null,
       disabledDates: null,
+      dates: [],
       motor: { 
         imageUrl: [],
         feature: {
@@ -191,10 +192,9 @@ export default {
       await axios
         .get(`${this.baseURL}offer/${this.id}`)
         .then(res => {
-          let dates = [];
           if (!res.data) return;
           res.data.forEach(element => {
-            dates.push([new Date(element.startTime), new Date(element.endTime)]);
+            this.dates.push([new Date(element.startTime), new Date(element.endTime)]);
           });
           this.attributes.push({
             key: "busy",

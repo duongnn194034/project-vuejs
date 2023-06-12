@@ -1,9 +1,10 @@
 <template>
   <div class="div_class">
-    <h3>Bạn sẽ được chuyển hướng tới trang thanh toán</h3>
+    <h3>You will be redirected to payment page</h3>
 
     <div class="alert alert-primary" role="alert">
-      Sử dụng mã thẻ 4242 4242 4242 4242 và một mã cvv bất kì (3 chữ số)
+      While making payment use card number 4242 4242 4242 4242 and enter random
+      cvv (3 digit)
     </div>
 
     <button
@@ -11,7 +12,7 @@
       id="proceed-to-checkout"
       @click="goToCheckout()"
     >
-      Thanh toán
+      Make payment
     </button>
   </div>
 </template>
