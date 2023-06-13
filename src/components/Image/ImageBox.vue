@@ -50,7 +50,6 @@ export default {
   height: 100%;
   transition: .5s ease;
   backface-visibility: hidden;
-  border-radius: 150px;
   padding : 5px;
   border : .5px solid rgb(216, 216, 216);
 }

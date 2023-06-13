@@ -13,8 +13,8 @@
     <section v-show="vehicle == 'Motor'">
       <h3 class="py-3 text-center">Add your motorbike</h3>
       <div class="row py-3">
+        <h6 class="ml-5 col-12">Motor Images</h6>
         <div class="float-left" v-for="i in index">
-          <label class="ml-5">Motor Images</label>
           <AddImage :baseURL="baseURL"  @addImage="addImage" />
         </div>
       </div>

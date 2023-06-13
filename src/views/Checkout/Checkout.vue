@@ -37,8 +37,8 @@ export default {
     */
     configureStripe() {},
 
-    getAllItems() {
-      axios.get(`${this.baseURL}cart/?token=${this.token}`).then(
+    getPayment() {
+      axios.get(`${this.baseURL}offer/?token=${this.token}`).then(
         (response) => {
           if (response.status == 200) {
             let products = response.data;
@@ -82,7 +82,7 @@ export default {
     this.token = localStorage.getItem('token');
     // get all the cart items
     this.stripe = Stripe(this.stripeAPIToken);
-    this.getAllItems();
+    this.getPayment();
   },
 };
 </script>
