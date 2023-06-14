@@ -112,9 +112,10 @@
               <input type="datetime-local" class="form-control" :value="endTime"/>
             </section>
             <section>
-              <div class="d-flex justify-content-around pb-4">
+              <div id="price" class="d-flex justify-content-around pb-4">
                 <span><strong>{{ motor.price }}₫</strong>/hour</span>
                 <span><strong>{{ motor.price * 24 }}₫</strong>/day</span>
+                <Loader/>
               </div>
               <div class="text-center">
                 <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50">Offer</button>
@@ -129,6 +130,7 @@
 
 <script>
 import axios from 'axios';
+import Loader from '../../components/Atomic/Loader.vue';
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 export default {
@@ -158,7 +160,7 @@ export default {
     };
   },
   props: ["baseURL"],
-  components: { Calendar, DatePicker },
+  components: { Calendar, DatePicker, Loader },
   methods: {
     async fetchData() {
       await axios
@@ -212,19 +214,38 @@ export default {
       return string
         .replace(/([A-Z])/g, ' $1')
         .replace(/^./, function(str){ return str.toUpperCase(); })
-    }
+    },
+
+    calcPrice() {
+      const price = document.getElementById("price");
+      while (price.hasChildNodes()) {
+        price.removeChild(list.firstChild);
+      }
+    },
   },
   computed: {
     imageUrls() {
       return this.motor.imageUrl.slice(1);
     }
   },
+  watch: {
+    startTime() {
+      if (endTime) {
+        this.calcPrice();
+      }
+    },
+    endTime() {
+      if (startTime) {
+        this.calcPrice();
+      }
+    }
+  },
   mounted() {
     this.id = this.$route.params.id;
     const today = new Date();
     const yesterday = new Date();
-    this.startTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
-    this.endTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    // this.startTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    // this.endTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
     yesterday.setDate(today.getDate() - 1);
     this.disabledDates = { end: yesterday };
     this.fetchData();

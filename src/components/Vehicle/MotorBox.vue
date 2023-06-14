@@ -14,9 +14,11 @@
       <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
-      <p class="card-text font-italic">
+      <div class="address">
+        <p class="card-text font-italic">
         {{ motor.address ? motor.address : '...' }}
       </p>
+      </div>
       <div class="star-container">
         <div class="stars">
           <img class="star" src="../../assets/star.svg"
@@ -108,6 +110,15 @@ a {
 
 .card-body {
   position: relative;
+}
+
+.address {
+  display: block;/* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  min-height: 2rem;
+  line-height: 1rem;
 }
 
 #edit-product {

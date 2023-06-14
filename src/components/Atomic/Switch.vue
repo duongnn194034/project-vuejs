@@ -14,6 +14,7 @@ export default {
       value: false
     }
   },
+  name: 'Switch',
   props: ["content", "show"],
   emits: ["getVal"],
   watch: {
