@@ -81,10 +81,10 @@
                   <span>Minimum Driving Years: {{ motor.minDriving }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Minimum Duration: {{ motor.minDur }}</span>
+                  <span>Minimum Duration: {{ toDateString(motor.minDur) }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Maximum Duration: {{ motor.maxDur }}</span>
+                  <span>Maximum Duration: {{ toDateString(motor.maxDur) }}</span>
                 </div>
               </div>
             </section>
@@ -107,16 +107,16 @@
           <div class="card-body pt-0">
             <section class="pb-4">
               <h6>Pick-up</h6>
-              <input type="datetime-local" class="form-control" :value="startTime"/>
+              <input type="datetime-local" class="form-control" v-model="startTime" @input="calcPrice"/>
               <h6>Drop-off</h6>
-              <input type="datetime-local" class="form-control" :value="endTime"/>
+              <input type="datetime-local" class="form-control" v-model="endTime" @input="calcPrice"/>
             </section>
             <section>
-              <div id="price" class="d-flex justify-content-around pb-4">
+              <div v-show="view == 'price' " id="price" class="d-flex justify-content-around pb-4">
                 <span><strong>{{ motor.price }}₫</strong>/hour</span>
                 <span><strong>{{ motor.price * 24 }}₫</strong>/day</span>
-                <Loader/>
               </div>
+              <Loader v-show="view == 'loading'"/>
               <div class="text-center">
                 <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50">Offer</button>
               </div>
@@ -156,7 +156,8 @@ export default {
         "Stolen Insurance": "Stolen Insurance included.",
         "Order Canceling": "Order can be canceled at least 2 days before ordered date.",
         "Adjust": "Tax, others fee included.",
-      }
+      },
+      view: "price",
     };
   },
   props: ["baseURL"],
@@ -216,11 +217,31 @@ export default {
         .replace(/^./, function(str){ return str.toUpperCase(); })
     },
 
-    calcPrice() {
-      const price = document.getElementById("price");
-      while (price.hasChildNodes()) {
-        price.removeChild(list.firstChild);
+    toDateString(timestamp) {
+      const day = Math.floor(timestamp / 86400000);
+      const hour = Math.floor((timestamp % 86400000) / 3600000);
+      let res = '';
+      if (day > 1) {
+        res = res + day + ' days ';
+      } else if (day > 0) {
+        res = res + '1 day ';
       }
+      if (hour > 1) {
+        res = res + hour + ' hours'
+      } else {
+        res = res + hour + ' hour';
+      }
+      return res;
+    },
+
+    calcPrice() {
+      if (this.startTime == null || this.endTime == null) return;
+      const duration = this.endTime.getTime() - this.startTime.getTime();
+      if (duration < minDur || duration > maxDur) {
+
+      }
+      this.view = 'loading';
+
     },
   },
   computed: {
@@ -228,24 +249,10 @@ export default {
       return this.motor.imageUrl.slice(1);
     }
   },
-  watch: {
-    startTime() {
-      if (endTime) {
-        this.calcPrice();
-      }
-    },
-    endTime() {
-      if (startTime) {
-        this.calcPrice();
-      }
-    }
-  },
   mounted() {
     this.id = this.$route.params.id;
     const today = new Date();
     const yesterday = new Date();
-    // this.startTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
-    // this.endTime = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
     yesterday.setDate(today.getDate() - 1);
     this.disabledDates = { end: yesterday };
     this.fetchData();

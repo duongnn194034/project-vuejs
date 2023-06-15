@@ -14,9 +14,8 @@ export default {
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-    position: absolute;
-    margin-left: calc(50% - 60px);
-    margin-top: calc(30vh - 60px);
+    position: relative;
+    margin: 20px calc(50% - 60px) 40px;
   }
 
   @keyframes spin {
