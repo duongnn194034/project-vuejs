@@ -112,13 +112,16 @@
               <input type="datetime-local" class="form-control" v-model="endTime" @input="calcPrice"/>
             </section>
             <section>
-              <div v-show="view == 'price' " id="price" class="d-flex justify-content-around pb-4">
+              <div v-show="view == 'price'" id="price" class="d-flex justify-content-around pb-4">
                 <span><strong>{{ motor.price }}₫</strong>/hour</span>
                 <span><strong>{{ motor.price * 24 }}₫</strong>/day</span>
               </div>
               <Loader v-show="view == 'loading'"/>
+              <div class="cost text-center" v-show="view =='cost'">
+                <h2><b>{{ cost }}₫</b></h2>
+              </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50">Offer</button>
+                <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50" :disabled="!valid">Offer</button>
               </div>
             </section>
           </div>
@@ -158,6 +161,8 @@ export default {
         "Adjust": "Tax, others fee included.",
       },
       view: "price",
+      valid: false,
+      cost: 0,
     };
   },
   props: ["baseURL"],
@@ -236,11 +241,28 @@ export default {
 
     calcPrice() {
       if (this.startTime == null || this.endTime == null) return;
-      const duration = this.endTime.getTime() - this.startTime.getTime();
-      if (duration < minDur || duration > maxDur) {
-
+      const duration = new Date(this.endTime).getTime() - new Date(this.startTime).getTime();
+      console.log(new Date(this.endTime));
+      if (duration < this.motor.minDur || duration > this.motor.maxDur) {
+        const price = document.getElementById("price");
+        const warning = document.createElement("div");
+        warning.innerText = "Renting duration is invalid.";
+        warning.setAttribute("class", "alert alert-warning alert-dismissible fade show")
+        warning.setAttribute("role", "alert");
+        const close = document.createElement("button");
+        close.setAttribute("type", "button");
+        close.setAttribute("class", "close");
+        close.setAttribute("data-dismiss", "alert");
+        close.setAttribute("aria-label", "Close")
+        close.innerHTML = '<span aria-hidden="true">&times;</span>';
+        warning.appendChild(close);
+        price.insertAdjacentElement("afterend", warning);
+        return;
       }
       this.view = 'loading';
+      this.cost = this.motor.price * duration / 3600000;
+      this.view = 'cost';
+      this.valid = true;
 
     },
   },
