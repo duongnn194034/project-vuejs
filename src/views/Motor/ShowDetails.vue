@@ -121,7 +121,13 @@
                 <h2><b>{{ cost }}₫</b></h2>
               </div>
               <div class="text-center">
-                <button type="button" class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50" :disabled="!valid">Offer</button>
+                <button 
+                  type="button" 
+                  class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50" 
+                  :disabled="!valid"
+                  @click="() => this.$router.push({ name: 'Checkout' })"
+                  >Offer
+                </button>
               </div>
             </section>
           </div>
@@ -242,8 +248,8 @@ export default {
     calcPrice() {
       if (this.startTime == null || this.endTime == null) return;
       const duration = new Date(this.endTime).getTime() - new Date(this.startTime).getTime();
-      console.log(new Date(this.endTime));
-      if (duration < this.motor.minDur || duration > this.motor.maxDur) {
+      if (duration < this.motor.minDur || (this.motor.maxDur > 0 && duration > this.motor.maxDur)) {
+        this.valid = false;
         const price = document.getElementById("price");
         const warning = document.createElement("div");
         warning.innerText = "Renting duration is invalid.";
@@ -259,10 +265,10 @@ export default {
         price.insertAdjacentElement("afterend", warning);
         return;
       }
-      this.view = 'loading';
-      this.cost = this.motor.price * duration / 3600000;
-      this.view = 'cost';
-      this.valid = true;
+        this.view = 'loading';
+        this.cost = this.motor.price * duration / 3600000;
+        this.view = 'cost';
+        this.valid = true;
 
     },
   },

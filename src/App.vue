@@ -5,7 +5,7 @@
   />
   <div style="min-height: 60vh">
     <router-view
-      v-if="motors && user"
+      v-if="motors && (!token || user)"
       :baseURL="baseURL"
       :motors="motors"
       :user="user"
@@ -37,7 +37,9 @@ export default {
       // fetch motors
       await axios
         .get(this.baseURL + 'motor?limit=9')
-        .then((res) => this.motors = res.data)
+        .then((res) => {
+          this.motors = res.data
+        })
         .catch((err) => console.log(err));
 
       // fetch user

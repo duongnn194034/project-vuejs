@@ -139,24 +139,12 @@ export default {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
-#nav-cart-count {
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  height: 15px;
-  font-size: 15px;
-  margin-left: 10px;
-}
+
 #cart {
   position: relative;
 }
 
 .dropdown-menu {
-  left: -2.5rem;
+  left: -2rem;
 }
 </style>
