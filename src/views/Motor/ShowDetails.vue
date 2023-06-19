@@ -265,11 +265,19 @@ export default {
         price.insertAdjacentElement("afterend", warning);
         return;
       }
-        this.view = 'loading';
-        this.cost = this.motor.price * duration / 3600000;
-        this.view = 'cost';
-        this.valid = true;
+      this.view = 'loading';
+      this.cost = this.motor.price * duration / 3600000;
+      this.view = 'cost';
+      this.valid = true;
+    },
 
+    goToCheckout() {
+      localStorage.setItem("vehicleId", this.motor.id);
+      localStorage.setItem("userId", this.user.id);
+      localStorage.setItem("start", this.startTime);
+      localStorage.setItem("end", this.endTime);
+      localStorage.setItem("price", this.cost.toString());
+      this.$router.push({ name: 'Checkout'})
     },
   },
   computed: {

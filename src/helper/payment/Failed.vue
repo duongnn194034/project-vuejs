@@ -11,7 +11,7 @@ export default {
     name:'FailedPayment',
     mounted(){
         localStorage.removeItem("sessionId")
-        window.location.href = '/order'
+        window.location.href = '/offer'
     }
 }
 </script>

@@ -37,34 +37,17 @@ export default {
     */
     configureStripe() {},
 
-    getPayment() {
-      axios.get(`${this.baseURL}offer/?token=${this.token}`).then(
-        (response) => {
-          if (response.status == 200) {
-            let products = response.data;
-            let len = Object.keys(products.cartItems).length;
-            for (let i = 0; i < len; i++)
-              this.checkoutBodyArray.push({
-                imageUrl: products.cartItems[i].product.imageUrl,
-                name: products.cartItems[i].product.name,
-                quantity: products.cartItems[i].quantity,
-                price: products.cartItems[i].product.price,
-                productId: products.cartItems[i].product.id,
-                userId: products.cartItems[i].product.user.id,
-              });
-          }
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    },
-
     goToCheckout() {
       axios
         .post(
-          this.baseURL + `order/create-checkout-session?token=${this.token}`,
-          this.checkoutBodyArray
+          this.baseURL + `offer/create-checkout-session?token=${this.token}`,
+          {
+            vehicleId: localStorage.getItem("vehicleId"),
+            userId: localStorage.getItem("userId"),
+            start: new Date(localStorage.getItem("start")).getTime(),
+            end: new Date(localStorage.getItem("end")).getTime(),
+            price: localStorage.getItem("price")
+          }
         )
         .then((response) => {
           localStorage.setItem('sessionId', response.data.sessionId);
@@ -82,7 +65,7 @@ export default {
     this.token = localStorage.getItem('token');
     // get all the cart items
     this.stripe = Stripe(this.stripeAPIToken);
-    this.getPayment();
+    this.goToCheckout();
   },
 };
 </script>
