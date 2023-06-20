@@ -40,13 +40,17 @@ export default {
     goToCheckout() {
       axios
         .post(
-          this.baseURL + `offer/create-checkout-session?token=${this.token}`,
+          this.baseURL + `offer/create-checkout-session`,
           {
             vehicleId: localStorage.getItem("vehicleId"),
             userId: localStorage.getItem("userId"),
             start: new Date(localStorage.getItem("start")).getTime(),
             end: new Date(localStorage.getItem("end")).getTime(),
-            price: localStorage.getItem("price")
+            price: parseFloat(localStorage.getItem("price"))
+          }, {
+            headers: {
+              token: this.token
+            }
           }
         )
         .then((response) => {

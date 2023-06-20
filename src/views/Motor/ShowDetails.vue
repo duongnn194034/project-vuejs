@@ -125,7 +125,7 @@
                   type="button" 
                   class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50" 
                   :disabled="!valid"
-                  @click="() => this.$router.push({ name: 'Checkout' })"
+                  @click="goToCheckout"
                   >Offer
                 </button>
               </div>
@@ -142,6 +142,7 @@ import axios from 'axios';
 import Loader from '../../components/Atomic/Loader.vue';
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
+import swal from 'sweetalert';
 export default {
   data() {
     return {
@@ -171,7 +172,7 @@ export default {
       cost: 0,
     };
   },
-  props: ["baseURL"],
+  props: ["baseURL", "user"],
   components: { Calendar, DatePicker, Loader },
   methods: {
     async fetchData() {
@@ -272,12 +273,29 @@ export default {
     },
 
     goToCheckout() {
-      localStorage.setItem("vehicleId", this.motor.id);
-      localStorage.setItem("userId", this.user.id);
-      localStorage.setItem("start", this.startTime);
-      localStorage.setItem("end", this.endTime);
-      localStorage.setItem("price", this.cost.toString());
-      this.$router.push({ name: 'Checkout'})
+      if (!this.token) {
+        swal({
+          icon: "warning",
+          text: "You must login first. Login now?",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: "OK"
+            },
+            cancel: true,
+          }}).then(value => {
+            if (value == 'OK') {
+              this.$router.push({ name: 'Signin' });
+            }
+          });
+      } else {
+        localStorage.setItem("vehicleId", this.motor.id);
+        localStorage.setItem("userId", this.user.id);
+        localStorage.setItem("start", this.startTime);
+        localStorage.setItem("end", this.endTime);
+        localStorage.setItem("price", this.cost.toString());
+        this.$router.push({ name: 'Checkout'})
+      }
     },
   },
   computed: {
