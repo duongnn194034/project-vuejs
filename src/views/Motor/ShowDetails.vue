@@ -95,6 +95,15 @@
             </section>
           </div>
         </div>
+        <div class="card w-100 mt-6">
+          <div class="col-xs-12">
+            <section class="owner">
+              <div class="top bg-primary">
+
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
         <div class="card w-100 sticky-container">
@@ -140,6 +149,7 @@
 <script>
 import axios from 'axios';
 import Loader from '../../components/Atomic/Loader.vue';
+import ImageCircle from '../../components/Image/ImageCircle.vue';
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 import swal from 'sweetalert';
@@ -173,7 +183,7 @@ export default {
     };
   },
   props: ["baseURL", "user"],
-  components: { Calendar, DatePicker, Loader },
+  components: { Calendar, DatePicker, Loader, ImageCircle },
   methods: {
     async fetchData() {
       await axios
@@ -340,9 +350,17 @@ h2, h3, h5 {
   top: 20px;
 }
 
-/* .image-container {
+.owner {
+  border-radius: 5px;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+  line-height: 30px;
+  margin: 100px 0 20px;
+}
 
-} */
+.top {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
