@@ -95,7 +95,7 @@
             </section>
           </div>
         </div>
-        <div class="card w-100 mt-6">
+        <!-- <div class="card w-100 mt-6">
           <div class="col-xs-12">
             <section class="owner">
               <div class="top bg-primary">
@@ -103,7 +103,7 @@
               </div>
             </section>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
         <div class="card w-100 sticky-container">
@@ -224,7 +224,7 @@ export default {
           this.attributes.push({
             key: "busy",
             highlight: "red",
-            dates: dates,
+            dates: this.dates,
             popover: {
               label: "Not available"
             } 
@@ -257,29 +257,47 @@ export default {
     },
 
     calcPrice() {
+      if (this.startTime != null && !this.checkDate(new Date(this.startTime)) 
+        || this.endTime != null && !this.checkDate(new Date(this.endTime))
+      ) {
+        this.warn("Motorbike is already rented at this time.")
+      }
       if (this.startTime == null || this.endTime == null) return;
       const duration = new Date(this.endTime).getTime() - new Date(this.startTime).getTime();
       if (duration < this.motor.minDur || (this.motor.maxDur > 0 && duration > this.motor.maxDur)) {
         this.valid = false;
-        const price = document.getElementById("price");
-        const warning = document.createElement("div");
-        warning.innerText = "Renting duration is invalid.";
-        warning.setAttribute("class", "alert alert-warning alert-dismissible fade show")
-        warning.setAttribute("role", "alert");
-        const close = document.createElement("button");
-        close.setAttribute("type", "button");
-        close.setAttribute("class", "close");
-        close.setAttribute("data-dismiss", "alert");
-        close.setAttribute("aria-label", "Close")
-        close.innerHTML = '<span aria-hidden="true">&times;</span>';
-        warning.appendChild(close);
-        price.insertAdjacentElement("afterend", warning);
+        this.warn("Duration is invalid.")
         return;
       }
       this.view = 'loading';
       this.cost = this.motor.price * duration / 3600000;
       this.view = 'cost';
       this.valid = true;
+    },
+
+    warn(content) {
+      const price = document.getElementById("price");
+      const warning = document.createElement("div");
+      warning.innerText = content;
+      warning.setAttribute("class", "alert alert-warning alert-dismissible fade show")
+      warning.setAttribute("role", "alert");
+      const close = document.createElement("button");
+      close.setAttribute("type", "button");
+      close.setAttribute("class", "close");
+      close.setAttribute("data-dismiss", "alert");
+      close.setAttribute("aria-label", "Close")
+      close.innerHTML = '<span aria-hidden="true">&times;</span>';
+      warning.appendChild(close);
+      price.insertAdjacentElement("afterend", warning);
+    },
+
+    checkDate(date) {
+      this.dates.forEach(element => {
+        if (element[0] <= date && element[1] >= date) {
+          return false;
+        }
+        return true;
+      })
     },
 
     goToCheckout() {
