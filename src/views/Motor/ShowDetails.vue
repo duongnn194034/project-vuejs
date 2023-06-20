@@ -5,7 +5,7 @@
     </div>
     <div class="row pt-3">
       <div class="col-md-7 col-xs-12">
-        <div class="card w-100 h-100">
+        <div class="card w-100">
           <div class="image-container">
             <div id="carouselMotorControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -95,7 +95,7 @@
             </section>
           </div>
         </div>
-        <!-- <div class="card w-100 mt-6">
+        <div class="card w-100 mt-5">
           <div class="col-xs-12">
             <section class="owner">
               <div class="top bg-primary">
@@ -103,7 +103,7 @@
               </div>
             </section>
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
         <div class="card w-100 sticky-container">
