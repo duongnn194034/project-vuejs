@@ -36,12 +36,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .image-box{
   position : relative;
-  width:300px;
-  height:300px;
-  margin:20px;
+  width: 300px;
+  height: 300px;
+  margin: 20px;
 }
 
 .image-box img{

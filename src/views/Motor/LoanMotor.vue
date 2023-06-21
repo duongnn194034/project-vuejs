@@ -357,6 +357,7 @@ export default {
 }
 
 #map {
+  height: 300px !important;
   margin: 0 !important;
 }
 

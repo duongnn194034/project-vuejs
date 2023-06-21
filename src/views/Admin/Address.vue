@@ -246,6 +246,11 @@ h4 {
   height: 40px;
 }
 
+#map {
+  height: 300px !important;
+  margin: 0 !important;
+}
+
 .autocomplete-items {
   position: absolute;
   z-index: 99;

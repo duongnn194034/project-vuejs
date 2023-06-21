@@ -95,11 +95,11 @@
             </section>
           </div>
         </div>
-        <div class="card w-100 mt-5">
+        <div class="mt-5">
           <div class="col-xs-12">
             <section class="owner">
-              <div class="top bg-primary">
-
+              <div class="card w-100 bg-primary">
+                <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
               </div>
             </section>
           </div>
@@ -344,7 +344,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
   padding-left: 15px;
 }
@@ -375,31 +375,11 @@ h2, h3, h5 {
   margin: 100px 0 20px;
 }
 
-.top {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-#add-to-cart-button {
-  background-color: #febd69;
-}
-
-#wishlist-button {
-  background-color: #b9b9b9;
-  border-radius: 0;
-}
-
-#show-cart-button {
-  background-color: #131921;
-  color: white;
-  border-radius: 0;
 }
 
 img.motor {
@@ -418,5 +398,12 @@ section h6 {
   padding-bottom: 0.3rem;
   padding-top: 0.5rem;
   font-size: 18px;
+}
+
+.image-box{
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 75px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
 }
 </style>

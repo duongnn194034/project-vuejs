@@ -1,13 +1,13 @@
 <template>
   <div class="image-box">
-    <img :src="url" :alt="image.name" class="img-fluid my-image" ref="rimage">
+    <img :src="url" :alt="image.name" class="img-fluid image-index" ref="rimage">
   </div>
 </template>
 
 <script>
 export default {
   name : 'ImageBox',
-  props : ["image"],
+  props : ["image", "option2"],
   computed: {
     url() {
       if (this.image.url) {
@@ -17,16 +17,22 @@ export default {
       }
     }
   },
+  mounted() {
+    if (this.option2) {
+      const img = document.getElementsByClassName("image-index")[0];
+      console.log(img);
+      img.setAttribute('class', 'img-fluid my-image')
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .image-box{
   position : relative;
-  width:300px;
-  height:300px;
-  margin:20px;
-  border-radius: 150px;
+  width: 300px;
+  height: 300px;
+  margin: 20px;
 }
 
 .image-box img{
@@ -35,30 +41,15 @@ export default {
   height: 100%;
   transition: .5s ease;
   backface-visibility: hidden;
-  border-radius: 5px;
+  border-radius: 150px;
   padding : 5px;
   border : .5px solid rgb(216, 216, 216);
 }
 
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.image-box:hover .my-image {
-  transform: scale(1.1);
-  transition: transform 0.2s ease;
-  opacity: 0.3;
-}
-
-.image-box:hover .middle {
-  opacity: 1;
+.my-image {
+  border-radius: 75px !important;
+  border: 0 !important;
+  padding: 0 !important;
 }
 </style>
 
