@@ -5,7 +5,7 @@
     </div>
     <div class="row pt-3">
       <div class="col-md-7 col-xs-12">
-        <div class="card w-100">
+        <div class="card w-100 card-shadow">
           <div class="image-container">
             <div id="carouselMotorControls" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -95,18 +95,14 @@
             </section>
           </div>
         </div>
-        <div class="mt-5">
-          <div class="col-xs-12">
-            <section class="owner">
-              <div class="card w-100 bg-primary">
-                <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
-              </div>
-            </section>
-          </div>
+        <div class="card w-100 mt-5 no-border no-bg">
+          <section class="bg-primary owner">
+            <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
+          </section>
         </div>
       </div>
       <div class="col-md-5 col-xs-12 pl-5">
-        <div class="card w-100 sticky-container">
+        <div class="card w-100 sticky-container card-shadow">
           <Calendar 
             expanded 
             borderless
@@ -353,7 +349,7 @@ h2, h3, h5 {
   font-weight: 700;
 }
 
-.card {
+.card-shadow {
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
 }
 
@@ -366,6 +362,10 @@ h2, h3, h5 {
 .sticky-container {
   position: sticky;
   top: 20px;
+}
+
+.no-border {
+  border: 0 !important;
 }
 
 .owner {
@@ -404,6 +404,11 @@ section h6 {
   width: 150px !important;
   height: 150px !important;
   border-radius: 75px;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+  top: -100px;
+}
+
+.no-bg {
+  background-color: inherit !important;
 }
 </style>

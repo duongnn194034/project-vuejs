@@ -3,7 +3,7 @@
     v-if="!['Signup', 'Signin'].includes($route.name)"
     :user="user"
   />
-  <div style="min-height: 60vh">
+  <div style="min-height: 60vh; background-color: #f5f7fa">
     <router-view
       v-if="motors && (!token || user)"
       :baseURL="baseURL"

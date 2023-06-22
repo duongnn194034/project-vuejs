@@ -44,12 +44,13 @@ export default {
   border-radius: 150px;
   padding : 5px;
   border : .5px solid rgb(216, 216, 216);
+  background-color: white;
 }
 
 .my-image {
   border-radius: 75px !important;
   border: 0 !important;
-  padding: 0 !important;
+  /* padding: 0 !important; */
 }
 </style>
 
