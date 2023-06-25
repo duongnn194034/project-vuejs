@@ -256,8 +256,8 @@ label {
 .autocomplete-items {
   position: absolute;
   z-index: 99;
-  left: 15px;
-  right: 15px;
+  left: 0;
+  right: 0;
   top: 100%;
   border: 2px solid #d4d4d4;
   border-bottom: none;

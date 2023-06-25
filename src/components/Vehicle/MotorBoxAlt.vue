@@ -97,8 +97,8 @@ export default {
   computed: {
     imageURL() {
       let url = this.motor.imageUrl;
-      if (url == null || url == undefined) {
-        return '';
+      if (url == null || url == undefined || !url.length) {
+        return "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
       } else {
         return url[0];
       }
@@ -174,7 +174,7 @@ a {
   position: absolute;
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.1);
   background-color: #eee;
-  z-index: 99;
+  z-index: 90;
   border-radius: 5px;
   overflow: visible;
 }

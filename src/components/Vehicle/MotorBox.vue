@@ -71,8 +71,8 @@ export default {
   },
   computed: {
     imageURL() {
-      if (this.motor.imageUrl == null || this.motor.imageUrl == undefined) {
-        return '';
+      if (this.motor.imageUrl == null || this.motor.imageUrl == undefined || !this.motor.imageUrl.length) {
+        return "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
       } else {
         return this.motor.imageUrl[0];
       }

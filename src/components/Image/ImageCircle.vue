@@ -20,7 +20,6 @@ export default {
   mounted() {
     if (this.option2) {
       const img = document.getElementsByClassName("image-index")[0];
-      console.log(img);
       img.setAttribute('class', 'img-fluid my-image')
     }
   }

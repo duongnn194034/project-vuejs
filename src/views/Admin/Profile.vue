@@ -95,16 +95,17 @@ export default {
                         swal({
                             text: "User profile has been updated.",
                             icon: "success",
-                        })
+                        });
+                        this.editMode = false;
                     })
                     .catch(err => {
                         console.log(err);
                         swal({
-                            text: err,
+                            text: err.message,
                             icon: "error",
-                        })
-                    })
-                this.editMode = false;    
+                        });
+                        this.editMode = false;
+                    })    
                 }
             });
         }

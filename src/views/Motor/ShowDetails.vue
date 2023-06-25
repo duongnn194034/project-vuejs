@@ -95,9 +95,49 @@
             </section>
           </div>
         </div>
-        <div class="card w-100 mt-5 no-border no-bg">
-          <section class="bg-primary owner">
-            <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
+        <div class="card w-100 no-bg owner">
+          <section class="bg-primary profile">
+            <div class="row m-0 image-row">
+              <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
+            </div>
+            <div class="row m-0 name">
+              <p class="text-left" itemprop="name">
+                <a>{{ motor.owner?.fullName }}</a>
+              </p>
+              <div class="badges hidden-xs">
+                <span class="color-white">ID not verified</span>
+              </div>
+            </div>
+            <div class="row ml-0 mr-0 mt-3 details">
+              <div class="col-lg-5 col-sm-4 col-xs-12">
+                <p class="text-left no-margin">
+                 {{ createdAt }}
+                </p>
+              </div>
+              <div class="col-lg-7 col-sm-8 col-xs-12 border-white">
+                <span>Placeholder</span>
+              </div>
+            </div>
+          </section>
+          <section class="bg-white biography">
+            <div class="row bio-row">
+              <div class="col-12 bio">
+                <div class="expanding color-dark-grey text-left padding-bottom-10" itemprop="description">
+                  <p>{{ this.motor.owner?.biography }}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <hr>
+          <section class="bg-white reviews">
+            <div class="row reviews m-0 pt-4">
+              <div class="col-12">
+                <h3>{{ reviews }}</h3>
+              </div>
+            </div>
+            <div class="row m-0 pt-4">
+              <Rate v-for="(rate, index) in motor.ratings" :key="index" :index="index" :review="rate" />
+            </div>
           </section>
         </div>
       </div>
@@ -146,6 +186,7 @@
 import axios from 'axios';
 import Loader from '../../components/Atomic/Loader.vue';
 import ImageCircle from '../../components/Image/ImageCircle.vue';
+import Rate from '../../components/Rate/Rate.vue';
 import { Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 import swal from 'sweetalert';
@@ -179,7 +220,7 @@ export default {
     };
   },
   props: ["baseURL", "user"],
-  components: { Calendar, DatePicker, Loader, ImageCircle },
+  components: { Calendar, DatePicker, Loader, ImageCircle, Rate },
   methods: {
     async fetchData() {
       await axios
@@ -325,6 +366,20 @@ export default {
   computed: {
     imageUrls() {
       return this.motor.imageUrl.slice(1);
+    },
+
+    createdAt() {
+      const createdDate = new Date(this.motor.owner?.createdAt).toLocaleDateString();
+      return `Member since ${createdDate}`; 
+    },
+
+    reviews() {
+      const rev = this.motor.ratings?.length
+      if (rev > 1) {
+        return `This vehicle has received ${this.motor.ratings?.length} reivews.`
+      } else {
+        return `This vehicle has received ${this.motor.ratings?.length} reivew.`
+      }
     }
   },
   mounted() {
@@ -364,17 +419,6 @@ h2, h3, h5 {
   top: 20px;
 }
 
-.no-border {
-  border: 0 !important;
-}
-
-.owner {
-  border-radius: 5px;
-  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
-  line-height: 30px;
-  margin: 100px 0 20px;
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -394,6 +438,7 @@ abbr {
   height: 300px;
   margin: 0 -1.25rem -1.25rem; 
 }
+
 section h6 {
   padding-bottom: 0.3rem;
   padding-top: 0.5rem;
@@ -405,10 +450,62 @@ section h6 {
   height: 150px !important;
   border-radius: 75px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
-  top: -100px;
+  float: left;
+  margin-right: 20px;
+  margin-top: -90px;
+  position: absolute;
+  width: 154px;
+  z-index: 1;
 }
 
-.no-bg {
-  background-color: inherit !important;
+.owner {
+  border-radius: 5px;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+  line-height: 30px;
+  margin: 130px 0 20px;
+}
+
+section.profile {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+section.reviews {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.m-0 > p.text-left {
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 85px 20px 5px;
+  color: white;
+}
+
+.m-0 > .badges {
+  display: inline-block;
+  font-size: 18px;
+  margin: 85px 20px 5px;
+  color: white;
+}
+
+.details > div, .details > p {
+  display: inline-block;
+  font-size: 18px;
+  color: white;
+}
+
+.border-white {
+  border-left: 1px solid white;
+}
+
+.bio-row {
+  margin: 20px 0 0;
+}
+
+.reviews h3 {
+  font-size: 25px;
+  text-align: left;
 }
 </style>
