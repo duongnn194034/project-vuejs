@@ -132,7 +132,7 @@
           <section class="bg-white reviews">
             <div class="row reviews m-0 pt-4">
               <div class="col-12">
-                <h3>{{ reviews }}</h3>
+                <h5>{{ reviews }}</h5>
               </div>
             </div>
             <div class="row m-0 pt-4">
