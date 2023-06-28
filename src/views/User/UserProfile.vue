@@ -5,11 +5,11 @@
         <div class="card w-100 no-bg owner">
           <section class="bg-primary profile">
             <div class="row m-0 image-row">
-              <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
+              <ImageCircle :image="{ url: this.user?.avatarUrl, name: 'avatar'}" :option2="true"/>
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
-                <a>{{ motor.owner?.fullName }}</a>
+                <a>{{ user?.fullName }}</a>
               </p>
               <div class="badges hidden-xs">
                 <span class="color-white">ID not verified</span>
@@ -32,14 +32,34 @@
   </div>
 </template>
 <script>
-  import ImageCircle from '../../components/Image/ImageCircle.vue';
+  import axios from 'axios';
+import ImageCircle from '../../components/Image/ImageCircle.vue';
   export default {
+    data() {
+      return {
+        user: null
+      }
+    },
+    props: ["baseURL"],
     components: { ImageCircle },
+    methods: {
+      async getUser(id) {
+        await axios.get(`${this.baseURL}user/get/${id}`)
+          .then(res => {
+            this.user = res.data;
+          })
+          .catch(err => console.log(err));
+      }
+    },
     computed: {
       createdAt() {
-      const createdDate = new Date(this.motor.owner?.createdAt).toLocaleDateString();
-      return `Member since ${createdDate}`; 
+        const createdDate = new Date(this.user?.createdAt).toLocaleDateString();
+        return `Member since ${createdDate}`; 
+      },
     },
+    mounted() {
+      const id = this.$route.params.id;
+      this.getUser(id);
     }
   }
 </script>

@@ -102,7 +102,7 @@
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
-                <a>{{ motor.owner?.fullName }}</a>
+                <router-link :to="{ name: 'UserProfile', params: this.motor.owner?.id }">{{ motor.owner?.fullName }}</router-link>
               </p>
               <div class="badges hidden-xs">
                 <span class="color-white">ID not verified</span>
@@ -507,5 +507,11 @@ section.reviews {
 .reviews h3 {
   font-size: 25px;
   text-align: left;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: #fff;
 }
 </style>
