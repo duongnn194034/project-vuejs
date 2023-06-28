@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-1 no-padding-sm">
+      <div class="col-md-7 col-md-offset-1 no-padding-sm">
         <div class="card w-100 no-bg owner">
           <section class="bg-primary profile">
             <div class="row m-0 image-row">
@@ -26,6 +26,37 @@
               </div>
             </div>
           </section>
+          <section class="bg-white biography">
+            <div class="row bio-row">
+              <div class="col-12 bio">
+                <div class="expanding color-dark-grey text-left padding-bottom-10" itemprop="description">
+                  <p>{{ this.user?.biography }}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="card w-100 reviews-card">
+          <section class="bg-white reviews">
+            <div class="row reviews m-0 pt-4">
+              <div class="col-12">
+                <h5>{{ reviews }}</h5>
+              </div>
+            </div>
+            <div class="row m-0 pt-4">
+              <Rate v-for="(rate, index) in ratings" :key="index" :index="index" :review="rate" />
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="col-md-5 col-md-offset-1 no-padding-sm">
+        <div class="card w-100 vehicle">
+          <div class="row m-0 pt-4">
+            <div class="col-12 mb-4 h4">{{ title }}</div>
+            <div class="col-12 mb-4" v-for="(motor, index) in motors" :key="index">
+              <MotorBox :motor="motor"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -33,15 +64,19 @@
 </template>
 <script>
   import axios from 'axios';
-import ImageCircle from '../../components/Image/ImageCircle.vue';
+  import ImageCircle from '../../components/Image/ImageCircle.vue';
+  import Rate from '../../components/Rate/Rate.vue';
+  import MotorBox from '../../components/Vehicle/MotorBox.vue';
   export default {
     data() {
       return {
-        user: null
+        user: null,
+        ratings: [],
+        motors: [],
       }
     },
     props: ["baseURL"],
-    components: { ImageCircle },
+    components: { ImageCircle, Rate, MotorBox },
     methods: {
       async getUser(id) {
         await axios.get(`${this.baseURL}user/get/${id}`)
@@ -49,17 +84,132 @@ import ImageCircle from '../../components/Image/ImageCircle.vue';
             this.user = res.data;
           })
           .catch(err => console.log(err));
-      }
+      },
+
+      async getRatings(id) {
+        await axios.get(`${this.baseURL}user/get/${id}/rating`)
+          .then(res => {
+            this.ratings = res.data;
+          })
+          .catch(err => console.log(err));
+      },
+      
+      async getMotors(limit) {
+        await axios.get(`${this.baseURL}motor/list?limit=${limit}`, {
+          headers: {
+            token: localStorage.getItem("token")
+          }
+        })
+          .then(res => {
+            this.motors = res.data;
+          })
+          .catch(err => console.log(err));
+      },
     },
     computed: {
       createdAt() {
         const createdDate = new Date(this.user?.createdAt).toLocaleDateString();
         return `Member since ${createdDate}`; 
       },
+
+      reviews() {
+        const rev = this.ratings?.length
+        if (rev > 1) {
+          return `This user's vehicles have received ${rev} reivews.`
+        } else {
+          return `This user's vehicles have received ${rev} reivew.`
+        }
+      },
+
+      title() {
+        return `${this.user?.fullName}'s vehicles`;
+      }
     },
     mounted() {
       const id = this.$route.params.id;
       this.getUser(id);
+      this.getRatings(id);
+      this.getMotors(5);
     }
   }
 </script>
+<style scoped>
+.image-box{
+  width: 150px !important;
+  height: 150px !important;
+  border-radius: 75px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+  float: left;
+  margin-right: 20px;
+  margin-top: -90px;
+  position: absolute;
+  width: 154px;
+  z-index: 1;
+}
+
+.owner {
+  border-radius: 5px;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+  line-height: 30px;
+  margin: 130px 0 30px;
+}
+
+.reviews-card {
+  border-radius: 5px;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+  line-height: 30px;
+}
+
+section.profile {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+section.biography {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+section.reviews {
+  border-radius: 5px;
+}
+
+.m-0 > p.text-left {
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 700;
+  margin: 85px 20px 5px;
+  color: white;
+}
+
+.m-0 > .badges {
+  display: inline-block;
+  font-size: 18px;
+  margin: 85px 20px 5px;
+  color: white;
+}
+
+.border-white {
+  border-left: 1px solid white;
+}
+
+.details > div, .details > p {
+  display: inline-block;
+  font-size: 18px;
+  color: white;
+}
+
+.bio-row {
+  margin: 20px 0 0;
+}
+
+.vehicle {
+  background-color: #fff;
+  margin-top: 130px;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2); 
+}
+
+.vehicle .card {
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);  
+}
+</style>

@@ -3,7 +3,8 @@
     <h6><b>{{ review.username }}</b></h6>
     <div class="row">
       <div class="col-4">{{ new Date(review.createdDate).toLocaleDateString() }}</div>
-      <div class="star-container col-8">
+      <div class="col-4">{{ review.vehicleName }}</div>
+      <div class="star-container col-4">
         <div class="stars">
           <img class="star" src="../../assets/star.svg"
             v-if="this.stars > 0" 

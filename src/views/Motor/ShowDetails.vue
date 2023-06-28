@@ -102,7 +102,7 @@
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
-                <router-link :to="{ name: 'UserProfile', params: this.motor.owner?.id }">{{ motor.owner?.fullName }}</router-link>
+                <router-link :to="{ name: 'UserProfile', params: {id: this.motor.owner?.id} }">{{ motor.owner?.fullName }}</router-link>
               </p>
               <div class="badges hidden-xs">
                 <span class="color-white">ID not verified</span>
@@ -376,9 +376,9 @@ export default {
     reviews() {
       const rev = this.motor.ratings?.length
       if (rev > 1) {
-        return `This vehicle has received ${this.motor.ratings?.length} reivews.`
+        return `This vehicle has received ${rev} reivews.`
       } else {
-        return `This vehicle has received ${this.motor.ratings?.length} reivew.`
+        return `This vehicle has received ${rev} reivew.`
       }
     }
   },
