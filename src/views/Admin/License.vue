@@ -77,6 +77,7 @@
 <script>
 import ProfileNav from '../../components/ProfileNav.vue';
 export default {
+  name: 'License',
   props: ["baseURL", "motors", "user"],
   emits: ["fetchData"],
   components: { ProfileNav },

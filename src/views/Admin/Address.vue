@@ -81,6 +81,7 @@ export default {
       lon: null,
     }
   },
+  name: 'Address',
   props: ["baseURL", "motors", "user"],
   emits: ["fetchData"],
   components: { ProfileNav, Switch },

@@ -56,12 +56,12 @@
             <router-link 
               class="dropdown-item" 
               v-if="token" 
-              :to="{ name: 'YourMotors' }"
+              :to="{ name: 'MyMotors' }"
             >My vehicles</router-link>
             <router-link 
               class="dropdown-item" 
               v-if="token" 
-              :to="{ name: 'YourMotors' }"
+              :to="{ name: 'MyOffers' }"
             >My bookings</router-link>          
             <a class="dropdown-item" v-if="token" href="#" @click="signout"
               >Sign Out</a

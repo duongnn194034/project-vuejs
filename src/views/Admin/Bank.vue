@@ -51,6 +51,7 @@ export default {
       code3: null,
     }
   },
+  name: 'Bank',
   props: ["baseURL", "motors", "user"],
   emits: ["fetchData"],
   components: { ProfileNav },

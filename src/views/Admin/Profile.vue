@@ -63,6 +63,7 @@ export default {
             biography: null,
         }
     },
+    name: 'Profile',
     props: ["baseURL", "user", "motors"],
     emits: ["fetchData"],
     components: { ImageCircle, AddImage, ProfileNav },

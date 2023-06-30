@@ -14,7 +14,7 @@
 import axios from 'axios';
 import MotorBox from '../../components/Vehicle/MotorBox.vue';
 export default {
-  name: 'YourMotors',
+  name: 'MyMotors',
   components: { MotorBox },
   data() {
     return {

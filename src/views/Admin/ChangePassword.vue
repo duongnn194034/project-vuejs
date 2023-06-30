@@ -41,6 +41,7 @@ export default {
             newPassRe: null
         }
     },
+    name: 'ChangePassword',
     props : ["baseURL"],
     components: { ProfileNav, ProfileNav },
     methods: {

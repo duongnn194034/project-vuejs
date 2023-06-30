@@ -16,7 +16,9 @@ import Checkout from '../views/Checkout/Checkout.vue'
 import ShowDetails from '../views/Motor/ShowDetails.vue'
 import LoanMotor from '../views/Motor/LoanMotor.vue'
 import ListMotors from '../views/Motor/ListMotors.vue'
-import YourMotors from '../views/Motor/YourMotors.vue'
+import MyMotors from '../views/Motor/MyMotors.vue'
+
+import MyOffers from '../views/Offer/MyOffers.vue'
 
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
@@ -48,8 +50,8 @@ const routes = [
   },
   {
     path: '/motor/show',
-    name: 'YourMotors',
-    component: YourMotors
+    name: 'MyMotors',
+    component: MyMotors
   },
   // Profile
   {
@@ -58,22 +60,22 @@ const routes = [
     component: Profile
   },
   {
-    path: '/admin/password',
+    path: '/account/password',
     name: 'ChangePassword',
     component: ChangePassword
   },
   {
-    path: '/admin/license',
+    path: '/account/license',
     name: 'IdLicense',
     component: License
   },
   {
-    path: '/admin/bank',
+    path: '/account/bank',
     name: 'Bank',
     component: Bank
   },
   {
-    path: '/admin/address',
+    path: '/account/address',
     name: 'Address',
     component: Address
   },
@@ -81,6 +83,11 @@ const routes = [
     path: '/profile/:id',
     name: 'UserProfile',
     component: UserProfile
+  },
+  {
+    path: '/account/mybookings',
+    name: 'MyOffers',
+    component: MyOffers
   },
   //Page Not found
   {

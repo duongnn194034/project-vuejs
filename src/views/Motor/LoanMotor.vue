@@ -251,7 +251,7 @@ export default {
             icon: "success",
             closeOnClickOutside: true
           });
-          this.$router.push({ name: "YourMotors"});
+          this.$router.push({ name: "MyMotors"});
         })
         .catch(err => console.log(err));
       },
