@@ -17,6 +17,10 @@
               @click="linkHandler">Completed</router-link>
           </li>
           <li class="nav-item pb-0">
+            <router-link :to="{ name: 'MyOffers', query: { filter: 'canceled' }}" class="nav-link" id="canceled"
+              @click="linkHandler">Canceled</router-link>
+          </li>
+          <li class="nav-item pb-0">
             <router-link :to="{ name: 'MyOffers', query: { filter: 'all' }}" class="nav-link" id="all"
               @click="linkHandler">All</router-link>
           </li>
@@ -39,7 +43,12 @@
               <div class="d-flex align-items-center justify-content-between">
                 <router-link :to="{ name: 'ShowDetails', params: { id: offer.vehicle.id } }"
                   ><h5 class="card-title">{{ offer.vehicle.model }}</h5></router-link>
-                <span class="badge badge-success" v-if="!offer.status || offer.status == 'returned'">Completed</span>
+                <span class="badge badge-success" v-if="!offer.status || offer.status == 'RETURNED'">Completed</span>
+                <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
+                  || offer.status == 'IN_BOOKING'">Booking</span>
+                <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
+                  && offer.status != 'RETURNED'">Outdated</span>
+                <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Canceled</span>
               </div>
               <div class="info-container">
                 <div class="d-flex align-items-center">
@@ -110,7 +119,11 @@ import axios from 'axios';
           case 'completed':
             this.offers = this.bookings.filter(booking => booking.endTime <= new Date());
             break;
+          case 'canceled':
+            this.offers = this.bookings.filter(booking => booking.status == 'CANCELED');
+            break;
         }
+        console.log(this.offers);
       }
     },
     watch: {

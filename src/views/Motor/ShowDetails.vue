@@ -333,8 +333,8 @@ export default {
         if (element[0] <= date && element[1] >= date) {
           return false;
         }
-        return true;
-      })
+      });
+      return true;
     },
 
     goToCheckout() {
