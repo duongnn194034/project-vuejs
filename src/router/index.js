@@ -19,6 +19,7 @@ import ListMotors from '../views/Motor/ListMotors.vue'
 import MyMotors from '../views/Motor/MyMotors.vue'
 
 import MyOffers from '../views/Offer/MyOffers.vue'
+import OfferDetails from '../views/Offer/OfferDetails.vue'
 
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
@@ -84,18 +85,24 @@ const routes = [
     name: 'UserProfile',
     component: UserProfile
   },
+  // Offer
   {
     path: '/account/mybookings',
     name: 'MyOffers',
     component: MyOffers
   },
-  //Page Not found
+  {
+    path: '/offer/:id',
+    name: 'OfferDetails',
+    component: OfferDetails
+  },
+  // Page Not found
   {
     path : '/:catchAll(.*)',
     name : 'PageNotFound',
     component : PageNotFound
   },
-  //Signin and Signup
+  // Signin and Signup
   {
     path: '/signup',
     name: 'Signup',

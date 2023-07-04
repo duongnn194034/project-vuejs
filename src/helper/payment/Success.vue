@@ -31,13 +31,13 @@ export default {
             token: this.token
           }
         })
-        .then(()=>{
+        .then((res)=>{
             localStorage.removeItem("vehicleId");
             localStorage.removeItem("userId");
             localStorage.removeItem("start");
             localStorage.removeItem("end");
             localStorage.removeItem("price");
-            window.location.href = '/offer'
+            window.location.href = '/offer/' + res.data.id;
         }).catch((error)=>{
           console.log(error);
         })

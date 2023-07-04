@@ -252,7 +252,7 @@ export default {
 
     async fetchDate() {
       await axios
-        .get(`${this.baseURL}offer/${this.id}`)
+        .get(`${this.baseURL}offer/motor/${this.id}`)
         .then(res => {
           if (!res.data) return;
           res.data.forEach(element => {

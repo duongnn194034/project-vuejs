@@ -27,7 +27,12 @@
         </ul>
       </div>
     </div>
-    <div class="row">
+    <div class="row mt-5" v-if="loading">
+      <div class="col-12">
+        <Loader/>
+      </div>
+    </div>
+    <div class="row" v-else>
       <div class="col-md-4 my-3" v-for="offer in offers">
         <div class="card w-100">
           <div class="image-container">
@@ -41,7 +46,7 @@
           <div class="card-body">
             <div class="details-container clearfix">
               <div class="d-flex align-items-center justify-content-between">
-                <router-link :to="{ name: 'ShowDetails', params: { id: offer.vehicle.id } }"
+                <router-link :to="{ name: 'OfferDetails', params: { id: offer.id } }"
                   ><h5 class="card-title">{{ offer.vehicle.model }}</h5></router-link>
                 <span class="badge badge-success" v-if="!offer.status || offer.status == 'RETURNED'">Completed</span>
                 <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
@@ -75,17 +80,19 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-
+  import axios from 'axios';
+  import Loader from '../../components/Atomic/Loader.vue';
   export default {
     data() {
       return {
         active: 'upcoming',
         bookings: [],
         offers: [],
+        loading: true,
       }
     },
     props: ['baseURL'],
+    components: { Loader },
     name: 'MyOffers',
     methods: {
       linkHandler(e) {
@@ -104,6 +111,7 @@ import axios from 'axios';
         .then(res => {
           this.bookings = this.bookings.concat(res.data);
           this.filter();
+          this.loading = false;
         })
         .catch(err => console.log(err));
       },
@@ -123,7 +131,6 @@ import axios from 'axios';
             this.offers = this.bookings.filter(booking => booking.status == 'CANCELED');
             break;
         }
-        console.log(this.offers);
       }
     },
     watch: {
