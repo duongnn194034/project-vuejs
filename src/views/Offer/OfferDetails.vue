@@ -111,6 +111,7 @@ import axios from 'axios';
             imageUrl: [""]
           }
         },
+        features: [],
         toolTip: {
           "Fuel Cost": "Guest have to refill fuel before returning.",
           "Damage Insurance": "Damage Insurance included.",
@@ -127,6 +128,22 @@ import axios from 'axios';
         await axios.get(`${this.baseURL}offer/${this.id}`)
           .then(res => {
             this.offer = res.data;
+            for (let key in this.offer.vehicle.feature) {
+            if (this.offer.vehicle.feature[key] == true) {
+              this.features.push(this.stringfy(key));
+            }
+          }
+            var map = L.map('map').setView([this.offer.vehicle.location.y, this.offer.vehicle.location.x], 12);
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                maxZoom: 20,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            var circle = L.circle([this.offer.vehicle.location.y, this.offer.vehicle.location.x], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: this.offer.vehicle.radius ? this.offer.vehicle.radius * 1000 : 1000
+            }).addTo(map);
           })
       },
 
@@ -153,6 +170,11 @@ import axios from 'axios';
         return res;
       },
     },
+    computed: {
+      imageUrls() {
+        return this.offer.vehicle.imageUrl.slice(1);
+      },
+    },
     mounted() {
       this.id = this.$route.params.id;
       this.fetchOffer();
@@ -160,5 +182,34 @@ import axios from 'axios';
   }
 </script>
 <style scoped>
+  h2 {
+    padding-left: 15px;
+  }
 
+  h2, h3, h5 {
+    font-weight: 700;
+  }
+
+  .card-shadow {
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+  }
+
+  .note {
+    text-align: left;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  img.motor {
+    aspect-ratio: 3 / 2;
+  }
+
+  abbr {
+    text-decoration: none !important;
+  }
+
+  #map { 
+    height: 300px;
+    margin: 0 -1.25rem -1.25rem; 
+  }
 </style>
