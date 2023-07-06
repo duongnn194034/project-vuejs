@@ -43,7 +43,7 @@ export default {
     },
     name: 'ChangePassword',
     props : ["baseURL"],
-    components: { ProfileNav, ProfileNav },
+    components: { ProfileNav },
     methods: {
         async saveChanged() {
             if (this.newPass != this.newPassRe) {

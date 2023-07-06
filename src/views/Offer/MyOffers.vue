@@ -32,13 +32,13 @@
         <Loader/>
       </div>
     </div>
-    <div class="row" v-else>
+    <div class="row" v-else-if="bookings.length">
       <div class="col-md-4 my-3" v-for="offer in offers">
         <div class="card w-100">
           <div class="image-container">
             <img
               class="card-img-top"
-              :src="offer.vehicle.imageUrl?.length ? offer.vehicle.imageUrl[0] : 
+              :src="offer.vehicle?.imageUrl?.length ? offer.vehicle.imageUrl[0] : 
               'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg'"
               alt="Motor Image"
             />
@@ -77,6 +77,12 @@
         </div>
       </div>
     </div>
+    <div class="row mt-5" v-else>
+      <div class="col-12">
+        <h4 class="text-center">Oops! You haven't got any bookings at the moment.</h4>
+        <button class="btn btn-primary mx-center" type="button" @click="submit">Find one near you</button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -91,7 +97,7 @@
         loading: true,
       }
     },
-    props: ['baseURL'],
+    props: ["baseURL", "user"],
     components: { Loader },
     name: 'MyOffers',
     methods: {
@@ -109,7 +115,9 @@
           }
         })
         .then(res => {
-          this.bookings = this.bookings.concat(res.data);
+          if (res.status == 200) {
+            this.bookings = this.bookings.concat(res.data);
+          }
           this.filter();
           this.loading = false;
         })
@@ -131,7 +139,17 @@
             this.offers = this.bookings.filter(booking => booking.status == 'CANCELED');
             break;
         }
-      }
+      },
+
+      async submit() {
+        this.loading = true;
+        await axios
+          .get(`https://nominatim.openstreetmap.org/search?q=${this.user.address.line}&format=json&limit=1`)
+          .then((res) => {
+            this.$router.push({ name: 'ListMotors', query: { query: this.user.address.line, lat: res.data[0].lat, lon: res.data[0].lon }})
+          })
+          .catch((err) => console.log(err));
+      },
     },
     watch: {
       active() {
@@ -149,6 +167,10 @@
   }
 </script>
 <style scoped>
+  h3.text-center {
+    font-weight: 700;
+  }
+
   .active {
       font-weight: bold;
       cursor: pointer;
@@ -162,6 +184,15 @@
   a {
     text-decoration: none;
     color: black;
+  }
+
+  .white-text {
+    color: #fff;
+  }
+
+  .mx-center {
+    margin-top: 1rem;
+    margin-left: calc(50% - 5rem);
   }
 
   img.clock {

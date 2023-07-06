@@ -96,6 +96,11 @@
           </div>
         </div>
       </div>
+      <div class="col-md-5 col-xs-12">
+        <div class="card w-100 card-shadow">
+          
+        </div>
+      </div>
     </div>
   </div>
 </template>
