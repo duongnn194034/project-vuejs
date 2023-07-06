@@ -97,8 +97,56 @@
         </div>
       </div>
       <div class="col-md-5 col-xs-12">
-        <div class="card w-100 card-shadow">
-          
+        <div class="card w-100 card-shadow sticky-card">
+          <div class="card-body">
+            <section>
+              <div class="row">
+                <div class="col-12">
+                  <span><b>Start time:  </b>{{ new Date(offer.startTime).toLocaleString() }}</span>
+                </div>
+                <div class="col-12">
+                  <span><b>End time:  </b>{{ new Date(offer.endTime).toLocaleString() }}</span>
+                </div>
+                <div class="col-12">
+                  <span><b>Booking time:  </b>{{ new Date(offer.createdDate).toLocaleString() }}</span>
+                </div>
+                <div class="col-12">
+                  <span><b>Status:  </b></span>
+                  <span class="badge badge-success" v-if="!offer.status || offer.status == 'RETURNED'">Completed</span>
+                  <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
+                    || offer.status == 'IN_BOOKING'">Booking</span>
+                  <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
+                    && offer.status != 'RETURNED'">Outdated</span>
+                  <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Canceled</span>
+                </div>
+                <div class="col-12">
+                  <span><b>Price: </b>{{ offer.price }}</span>
+                </div>
+                <div class="col-12 mt-5 d-flex justify-content-center">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Return Vehicle</button>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
@@ -215,6 +263,15 @@ import axios from 'axios';
 
   #map { 
     height: 300px;
-    margin: 0 -1.25rem -1.25rem; 
+    margin: 0 -1.25rem -1.25rem;
+  }
+
+  .col-12 > span {
+    font-size: 18px;
+  }
+
+  .sticky-card {
+    position: sticky;
+    top: 20px;
   }
 </style>
