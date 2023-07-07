@@ -5,7 +5,7 @@
     <div class="row">
       <img v-show="len == 0" class="img-fluid" src="../../assets/sorry.jpg" alt="Sorry">
       <div class="col-4 pt-3" v-for="motor in motors" :key="motor.id">
-        <MotorBox :motor="motor" />
+        <MotorBox :motor="motor" admin="true"/>
       </div>
     </div>
   </div>

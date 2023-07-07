@@ -11,7 +11,10 @@
       <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
       </div>
-      <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
+      <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
+        ><h5 class="card-title">{{ motor.model }}</h5></router-link
+      >
+      <router-link v-else :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
       <div class="address">
@@ -45,7 +48,7 @@
 
 export default {
   name: "MotorBox",
-  props: ["motor"],
+  props: ["motor", "admin"],
   data() {
     return {
       // address: ''

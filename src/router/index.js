@@ -17,6 +17,7 @@ import ShowDetails from '../views/Motor/ShowDetails.vue'
 import LoanMotor from '../views/Motor/LoanMotor.vue'
 import ListMotors from '../views/Motor/ListMotors.vue'
 import MyMotors from '../views/Motor/MyMotors.vue'
+import EditMotor from '../views/Motor/EditMotor.vue'
 
 import MyOffers from '../views/Offer/MyOffers.vue'
 import OfferDetails from '../views/Offer/OfferDetails.vue'
@@ -53,6 +54,11 @@ const routes = [
     path: '/motor/show',
     name: 'MyMotors',
     component: MyMotors
+  },
+  {
+    path: '/admin/motor/:id',
+    name: 'EditMotor',
+    component: EditMotor
   },
   // Profile
   {

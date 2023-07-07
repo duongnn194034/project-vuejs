@@ -48,9 +48,10 @@
               <div class="d-flex align-items-center justify-content-between">
                 <router-link :to="{ name: 'OfferDetails', params: { id: offer.id } }"
                   ><h5 class="card-title">{{ offer.vehicle.model }}</h5></router-link>
-                <span class="badge badge-success" v-if="!offer.status || offer.status == 'RETURNED'">Completed</span>
+                <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Completed</span>
+                <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Return</span>
                 <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
-                  || offer.status == 'IN_BOOKING'">Booking</span>
+                  || offer.status == 'BOOKING'">Booking</span>
                 <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
                   && offer.status != 'RETURNED'">Outdated</span>
                 <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Canceled</span>
@@ -133,7 +134,7 @@
             this.offers = this.bookings.filter(booking => booking.endTime > new Date());
             break;
           case 'completed':
-            this.offers = this.bookings.filter(booking => booking.endTime <= new Date());
+            this.offers = this.bookings.filter(booking => booking.endTime <= new Date() && booking.status != 'CANCELED');
             break;
           case 'canceled':
             this.offers = this.bookings.filter(booking => booking.status == 'CANCELED');
