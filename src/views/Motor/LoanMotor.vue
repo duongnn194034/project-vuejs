@@ -251,6 +251,7 @@ export default {
             icon: "success",
             closeOnClickOutside: true
           });
+          this.$emit("fetchData");
           this.$router.push({ name: "MyMotors"});
         })
         .catch(err => console.log(err));

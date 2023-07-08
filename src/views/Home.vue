@@ -181,7 +181,7 @@
   }
 
   #background-div {
-    background: url(../assets/home.png)
+    background: url(../assets/home2.jpg)
   }
 
   #heading {

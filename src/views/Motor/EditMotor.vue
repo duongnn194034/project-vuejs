@@ -1,54 +1,65 @@
 <template>
   <div id="loan" class="container-fluid">
     <section>
-      <h3 class="py-3 text-center">Add your motorbike</h3>
       <div class="row py-3">
         <h6 class="ml-5 col-12">Motor Images</h6>
-        <div class="float-left" v-for="i in index">
-          <AddImage :baseURL="baseURL"  @addImage="addImage" />
+        <div class="float-left motor-image" v-for="i in index">
+          <AddImage v-if="i < index" :img="{ name: `image${i}`, url: this.URLs[i-1] }" 
+            :baseURL="baseURL"
+            :index="i"
+            :del="editMode" 
+            @addImage="addImage" 
+            @remove="removeImage"              
+          />
+          <AddImage v-else-if="editMode" :baseURL="baseURL" @addImage="addImage"/>
+          <ImageBox v-else-if="index == 1" ph="true" :image="{ name: '', url: '' }"/>
         </div>
       </div>
       <div class="container">
         <form class="row">
           <div class="form-group col-md-6">
             <label>Production name</label>
-            <input type="text" class="form-control" v-model="production" required>
+            <input type="text" class="form-control" v-model="production" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
             <label>Model</label>
-            <input type="text" class="form-control" v-model="model" required>
+            <input type="text" class="form-control" v-model="model" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
             <label>License Plate</label>
-            <input type="text" class="form-control" v-model="license" required>
+            <input type="text" class="form-control" v-model="license" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
             <label>Engine Size</label>
-            <input type="text" class="form-control" v-model="engineSize" required>
+            <input type="text" class="form-control" v-model="engineSize" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
             <label>Fuel</label>
-            <input type="text" class="form-control" v-model="fuel" required>
+            <input type="text" class="form-control" v-model="fuel" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
             <label>Type</label>
-            <select class="form-control" v-model="type" required>
+            <select class="form-control" v-model="type" required :readonly="!editMode">
               <option value="AUTOMATIC">AUTOMATIC</option>
               <option value="MANUAL">MANUAL</option>
             </select>
           </div>
           <div class="form-group col-md-4">
             <label>Price</label>
-            <input type="number" class="form-control" v-model="price" required>
+            <input type="number" class="form-control" v-model="price" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
             <label>Year</label>
-            <input type="number" class="form-control" v-model="year">
+            <input type="number" class="form-control" v-model="year" :readonly="!editMode">
           </div>
           <div class="form-group col-12">
             <label>Address</label>
             <div id="map"></div>
-            <input class="form-control map" type="text" placeholder="Search your address here or double click on map." v-model="query" @input="input">
+            <input class="form-control map" type="text" placeholder="Search your address here or double click on map." 
+              v-model="query" 
+              @input="input" 
+              :readonly="!editMode"
+            >
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
                 <strong>{{ ad.display_name }}</strong>
@@ -58,28 +69,28 @@
           </div>
           <div class="form-group col-12">
             <label>Max Distance (km)</label>
-            <input class="form-control" type="number" v-model="radius">
+            <input class="form-control" type="number" v-model="radius" :readonly="!editMode">
           </div>
           <div class="form-group col-12">
             <label>Note</label>
-            <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control"></textarea>
+            <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control" :readonly="!editMode"></textarea>
           </div>
           <div class="form-group col-md-6">
             <label for="minAge">Minimum Age</label>
-            <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge">
+            <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge" :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
             <label>Minimum Driving</label>
-            <input type="number" class="form-control" v-model="minDriving" required>
+            <input type="number" class="form-control" v-model="minDriving" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
             <label>Minimum Duration</label>
             <div class="input-group">
-              <input type="number" class="form-control" id="minDay" v-model="minDurDay" required>
+              <input type="number" class="form-control" id="minDay" v-model="minDurDay" required :readonly="!editMode">
               <div class="input-group-append">
                 <label class="input-group-text" for="minDay">Day(s)</label>
               </div>
-              <input type="number" class="form-control" id="minHour" v-model="minDurHour" required>
+              <input type="number" class="form-control" id="minHour" v-model="minDurHour" required :readonly="!editMode">
               <div class="input-group-append">
                 <label class="input-group-text" for="minHour">Hour(s)</label>
               </div>
@@ -88,11 +99,11 @@
           <div class="form-group col-md-6">
             <label>Maximum Duration</label>
             <div class="input-group">
-              <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required>
+              <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required :readonly="!editMode">
               <div class="input-group-append">
                 <label class="input-group-text" for="maxDay">Day(s)</label>
               </div>
-              <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required>
+              <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required :readonly="!editMode">
               <div class="input-group-append">
                 <label class="input-group-text" for="maxHour">Hour(s)</label>
               </div>
@@ -101,37 +112,37 @@
           <div class="form-group col-12">
             <label>Feature</label>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
+              <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI" :disabled="!editMode">
               <label class="form-check-label" for="damageInsurance">
                 Damage Insurance included.
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI">
+              <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI" :disabled="!editMode">
               <label class="form-check-label" for="stolenInsurance">
                 Stolen Insurance included.
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC">
+              <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC" :disabled="!editMode">
               <label class="form-check-label" for="orderCanceling">
                 Order can be cancel at least 2 days before.
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC">
+              <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC" :disabled="!editMode">
               <label class="form-check-label" for="fuelCost">
                 Fuel cost included.
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ">
+              <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ" :disabled="!editMode">
               <label class="form-check-label" for="adjust">
                 Tax, other charge included.
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="others" v-model="oCheck">
+              <input class="form-check-input" type="checkbox" id="others" v-model="oCheck" :disabled="!editMode">
               <label class="form-check-label" for="others">
                 Others.
               </label>
@@ -141,7 +152,9 @@
               >
               </div>
             </div>
-          <button type="button" class="btn btn-primary" @click="submit">Confirm</button>
+          <button type="button" class="btn btn-primary ml-auto mt-3" v-if="editMode" @click="submit">Confirm</button>
+          <button type="button" class="btn btn-info ml-auto mt-3" v-else @click="edit">Edit</button>
+          <button type="button" class="btn btn-danger ml-4 mr-auto mt-3" @click="remove">Remove</button>
         </form>
       </div>
     </section>
@@ -150,6 +163,7 @@
 <script>
 import axios from 'axios';
 import AddImage from '../../components/Image/AddImage.vue';
+import ImageBox from '../../components/Image/ImageBox.vue';
 import swal from 'sweetalert';
 export default {
     data() {
@@ -189,11 +203,12 @@ export default {
         query: "",
         suggestedAddress: [],
         map: null,
+        editMode: false,
       } 
     },
     props: ["baseURL"],
     name: 'EditMotor',
-    components: { AddImage },
+    components: { AddImage, ImageBox },
     methods: {
       addImage(url) {
         this.index = this.index + 1;
@@ -216,27 +231,57 @@ export default {
             this.note = motor.note;
             this.URLs = motor.imageUrl;
             this.address = motor.address;
+            this.query = motor.address;
             this.lng = motor.location.x;
             this.lat = motor.location.y;
             this.radius = motor.radius;
             this.minAge = motor.minAge;
             this.minDriving = motor.minDriving;
-            this.minDurDay = Math.ceil(motor.minDur / 86400000);
-            this.maxDurDay = Math.ceil(motor.maxDur / 86400000);
-            this.minDurHour = Math.ceil((motor.minDur % this.minDurDay) / 3600000);
-            this.maxDurHour = Math.ceil((motor.maxDur % this.maxDurDay) / 3600000);
+            this.minDurDay = Math.floor(motor.minDur / 86400000);
+            this.maxDurDay = Math.floor(motor.maxDur / 86400000);
+            this.minDurHour = Math.floor((motor.minDur - this.minDurDay * 86400000) / 3600000);
+            this.maxDurHour = Math.floor((motor.maxDur - this.maxDurDay * 86400000) / 3600000);
             this.dI = motor.feature.damageInsurance;
             this.sI = motor.feature.stolenInsurance;
             this.aJ = motor.feature.adjust;
             this.oC = motor.feature.orderCanceling;
             this.fC = motor.feature.fuelCost;
-            // this.others = motor.feature.others.map()
+            if (motor.feature.others?.length > 0) {
+              this.others = motor.feature.others.join(", ");
+            }
+            this.index = this.URLs.length + 1;
+            console.log(this.index);
+            this.mapSetup(this.lat, this.lng, this.radius);
           })
           .catch(err => console.log(err));
       },
+
+      edit() {
+        this.editMode = true;
+        window.scrollTo(0, 0);
+      },
       
-      async submit() {
-        await axios.post(`${this.baseURL}motor/add`,
+      submit(e) {
+        e.preventDefault();
+        swal({
+          icon: "warning",
+          text: "Confirm",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: "OK"
+            },
+            cancel: true,
+          },
+        }).then(value => {
+          if (value == "OK") {
+            this.sendUpdate();
+          }
+        });
+      },
+
+      async sendUpdate() {
+        await axios.patch(`${this.baseURL}motor/${this.id}`,
         {
           production: this.production,
           model: this.model,
@@ -272,13 +317,22 @@ export default {
         })
         .then(res => {
           swal({
-            text: "Your motor has been ready for rent.",
+            text: "Your motor has been updated.",
             icon: "success",
             closeOnClickOutside: true
           });
-          this.$router.push({ name: "MyMotors"});
+          this.editMode = false;
+          this.$emit("fetchData");
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          swal({
+            text: err.message,
+            icon: "warning",
+            closeOnClickOutside: true
+          });
+          this.editMode = false;
+        });
       },
 
       async fetchAddress(query) {
@@ -317,9 +371,61 @@ export default {
         this.suggest = false;
       },
 
+      remove(e) {
+        e.preventDefault();
+        swal({
+          icon: "warning",
+          text: "You really want to delete this motorbike?",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: "OK"
+            },
+            cancel: true,
+          },
+        }).then(value => {
+          if (value == "OK") {
+            axios.delete(`${this.baseURL}motor/${this.id}`, {
+              headers: {
+                token: localStorage.getItem("token")
+              }
+            })
+            .then(() => {
+              swal({
+                icon: "success",
+                text: "Deleted.",
+                closeOnClickOutside: true
+              })
+              this.$emit("fetchData");
+              this.$router.push({ name: "MyMotors"});
+            })
+            .catch(err => console.log(err)); 
+          }
+        });
+      },
+
       input() {
         this.suggest = true;
         this.fetchAddress(this.query);
+      },
+
+      mapSetup(x, y, r) {
+        this.map = L.map('map').setView([x, y], 13);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(this.map);
+        this.map.on('dblclick', this.mapDblClick);
+        if (r) {
+          var circle = L.circle([51.508, -0.11], {
+              color: 'red',
+              fillColor: '#f03',
+              fillOpacity: 0.5,
+              radius: r
+          }).addTo(this.map);
+        } else {
+          var marker = L.marker([x, y]).addTo(this.map);
+        }
       },
 
       async mapDblClick(event) {
@@ -345,7 +451,7 @@ export default {
             this.query = this.address; 
           })
           .catch(err => console.log(err));
-        this.map.flyTo([this.lat, this.lng], 13);
+        this.map.flyTo([this.lat, this.lng], 17);
       },
 
       animationStab() {
@@ -357,6 +463,11 @@ export default {
             anchor = this._getAnchor()
           L.DomUtil.setPosition(this._container, pos.add(anchor))
         }
+      },
+
+      removeImage(index) {
+        this.index = this.index - 1;
+        this.URLs = this.URLs.filter((val, idx) => idx != index - 1);
       }
     },
 
@@ -367,12 +478,6 @@ export default {
         return;
       }
       this.fetchMotor();
-      this.map = L.map('map').setView([21.03, 105.85], 13);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(this.map);
-      this.map.on('dblclick', this.mapDblClick);
       this.animationStab();
     }
 }

@@ -1,8 +1,12 @@
 <template>
-  <div class="image-box">
-    <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">
+  <div class="image-box" v-if="ph">
+    <img src="../../assets/placeholder.jpg" alt="placeholder" class="img-fluid my-image" ref="rimage">   
+  </div>
+  <div class="image-box" v-else>
+    <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">   
     <div class="middle">
-      <button class="btn btn-info" @click="copyToClipboard">Copy URL</button>
+      <button class="btn btn-info" v-if="deleteOption" @click="deleteOp">Remove</button>
+      <button class="btn btn-info" v-else @click="copyToClipboard">Copy URL</button>
     </div>
   </div>
 </template>
@@ -10,7 +14,7 @@
 <script>
 export default {
   name : 'ImageBox',
-  props : ["image"],
+  props : ["image", "deleteOption", "index", "ph"],
   methods : {
     copyToClipboard(){
       const image = this.$refs.rimage;
@@ -31,7 +35,12 @@ export default {
         icon: "success",
         closeOnClickOutside: false,
       });
+    },
+
+    deleteOp () {
+      this.$emit("remove", this.index);
     }
+
   }
 }
 </script>
