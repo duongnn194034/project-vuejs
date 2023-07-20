@@ -200,4 +200,8 @@
     height: 18px;
     margin-right: 5px;
   }
+
+  .card-img-top {
+    aspect-ratio: 3 / 2;
+  }
 </style>

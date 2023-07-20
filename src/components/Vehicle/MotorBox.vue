@@ -11,10 +11,7 @@
       <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
       </div>
-      <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
-        ><h5 class="card-title">{{ motor.model }}</h5></router-link
-      >
-      <router-link v-else :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
+      <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
       <div class="address">
@@ -39,19 +36,22 @@
         </div>
         <span class="total">{{ motor.ratingTotal }} rate(s)</span>
       </div>
+      <div class="link-button">
+        <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
+          ><span>Edit</span></router-link
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
 
 export default {
   name: "MotorBox",
   props: ["motor", "admin"],
   data() {
     return {
-      // address: ''
       stars: 0,
       halfStars: 0,
       opaqueStars: 5
@@ -163,5 +163,11 @@ a {
 .total {
   vertical-align: middle;
   font-size: 16px;
+}
+
+.link-button {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 </style>
