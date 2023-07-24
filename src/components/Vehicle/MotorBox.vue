@@ -36,10 +36,14 @@
         </div>
         <span class="total">{{ motor.ratingTotal }} rate(s)</span>
       </div>
-      <div class="link-button">
+      <div class="link-button d-flex justify-content-end">
         <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
           ><span>Edit</span></router-link
         >
+        <router-link class="ml-4" v-if="admin" :to="{ name: 'ManageOffers', params: { id: motor?.id } }"
+          ><span>Bookings</span></router-link
+        >
+        <span id="num">3</span>
       </div>
     </div>
   </div>
@@ -167,7 +171,18 @@ a {
 
 .link-button {
   margin-top: 15px;
-  display: flex;
-  justify-content: center;
+}
+
+#num {
+  margin-left: 3px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #eb074f;
+  font-size: 14px;
+  border-radius: 12px;
+  padding: 5px;
+  width: 24px;
+  line-height: 1;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 </style>
