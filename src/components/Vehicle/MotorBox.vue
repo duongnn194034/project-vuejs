@@ -43,7 +43,7 @@
         <router-link class="ml-4" v-if="admin" :to="{ name: 'ManageOffers', params: { id: motor?.id } }"
           ><span>Bookings</span></router-link
         >
-        <span id="num">3</span>
+        <span id="num" v-if="motor.offerNum">{{ motor.offerNum }}</span>
       </div>
     </div>
   </div>
@@ -183,6 +183,7 @@ a {
   padding: 5px;
   width: 24px;
   line-height: 1;
+  text-align: center;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 </style>
