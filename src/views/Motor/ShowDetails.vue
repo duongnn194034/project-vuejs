@@ -256,7 +256,9 @@ export default {
         .then(res => {
           if (!res.data) return;
           res.data.forEach(element => {
-            this.dates.push([new Date(element.startTime), new Date(element.endTime)]);
+            if (element.status != 'CANCELED') {
+              this.dates.push([new Date(element.startTime), new Date(element.endTime)]);
+            }
           });
           this.attributes.push({
             key: "busy",

@@ -11,10 +11,7 @@
       <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <span><strong>{{ motor.price }}<sup>VND</sup>/giờ</strong></span>
       </div>
-      <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
-        ><h5 class="card-title">{{ motor.model }}</h5></router-link
-      >
-      <router-link v-else :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
+      <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
       >
       <div class="address">
@@ -39,19 +36,26 @@
         </div>
         <span class="total">{{ motor.ratingTotal }} đánh giá</span>
       </div>
+      <div class="link-button d-flex justify-content-end">
+        <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
+          ><span>Edit</span></router-link
+        >
+        <router-link class="ml-4" v-if="admin" :to="{ name: 'ManageOffers', params: { id: motor?.id } }"
+          ><span>Bookings</span></router-link
+        >
+        <span id="num" v-if="motor.offerNum">{{ motor.offerNum }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from 'axios';
 
 export default {
   name: "MotorBox",
   props: ["motor", "admin"],
   data() {
     return {
-      // address: ''
       stars: 0,
       halfStars: 0,
       opaqueStars: 5
@@ -163,5 +167,23 @@ a {
 .total {
   vertical-align: middle;
   font-size: 16px;
+}
+
+.link-button {
+  margin-top: 15px;
+}
+
+#num {
+  margin-left: 3px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #eb074f;
+  font-size: 14px;
+  border-radius: 12px;
+  padding: 5px;
+  width: 24px;
+  line-height: 1;
+  text-align: center;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 </style>
