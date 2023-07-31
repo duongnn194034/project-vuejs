@@ -10,7 +10,7 @@
     <div class="card-body">
       <div class="details-container clearfix">
         <div class="price btn" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          <span><strong>{{ motor.price }}VND</strong>/hour</span>
+          <span><strong>{{ motor.price }}VND</strong>/giờ</span>
         </div>
         <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
           ><h5 class="card-title">{{ motor.model }}</h5></router-link
@@ -37,7 +37,7 @@
         </div>
         <hr>
         <div class="feature-container">
-          <span class="h6 d-block ml-3"><strong>Features:</strong></span>
+          <span class="h6 d-block ml-3"><strong>Thông tin phụ</strong></span>
           <button 
             v-for="key in this.features" 
             :key="key" 
@@ -63,11 +63,11 @@ export default {
       halfStars: 0,
       opaqueStars: 5,
       toolTip: {
-        "Fuel Cost": "Guest have to refill fuel before returning.",
-        "Damage Insurance": "Damage Insurance included.",
-        "Stolen Insurance": "Stolen Insurance included.",
-        "Order Canceling": "Order can be canceled at least 2 days before ordered date.",
-        "Adjust": "Tax, others fee included.",
+        "Không bao giá xăng": "Xăng cần đổ lại đúng như khi mượn.",
+        "Bảo hiểm xe": "Đã bao gồm bảo hiểm xe.",
+        "Bảo hiểm mất cắp": "Đã bao gồm bảo hiểm mất cắp.",
+        "Hủy thuê xe": "Việc thuê xe có thể hủy trong 48h trước thời hạn.",
+        "Phụ phí": "Đã tính thuế và phí phụ.",
       }
     }
   },

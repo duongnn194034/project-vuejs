@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
       <div class="price btn btn-danger" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        <span><strong>{{ motor.price }}<sup>VND</sup> per hour</strong></span>
+        <span><strong>{{ motor.price }}<sup>VND</sup>/giờ</strong></span>
       </div>
       <router-link v-if="admin" :to="{ name: 'EditMotor', params: { id: motor?.id } }"
         ><h5 class="card-title">{{ motor.model }}</h5></router-link
@@ -37,7 +37,7 @@
             v-for="index in (this.opaqueStars > 0 ? this.opaqueStars : 1)" :key="index"
           >
         </div>
-        <span class="total">{{ motor.ratingTotal }} rate(s)</span>
+        <span class="total">{{ motor.ratingTotal }} đánh giá</span>
       </div>
     </div>
   </div>

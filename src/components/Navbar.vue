@@ -22,15 +22,15 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link class="nav-link text-light" :to="{ name: 'Home' }"
-              >Home</router-link>         
+              >Trang chủ</router-link>         
         </li>
         <li class="nav-item">
           <router-link class="nav-link text-light" :to="{ name: 'ListMotors' }"
-              >Hire a vehicle</router-link>         
+              >Thuê xe</router-link>         
         </li>
         <li class="nav-item">
           <router-link class="nav-link text-light" :to="{ name: 'LoanMotor' }"
-              >Loan vehicles</router-link>         
+              >Cho thuê xe</router-link>         
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -52,19 +52,19 @@
               class="dropdown-item"
               v-if="token"
               :to="{ name: 'Profile'}"
-            >Profile</router-link>
+            >Thông tin tài khoản</router-link>
             <router-link 
               class="dropdown-item" 
               v-if="token" 
               :to="{ name: 'MyMotors' }"
-            >My vehicles</router-link>
+            >Xe của tôi</router-link>
             <router-link 
               class="dropdown-item" 
               v-if="token" 
               :to="{ name: 'MyOffers' }"
-            >My bookings</router-link>          
+            >Xe đã thuê</router-link>          
             <a class="dropdown-item" v-if="token" href="#" @click="signout"
-              >Sign Out</a
+              >Đăng xuất</a
             >
           </div>
         </li>
@@ -73,14 +73,14 @@
             class="nav-link text-light"
             v-if="!token"
             :to="{ name: 'Signup' }"
-            >Sign Up</router-link>
+            >Đăng kí</router-link>
         </li>
         <li class="nav-item">
           <router-link
             class="nav-link bg-primary text-light rounded"
             v-if="!token"
             :to="{ name: 'Signin' }"
-            >Sign In</router-link>
+            >Đăng nhập</router-link>
         </li>
       </ul>
     </div>

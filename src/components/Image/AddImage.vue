@@ -4,10 +4,10 @@
       <div class="col-3"></div>
       <div class="col-md-6 px-5 px-md-0 pt-5 text-center">
         <div class="form-group">
-          <label for="myfile">Select Image :</label>
+          <label for="myfile">Chọn ảnh :</label>
           <input type="file" id="myfile" class="form-control-file" @change="onFileSelected">
-          <label for="myUrl">Or</label>
-          <input type="url" id="myUrl" class="form-control" placeholder="Input URL" v-model="url">
+          <label for="myUrl">Hoặc</label>
+          <input type="url" id="myUrl" class="form-control" placeholder="Nhập URL" v-model="url">
         </div>
         <button type="button" class="btn btn-info" @click="onUpload">OK</button>
       </div>

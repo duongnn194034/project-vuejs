@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <div class="spinner-grow text-danger" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">Đang tải...</span>
         </div>
     </div>
 </template>

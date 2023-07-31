@@ -3,23 +3,23 @@
   <div class="container">
     <div class="row">
       <div class="col-12 fs-3">
-        <h4 class="pt-3">Bank Details</h4>
-        <span class="pl-2 py-2">If you are a car owner then please enter your bank details in the form below to receive payments.</span>
+        <h4 class="pt-3">Thông tin ngân hành</h4>
+        <span class="pl-2 py-2">Nếu bạn là chủ xe nhập thông tin dưới đây để nhận thanh toán</span>
       </div>
     </div>
     <div class="row mt-3">
       <div class="form-group col-md-6">
-        <label>Bank name</label>
+        <label>Tên ngân hàng</label>
         <input type="text" class="form-control" placeholder="Enter bank name" v-model="bankName">
       </div>
 
       <div class="form-group col-md-6">
-        <label>Account holder's name</label>
+        <label>Tên chủ tài khoản</label>
         <input type="text" class="form-control" placeholder="Account holder's name" v-model="holderName">
       </div>
 
       <div class="form-group col-md-6">
-        <label>Account number</label>
+        <label>Số tài khoản</label>
         <input type="text" class="form-control" inputmode="numeric" placeholder="Account number" v-model="number">
       </div>
 
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center mt-5">
-      <button class="btn btn-primary" type="submit" @click="submitHandler">Save changes</button>
+      <button class="btn btn-primary" type="submit" @click="submitHandler">Lưu thay đổi</button>
     </div>
   </div>
 </template>

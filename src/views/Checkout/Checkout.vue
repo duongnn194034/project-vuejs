@@ -29,7 +29,7 @@ export default {
   },
 
   name: 'Checkout',
-  props: ['baseURL'],
+  props: ['baseURL', 'user'],
   methods: {
     /*
       Configures Stripe by setting up the elements and

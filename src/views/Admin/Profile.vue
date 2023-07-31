@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <h4 class="pt-3">Profile</h4>
+                <h4 class="pt-3">Thông tin tài khoản</h4>
             </div>
         </div>
         <div class="row">
@@ -14,7 +14,7 @@
             <div class="col-md-8 px-5 px-md-0">
                 <form class="row">
                     <div class="form-group col-md-6">
-                        <label>Full Name</label>
+                        <label>Họ và tên</label>
                         <input type="text" class="form-control" v-model="fullname" :readonly="!editMode">
                     </div>
                     <div class="form-group col-md-6">
@@ -22,22 +22,30 @@
                         <input type="url" class="form-control" v-model="email" :readonly="!editMode">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Mobile Number</label>
+                        <label>Số điện thoại</label>
                         <input type="url" class="form-control" v-model="phoneNumber" :readonly="!editMode">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Role</label>
+                        <label>Vai trò</label>
                         <select class="form-control" v-model="role" disabled>
                             <option value="USER">USER</option>
                             <option value="ADMIN">ADMIN</option>
                         </select>
                     </div>
+                    <div class="form-group col-md-6">
+                        <label>Zalo Url</label>
+                        <input type="url" class="form-control" v-model="zalo" :readonly="!editMode">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Facebook Url</label>
+                        <input type="url" class="form-control" v-model="fb" :readonly="!editMode">
+                    </div>
                     <div class="form-group col-12">
-                        <label>Biography</label>
+                        <label>Giới thiệu</label>
                         <textarea class="form-control" rows="4" v-model="biography" :readonly="!editMode"></textarea>
                     </div>
-                    <button v-if="editMode" type="button" class="btn btn-primary" @click="saveChanged">Save Changed</button>
-                    <button v-else type="button" class="btn btn-secondary" @click="() => {this.editMode = true}">Edit Profile</button>
+                    <button v-if="editMode" type="button" class="btn btn-primary" @click="saveChanged">Lưu thay đổi</button>
+                    <button v-else type="button" class="btn btn-secondary" @click="() => {this.editMode = true}">Chỉnh sửa thông tin</button>
                 </form>
             </div>
         </div>
@@ -61,6 +69,8 @@ export default {
                 name: "avatar"
             },
             biography: null,
+            fb: null,
+            zalo: null
         }
     },
     name: 'Profile',
@@ -86,7 +96,9 @@ export default {
                         phoneNumber: this.phoneNumber,
                         email: this.email,
                         biography: this.biography,
-                        avatarUrl: this.image.url
+                        avatarUrl: this.image.url,
+                        zaloUrl: this.zalo,
+                        fbUrl: this.fb
                     }, {
                         headers: {
                             token: this.token
@@ -120,6 +132,8 @@ export default {
               this.role = this.user.role
               this.image.url = this.user.avatarUrl;
               this.biography = this.user.biography;
+              this.fb = this.user.facebookUrl;
+              this.zalo = this.user.zalo;
         }
     }
 }

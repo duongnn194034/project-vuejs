@@ -13,10 +13,10 @@
 
         <div class="col-md-3 col-6">
           <ul style="list-style-type: none">
-            <li class="text-light font-weight-bold">Connect With Us</li>
+            <li class="text-light font-weight-bold">Liên hệ với chúng tui</li>
             <li><a class="footer-link font-weight-light" href="#">Facebook</a></li>
             <li><a class="footer-link font-weight-light" href="#">Twitter</a><br></li>
-            <li><a class="footer-link font-weight-light" href="#">Instagram</a><br></li>
+            <li><a class="footer-link font-weight-light" href="#">Zalo</a><br></li>
           </ul>
         </div>
 

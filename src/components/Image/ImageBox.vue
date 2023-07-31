@@ -5,8 +5,8 @@
   <div class="image-box" v-else>
     <img :src="image.url" :alt="image.name" class="img-fluid my-image" ref="rimage">   
     <div class="middle">
-      <button class="btn btn-info" v-if="deleteOption" @click="deleteOp">Remove</button>
-      <button class="btn btn-info" v-else @click="copyToClipboard">Copy URL</button>
+      <button class="btn btn-info" v-if="deleteOption" @click="deleteOp">Xóa ảnh</button>
+      <button class="btn btn-info" v-else @click="copyToClipboard">Sao chép URL</button>
     </div>
   </div>
 </template>

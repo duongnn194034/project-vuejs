@@ -3,8 +3,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12 fs-3">
-        <h4 class="pt-3">Address</h4>
-        <span class="pl-2 py-2">Your address.</span>
+        <h4 class="pt-3">Địa chỉ</h4>
+        <span class="pl-2 py-2">Địa chỉ của bạn</span>
       </div>
     </div>
   </div>
@@ -12,22 +12,22 @@
     <div class="row">
       <div class="col-9">
         <dl class="row mt-2">
-          <dt class="col-sm-3">Line</dt>
+          <dt class="col-sm-3">Địa chỉ cụ thể</dt>
           <dd class="col-sm-9">{{ user.address?.line }}</dd>
 
-          <dt class="col-sm-3">City</dt>
+          <dt class="col-sm-3">Thành phố</dt>
           <dd class="col-sm-9">{{  user.address?.city }}</dd>
 
-          <dt class="col-sm-3">Country</dt>
+          <dt class="col-sm-3">Quốc gia</dt>
           <dd class="col-sm-9">{{ user.address?.country }}</dd>
 
-          <dt class="col-sm-3 text-truncate">Postcode</dt>
+          <dt class="col-sm-3 text-truncate">Mã bưu điện</dt>
           <dd class="col-sm-9">{{ user.address?.postcode }}</dd>
         </dl>
         <hr>
         <div class="row mt-4">
           <div class="col-12">
-            <h5>Search address or double click on map for quick searching.</h5>
+            <h5>Tìm kiếm hoặc nháy đúp trên bản đồ</h5>
           </div>
           <div class="col-md-4">
             <input class="form-control suggest" type="text" placeholder="Search address" :disabled="!editMode" v-model="query" @input="input">
@@ -45,18 +45,18 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="form-group col-md-8 form-body">
-            <label>Enter address</label>
-            <input type="text" class="form-control mb-3" placeholder="Line" v-model="line" :readonly="!editMode || !manual">
-            <input type="text" class="form-control mb-3" placeholder="City" v-model="city" :readonly="!editMode || !manual">
-            <input type="text" class="form-control mb-3" placeholder="Country" v-model="country" :readonly="!editMode || !manual">
-            <input type="text" class="form-control" placeholder="Postcode" v-model="postcode" :readonly="!editMode || !manual">
+            <label>Nhập địa chỉ</label>
+            <input type="text" class="form-control mb-3" placeholder="Địa chỉ cụ thể" v-model="line" :readonly="!editMode || !manual">
+            <input type="text" class="form-control mb-3" placeholder="Thành phố" v-model="city" :readonly="!editMode || !manual">
+            <input type="text" class="form-control mb-3" placeholder="Quốc gia" v-model="country" :readonly="!editMode || !manual">
+            <input type="text" class="form-control" placeholder="Mã bưu điện" v-model="postcode" :readonly="!editMode || !manual">
           </div>
         </div>
       </div>
       <div class="col-3">
-        <button type="button" class="btn btn-secondary m-3" v-show="!editMode" @click="() => this.editMode = true">Edit</button>
-        <button type="submit" class="btn btn-primary m-3" @click="saveChanged" v-show="editMode">Save changes</button>
-        <Switch @getVal="(value) => this.manual = value" content="Enter manually" :show="!editMode"/>
+        <button type="button" class="btn btn-secondary m-3" v-show="!editMode" @click="() => this.editMode = true">Thay đổi</button>
+        <button type="submit" class="btn btn-primary m-3" @click="saveChanged" v-show="editMode">Lưu thay đổi</button>
+        <Switch @getVal="(value) => this.manual = value" content="Nhập thủ công" :show="!editMode"/>
       </div>
     </div>
   </form>
@@ -134,7 +134,7 @@ export default {
       const popup = L.popup();
       popup
         .setLatLng(event.latlng)
-        .setContent("Your address is here.")
+        .setContent("Địa chỉ của bạn ở đây.")
         .openOn(this.map);
       this.lat = event.latlng.lat;
       this.lng = event.latlng.lng;

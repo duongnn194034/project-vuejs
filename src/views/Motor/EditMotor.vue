@@ -2,7 +2,7 @@
   <div id="loan" class="container-fluid">
     <section>
       <div class="row py-3">
-        <h6 class="ml-5 col-12">Motor Images</h6>
+        <h6 class="ml-5 col-12">Ảnh xe</h6>
         <div class="float-left motor-image" v-for="i in index">
           <AddImage v-if="i < index" :img="{ name: `image${i}`, url: this.URLs[i-1] }" 
             :baseURL="baseURL"
@@ -18,44 +18,48 @@
       <div class="container">
         <form class="row">
           <div class="form-group col-md-6">
-            <label>Production name</label>
-            <input type="text" class="form-control" v-model="production" required :readonly="!editMode">
+            <label>Hãng sản xuất</label>
+            <input type="text" class="form-control" v-model="production" :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
-            <label>Model</label>
+            <label>Mẫu</label>
             <input type="text" class="form-control" v-model="model" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
-            <label>License Plate</label>
+            <label>Biển số</label>
             <input type="text" class="form-control" v-model="license" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
-            <label>Engine Size</label>
+            <label>Dung tích cylinder</label>
             <input type="text" class="form-control" v-model="engineSize" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-4">
-            <label>Fuel</label>
+            <label>Loại xăng</label>
             <input type="text" class="form-control" v-model="fuel" required :readonly="!editMode">
           </div>
-          <div class="form-group col-md-4">
-            <label>Type</label>
+          <div class="form-group col-md-6">
+            <label>Loại cần số</label>
             <select class="form-control" v-model="type" required :readonly="!editMode">
-              <option value="AUTOMATIC">AUTOMATIC</option>
-              <option value="MANUAL">MANUAL</option>
+              <option value="AUTOMATIC">Tự động</option>
+              <option value="MANUAL">Thủ công</option>
             </select>
           </div>
-          <div class="form-group col-md-4">
-            <label>Price</label>
-            <input type="number" class="form-control" v-model="price" required :readonly="!editMode">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Year</label>
+          <div class="form-group col-md-6">
+            <label>Năm sản xuất</label>
             <input type="number" class="form-control" v-model="year" :readonly="!editMode">
           </div>
+          <div class="form-group col-md-6">
+            <label>Giá cọc</label>
+            <input type="number" class="form-control" v-model="deposit" required :readonly="!editMode">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Giá trên giờ</label>
+            <input type="number" class="form-control" v-model="price" required :readonly="!editMode">
+          </div>
           <div class="form-group col-12">
-            <label>Address</label>
+            <label>Địa chỉ</label>
             <div id="map"></div>
-            <input class="form-control map" type="text" placeholder="Search your address here or double click on map." 
+            <input class="form-control map" type="text" placeholder="Tìm kiếm hoặc nháy đúp trên bản đồ." 
               v-model="query" 
               @input="input" 
               :readonly="!editMode"
@@ -68,93 +72,93 @@
             </div>
           </div>
           <div class="form-group col-12">
-            <label>Max Distance (km)</label>
+            <label>Khoảng cách mượn (km)</label>
             <input class="form-control" type="number" v-model="radius" :readonly="!editMode">
           </div>
           <div class="form-group col-12">
-            <label>Note</label>
+            <label>Chú ý</label>
             <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control" :readonly="!editMode"></textarea>
           </div>
           <div class="form-group col-md-6">
-            <label for="minAge">Minimum Age</label>
+            <label for="minAge">Tuổi lái xe tối thiểu:</label>
             <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge" :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
-            <label>Minimum Driving</label>
+            <label>Số năm lái xe tối thiểu: </label>
             <input type="number" class="form-control" v-model="minDriving" required :readonly="!editMode">
           </div>
           <div class="form-group col-md-6">
-            <label>Minimum Duration</label>
+            <label>Thời gian thuê tối thiểu</label>
             <div class="input-group">
               <input type="number" class="form-control" id="minDay" v-model="minDurDay" required :readonly="!editMode">
               <div class="input-group-append">
-                <label class="input-group-text" for="minDay">Day(s)</label>
+                <label class="input-group-text" for="minDay">Ngày</label>
               </div>
               <input type="number" class="form-control" id="minHour" v-model="minDurHour" required :readonly="!editMode">
               <div class="input-group-append">
-                <label class="input-group-text" for="minHour">Hour(s)</label>
+                <label class="input-group-text" for="minHour">Giờ</label>
               </div>
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label>Maximum Duration</label>
+            <label>Thời gian thuê tối đa</label>
             <div class="input-group">
               <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required :readonly="!editMode">
               <div class="input-group-append">
-                <label class="input-group-text" for="maxDay">Day(s)</label>
+                <label class="input-group-text" for="maxDay">Ngày</label>
               </div>
               <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required :readonly="!editMode">
               <div class="input-group-append">
-                <label class="input-group-text" for="maxHour">Hour(s)</label>
+                <label class="input-group-text" for="maxHour">Giờ</label>
               </div>
             </div>
           </div>
           <div class="form-group col-12">
-            <label>Feature</label>
+            <label>Tính năng</label>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI" :disabled="!editMode">
               <label class="form-check-label" for="damageInsurance">
-                Damage Insurance included.
+                Bao gồm bảo hiểm xe.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI" :disabled="!editMode">
               <label class="form-check-label" for="stolenInsurance">
-                Stolen Insurance included.
+                Bao gồm bảo hiểm mất cắp.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC" :disabled="!editMode">
               <label class="form-check-label" for="orderCanceling">
-                Order can be cancel at least 2 days before.
+                Việc thuê xe có thể hủy trước 48 giờ.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC" :disabled="!editMode">
               <label class="form-check-label" for="fuelCost">
-                Fuel cost included.
+                Xăng cần phải đổ như lúc bắt đầu thuê.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ" :disabled="!editMode">
               <label class="form-check-label" for="adjust">
-                Tax, other charge included.
+                Đã bao gồm tất cả phụ phí và thuế.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="others" v-model="oCheck" :disabled="!editMode">
               <label class="form-check-label" for="others">
-                Others.
+                Khác:
               </label>
-              <input class="form-control" type="text" placeholder="List other features, seperated by commas." 
+              <input class="form-control" type="text" placeholder="Nhập ở đây, phân cách bằng dấu phẩy." 
                 :disabled="!oCheck"
                 v-model="others"
               >
               </div>
             </div>
-          <button type="button" class="btn btn-primary ml-auto mt-3" v-if="editMode" @click="submit">Confirm</button>
-          <button type="button" class="btn btn-info ml-auto mt-3" v-else @click="edit">Edit</button>
-          <button type="button" class="btn btn-danger ml-4 mr-auto mt-3" @click="remove">Remove</button>
+          <button type="button" class="btn btn-primary ml-auto mt-3" v-if="editMode" @click="submit">Xác nhận</button>
+          <button type="button" class="btn btn-info ml-auto mt-3" v-else @click="edit">Sửa</button>
+          <button type="button" class="btn btn-danger ml-4 mr-auto mt-3" @click="remove">Xóa</button>
         </form>
       </div>
     </section>
