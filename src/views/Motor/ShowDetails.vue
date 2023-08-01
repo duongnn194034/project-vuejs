@@ -114,8 +114,18 @@
                  {{ createdAt }}
                 </p>
               </div>
-              <div class="col-lg-7 col-sm-8 col-xs-12 border-white">
-                <span>Placeholder</span>
+              <div class="col-lg-4 col-sm-4 col-xs-12 border-white">
+                <p class="no-margin">Phone: {{ user?.phoneNumber }}</p>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-xs-12 border-white">
+                <div class="row">
+                  <a :href="user?.facebookUrl" target="_blank">
+                    <img src="../../assets/facebook.png" alt="fb" class="contact" v-if="user?.facebookUrl">
+                  </a>
+                  <a :href="user?.zaloUrl" target="_blank">
+                    <img src="../../assets/zalo.png" alt="zalo" class="contact" v-if="user?.zaloUrl">
+                  </a>
+                </div>
               </div>
             </div>
           </section>

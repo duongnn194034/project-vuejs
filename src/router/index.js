@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
-import Profile from '../views/Admin/Profile.vue'
-import ChangePassword from '../views/Admin/ChangePassword.vue'
-import License from '../views/Admin/License.vue'
-import Bank from '../views/Admin/Bank.vue'
-import Address from '../views/Admin/Address.vue'
+import Dashboard from '../views/Admin/Dashboard.vue'
+import ManageAccounts from '../views/Admin/ManageAccount.vue'
+
+import Profile from '../views/Account/Profile.vue'
+import ChangePassword from '../views/Account/ChangePassword.vue'
+import License from '../views/Account/License.vue'
+import Bank from '../views/Account/Bank.vue'
+import Address from '../views/Account/Address.vue'
 
 import UserProfile from '../views/User/UserProfile.vue'
 
@@ -35,6 +38,17 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  // admin route
+  {
+    path: '/admin/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+  {
+    path: '/admin/accounts',
+    name: 'ManageAccounts',
+    component: ManageAccounts
+  },
   // motor route
   {
     path : '/motor/show/:id',
@@ -57,7 +71,7 @@ const routes = [
     component: MyMotors
   },
   {
-    path: '/admin/motor/:id',
+    path: '/account/motor/:id',
     name: 'EditMotor',
     component: EditMotor
   },

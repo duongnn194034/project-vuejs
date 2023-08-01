@@ -32,6 +32,32 @@
           <router-link class="nav-link text-light" :to="{ name: 'LoanMotor' }"
               >Cho thuê xe</router-link>         
         </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link text-light dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            v-if="token && user?.role === 'ADMIN'"
+          >
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <router-link
+              class="dropdown-item"
+              v-if="token"
+              :to="{ name: 'Dashboard'}"
+            >Dashboard</router-link>
+            <router-link 
+              class="dropdown-item" 
+              v-if="token" 
+              :to="{ name: 'ManageAccounts' }"
+            >Accounts</router-link>
+          </div>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">

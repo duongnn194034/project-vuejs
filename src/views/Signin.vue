@@ -20,6 +20,7 @@
                 type="email"
                 class="form-control"
                 v-model="email"
+                autocomplete="username"
                 required
               />
             </div>
@@ -29,6 +30,7 @@
                 type="password"
                 class="form-control"
                 v-model="password"
+                autocomplete="current-password"
                 required
               />
             </div>

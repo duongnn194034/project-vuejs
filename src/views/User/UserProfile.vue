@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-7 col-md-offset-1 no-padding-sm">
         <div class="card w-100 no-bg owner">
-          <section class="bg-primary profile">
+          <section class="bg-success bg-gradient profile">
             <div class="row m-0 image-row">
               <ImageCircle :image="{ url: this.user?.avatarUrl, name: 'avatar'}" :option2="true"/>
             </div>
@@ -16,13 +16,23 @@
               </div>
             </div>
             <div class="row ml-0 mr-0 mt-3 details">
-              <div class="col-lg-5 col-sm-4 col-xs-12">
+              <div class="col-lg-5 col-sm-5 col-xs-12">
                 <p class="text-left no-margin">
                  {{ createdAt }}
                 </p>
               </div>
-              <div class="col-lg-7 col-sm-8 col-xs-12 border-white">
-                <span>Placeholder</span>
+              <div class="col-lg-4 col-sm-4 col-xs-12 border-white">
+                <p class="no-margin">Phone: {{ user?.phoneNumber }}</p>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-xs-12 border-white">
+                <div class="row">
+                  <a :href="user?.facebookUrl" target="_blank">
+                    <img src="../../assets/facebook.png" alt="fb" class="contact" v-if="user?.facebookUrl">
+                  </a>
+                  <a :href="user?.zaloUrl" target="_blank">
+                    <img src="../../assets/zalo.png" alt="zalo" class="contact" v-if="user?.zaloUrl">
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -211,5 +221,11 @@ section.reviews {
 
 .vehicle .card {
   box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);  
+}
+
+img.contact {
+  height: 40px;
+  width: 40px;
+  margin-left: 1rem;
 }
 </style>

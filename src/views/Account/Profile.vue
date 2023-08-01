@@ -125,15 +125,15 @@ export default {
     },
     mounted() {
         this.token = localStorage.getItem('token')
-        if (this.token) {       
-              this.fullname = this.user.fullName
-              this.phoneNumber = this.user.phoneNumber
-              this.email = this.user.email
-              this.role = this.user.role
-              this.image.url = this.user.avatarUrl;
-              this.biography = this.user.biography;
-              this.fb = this.user.facebookUrl;
-              this.zalo = this.user.zalo;
+        if (this.token) {     
+            this.fullname = this.user.fullName;
+            this.phoneNumber = this.user.phoneNumber;
+            this.email = this.user.email;
+            this.role = this.user.role;
+            this.image.url = this.user.avatarUrl;
+            this.biography = this.user.biography;
+            this.fb = this.user.facebookUrl;
+            this.zalo = this.user.zaloUrl;
         }
     }
 }
