@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-12 justify-content-center d-flex flex-row pt-5">
         <div id="signup-div" class="flex-item border">
-          <h2 class="pt-4 pl-4">Sign Up</h2>
+          <h2 class="pt-4 pl-4">Đăng kí</h2>
           <form @submit="signup" class="pt-4 pl-4 pr-4">
             <div class="form-group">
               <label>Email</label>
@@ -26,7 +26,7 @@
             <div class="form-row">
               <div class="col">
                 <div class="form-group">
-                  <label>Full Name</label>
+                  <label>Họ và tên</label>
                   <input
                     type="name"
                     class="form-control"
@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Password</label>
+              <label>Mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -49,16 +49,16 @@
               <div class="form-row">
                 <img src="../assets/red_cross.svg" v-show="!checkLength" id="icon">
                 <img src="../assets/green_tick.svg" v-show="checkLength" id="icon">
-                <p class="form-text text-muted" id="des">Password is at least 8 characters long.</p>
+                <p class="form-text text-muted" id="des">Mật khẩu cần dài ít nhất 8 kí tự.</p>
               </div>
               <div class="form-row">
                 <img src="../assets/red_cross.svg" v-show="!checkNum" id="icon">
                 <img src="../assets/green_tick.svg" v-show="checkNum" id="icon">
-                <p class="form-text text-muted" id="des">Password contains a number and a letter.</p>
+                <p class="form-text text-muted" id="des">Mật khẩu cần chứa ít nhất 1 số và 1 chữ cái.</p>
               </div>
             </div>
             <div class="form-group">
-              <label>Confirm Password</label>
+              <label>Xác nhận mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -67,18 +67,18 @@
               />
             </div>
             <button type="submit" class="btn btn-primary mt-2 py-0" v>
-              Create an account
+              Tạo tài khoản?
             </button>
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Already have an account?</small
+            >Đã có tài khoản?</small
           >
           <p class="text-center">
             <router-link
               class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
               :to="{ name: 'Signin' }"
-              >Sign In</router-link
+              >Đăng nhập</router-link
             >
           </p>
           <hr />
@@ -86,7 +86,7 @@
             <router-link
               class="btn btn-secondary text-center mx-auto px-5 py-1 mb-2"
               :to="{ name: 'Home' }"
-              >Back to Home</router-link
+              >Quay lại trang chủ</router-link
             >
           </p>
         </div>

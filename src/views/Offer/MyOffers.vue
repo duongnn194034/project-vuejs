@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col-12">
-        <h3 class="text-center">My Bookings</h3>
+        <h3 class="text-center">Tất cả yêu cầu</h3>
       </div>
     </div>
     <div class="row">
@@ -10,19 +10,19 @@
         <ul class="nav">
           <li class="nav-item pb-0">
             <router-link :to="{ name: 'MyOffers', query: { filter: 'upcoming' }}" class="nav-link" id="upcoming" 
-              @click="linkHandler">Upcoming</router-link>
+              @click="linkHandler">Đang đặt</router-link>
           </li>
           <li class="nav-item pb-0">
             <router-link :to="{ name: 'MyOffers', query: { filter: 'completed' }}" class="nav-link" id="completed"
-              @click="linkHandler">Completed</router-link>
+              @click="linkHandler">Đã trả</router-link>
           </li>
           <li class="nav-item pb-0">
             <router-link :to="{ name: 'MyOffers', query: { filter: 'canceled' }}" class="nav-link" id="canceled"
-              @click="linkHandler">Canceled</router-link>
+              @click="linkHandler">Đã hủy</router-link>
           </li>
           <li class="nav-item pb-0">
             <router-link :to="{ name: 'MyOffers', query: { filter: 'all' }}" class="nav-link" id="all"
-              @click="linkHandler">All</router-link>
+              @click="linkHandler">Tất cả</router-link>
           </li>
         </ul>
       </div>
@@ -48,28 +48,28 @@
               <div class="d-flex align-items-center justify-content-between">
                 <router-link :to="{ name: 'OfferDetails', params: { id: offer.id } }"
                   ><h5 class="card-title">{{ offer.vehicle.model }}</h5></router-link>
-                <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Completed</span>
-                <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Return</span>
+                <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Đã xác nhận</span>
+                <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Đã trả</span>
                 <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
-                  || offer.status == 'BOOKING'">Booking</span>
+                  || offer.status == 'BOOKING'">Đang đặt</span>
                 <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
-                  && offer.status != 'RETURNED'">Outdated</span>
-                <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Canceled</span>
+                  && offer.status != 'RETURNED'">Quá hạn</span>
+                <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Đã hủy</span>
               </div>
               <div class="info-container">
                 <div class="d-flex align-items-center">
                   <img class="clock" src="../../assets/clock.png" alt="clock">
-                  <span class="mr-1"><b>Start time: </b></span>
+                  <span class="mr-1"><b>Thời gian bắt đầu: </b></span>
                   <span>{{ new Date(offer.startTime).toLocaleString() }}</span>
                 </div>
                 <div class="d-flex align-items-center">
                   <img class="clock" src="../../assets/clock.png" alt="clock">
-                  <span class="mr-1"><b>End time:</b></span>
+                  <span class="mr-1"><b>Thời gian kết thúc:</b></span>
                   <span>{{ new Date(offer.endTime).toLocaleString() }}</span>
                 </div>
                 <div class="d-flex align-items-center">
                   <img class="clock" src="../../assets/clock.png" alt="clock">
-                  <span class="mr-1"><b>Booking time: </b></span>
+                  <span class="mr-1"><b>Thời gian đặt: </b></span>
                   <span>{{ new Date(offer.createdDate).toLocaleString() }}</span>
                 </div>
               </div>
@@ -80,8 +80,8 @@
     </div>
     <div class="row mt-5" v-else>
       <div class="col-12">
-        <h4 class="text-center">Oops! You haven't got any bookings at the moment.</h4>
-        <button class="btn btn-primary mx-center" type="button" @click="submit">Find one near you</button>
+        <h4 class="text-center">Bạn chưa thuê bất kì xe nào cho tới hiện tại.</h4>
+        <button class="btn btn-primary mx-center" type="button" @click="submit">Tìm xe nhanh</button>
       </div>
     </div>
   </div>

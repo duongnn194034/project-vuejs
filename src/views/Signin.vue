@@ -25,7 +25,7 @@
               />
             </div>
             <div class="form-group">
-              <label>Password</label>
+              <label>Mật khẩu</label>
               <input
                 type="password"
                 class="form-control"
@@ -35,7 +35,7 @@
               />
             </div>
             <button type="submit" class="btn btn-primary mt-2 py-0">
-              Continue
+              Tiếp tục
               <div
                 v-if="loading"
                 class="spinner-border spinner-border-sm"
@@ -47,13 +47,13 @@
           </form>
           <hr />
           <small class="form-text text-muted pt-2 pl-4 text-center"
-            >Don't have an account?</small
+            >Bạn không có tài khoản?</small
           >
           <p class="text-center">
             <router-link
               :to="{ name: 'Signup' }"
               class="btn btn-dark text-center mx-auto px-5 py-1 mb-2"
-              >Register</router-link
+              >Đăng kí</router-link
             >
           </p>
           <hr />
@@ -61,7 +61,7 @@
             <router-link
               class="btn btn-secondary text-center mx-auto px-5 py-1 mb-2"
               :to="{ name: 'Home' }"
-              >Back to Home</router-link
+              >Quay lại trang chủ</router-link
             >
           </p>
         </div>

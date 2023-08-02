@@ -35,27 +35,27 @@
               <dl>
                 <div class="row">
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Make</dt>
+                    <dt>Hàng</dt>
                     <dd>{{ offer.vehicle.production }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Fuel</dt>
+                    <dt>Loại xăng</dt>
                     <dd>{{ offer.vehicle.fuel }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Model</dt>
+                    <dt>Mẫu</dt>
                     <dd>{{ offer.vehicle.model }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Vehicle Type</dt>
+                    <dt>Loại phương tiện</dt>
                     <dd>{{ offer.vehicle.type }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Engine Size</dt>
+                    <dt>Dung tích</dt>
                     <dd>{{ offer.vehicle.engineSize }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Year</dt>
+                    <dt>Năm</dt>
                     <dd>{{ offer.vehicle.year }}</dd>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Vehicle features</h5>
+              <h5 class="pb-3 mt-4">Thông tin khác</h5>
               <div class="row">
                 <div class="col-lg-4 col-xs-6 pb-3" v-for="f in features">
                   <span><abbr :title="this.toolTip[f]">{{ f }}</abbr></span>
@@ -72,25 +72,25 @@
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Restrictions</h5>
+              <h5 class="pb-3 mt-4">Ràng buộc</h5>
               <div class="row">
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Age: {{ offer.vehicle.minAge }}</span>
+                  <span>Tuổi tối thiểu: {{ offer.vehicle.minAge }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Driving Years: {{ offer.vehicle.minDriving }}</span>
+                  <span>Số năm lái tối thiểu: {{ offer.vehicle.minDriving }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Minimum Duration: {{ toDateString(offer.vehicle.minDur) }}</span>
+                  <span>Thời gian thuê tối thiểu: {{ toDateString(offer.vehicle.minDur) }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Maximum Duration: {{ toDateString(offer.vehicle.maxDur) }}</span>
+                  <span>Thời gian thuê tối đa: {{ toDateString(offer.vehicle.maxDur) }}</span>
                 </div>
               </div>
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Pick up location</h5>
+              <h5 class="pb-3 mt-4">Địa điểm nhận xe</h5>
               <div id="map"></div>
             </section>
           </div>
@@ -102,31 +102,31 @@
             <section>
               <div class="row">
                 <div class="col-12">
-                  <span><b>Status:  </b></span>
-                  <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Completed</span>
-                  <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Return</span>
+                  <span><b>Trạng thái:  </b></span>
+                  <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Đã xác nhận</span>
+                  <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Đã trả</span>
                   <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
-                    || offer.status == 'BOOKING'">Booking</span>
+                    || offer.status == 'BOOKING'">Đã đặt</span>
                   <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
-                    && offer.status != 'RETURNED'">Outdated</span>
-                  <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Canceled</span>
+                    && offer.status != 'RETURNED'">Quá hạn</span>
+                  <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Đã hủy</span>
                 </div>
                 <div class="col-12">
-                  <span><b>Start time:  </b>{{ new Date(offer.startTime).toLocaleString() }}</span>
+                  <span><b>Thời gian bắt đầu:  </b>{{ new Date(offer.startTime).toLocaleString() }}</span>
                 </div>
                 <div class="col-12">
-                  <span><b>End time:  </b>{{ new Date(offer.endTime).toLocaleString() }}</span>
+                  <span><b>Thời gian kết thúc:  </b>{{ new Date(offer.endTime).toLocaleString() }}</span>
                 </div>
                 <div class="col-12">
-                  <span><b>Booking time:  </b>{{ new Date(offer.createdDate).toLocaleString() }}</span>
+                  <span><b>Thời gian đặt:  </b>{{ new Date(offer.createdDate).toLocaleString() }}</span>
                 </div>
                 <div class="col-12">
-                  <span><b>Price: </b>{{ offer.price }}</span>
+                  <span><b>Giá thuê: </b>{{ offer.price }}</span>
                 </div>
                 <div class="col-12 mt-5 d-flex justify-content-center">
                   <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" 
                     :disabled="!(offer.status == 'BOOKING') || (!offer.status == 'RETURNED' && offer.endTime < new Date().getMilliseconds())"
-                  >Return Vehicle</button>
+                  >Trả xe</button>
                 </div>
               </div>
             </section>
@@ -140,7 +140,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLabel">Rate Motor - {{ offer.vehicle.model }}</h5>
+            <h5 class="modal-title text-center" id="exampleModalLabel">Đánh giá xe - {{ offer.vehicle.model }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -148,7 +148,7 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                <label for="stars">Rate</label>
+                <label for="stars">Đánh giá</label>
                 <div class="d-flex justify-content-center" id="stars">
                   <img src="../../assets/star.svg" class="star" v-for="i in 5" :key="i" :id="'star' + i" 
                     @click.stop="select" 
@@ -158,7 +158,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="comment">Comment</label>
+                <label for="comment">Bình luận</label>
                 <textarea id="comment" class="form-control" rows="5" v-model="comment"></textarea>
               </div>
             </form>
@@ -239,14 +239,14 @@
         const hour = Math.floor((timestamp % 86400000) / 3600000);
         let res = '';
         if (day > 1) {
-          res = res + day + ' days ';
+          res = res + day + ' ngày ';
         } else if (day > 0) {
-          res = res + '1 day ';
+          res = res + '1 ngày ';
         }
         if (hour > 1) {
-          res = res + hour + ' hours'
+          res = res + hour + ' giờ'
         } else {
-          res = res + hour + ' hour';
+          res = res + hour + ' giờ';
         }
         return res;
       },
@@ -312,7 +312,7 @@
               .catch(err => console.log(err));
 
               swal({
-                text: "Return successfully. You need to wait the owner to confirm.",
+                text: "Đã trả thành công. Đợi chủ xe xác nhận.",
                 icon: "success",
               });
             })

@@ -81,7 +81,7 @@ export default {
         saveChanged() {
             swal({
                 icon: "warning",
-                text: "Confirm",
+                text: "Xác nhận",
                 buttons: {
                     confirm: {
                         text: "OK",
@@ -106,7 +106,7 @@ export default {
                     })
                     .then(() => {
                         swal({
-                            text: "User profile has been updated.",
+                            text: "Thông tin đã cập nhật.",
                             icon: "success",
                         });
                         this.editMode = false;

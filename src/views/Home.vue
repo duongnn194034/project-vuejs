@@ -8,7 +8,7 @@
         <h1 class="pt-3 text-center text-custom" id="heading">Local vehicle hire</h1>
         <h3 class="pt-3 text-center text-custom" id="heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
         <header class="text-center text-white py-5">
-          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Start</a></h3>
+          <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Bắt đầu</a></h3>
         </header>
       </div>
     </div>
@@ -16,13 +16,13 @@
     <div id="start-shopping" class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Search by Location</h2>
+          <h2 class="pt-3">Tìm theo địa điểm</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-xs-12 no-padding input-group">
           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 no-padding margin-bottom-5 padding-right-10-sm padding-right-10-md">
-            <input type="text" class="search form-control" placeholder="Enter town or postcode" v-model="query" autocomplete="off" @submit="submit">
+            <input type="text" class="search form-control" placeholder="Nhập địa chỉ hoặc mã bưu điện" v-model="query" autocomplete="off" @submit="submit">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(address, index) in this.suggestedAddress" :key="index">
                 <router-link class="text-decoration-none text-dark" :to="{ name: 'ListMotors', query: { query: address.display_name, lat: address.lat, lon: address.lon }}">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-md-offset-0 col-sm-3 col-md-2 col-xs-12 no-padding margin-bottom-5">
-            <button type="submit" class="btn btn-purple btn-full-width border-radius-5" @click="submit">Find motors</button>
+            <button type="submit" class="btn btn-purple btn-full-width border-radius-5" @click="submit">Tìm xe</button>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
     <div id="start-shopping" class="container">
       <div class="row">
         <div class="col-12 text-left">
-          <h2 class="pt-3">Popular Motors</h2>
+          <h2 class="pt-3">Xe phổ biến:</h2>
         </div>
       </div>
         <div id="carouselMotorControls" class="carousel slide" data-ride="carousel">

@@ -63,11 +63,11 @@ export default {
       halfStars: 0,
       opaqueStars: 5,
       toolTip: {
-        "Không bao giá xăng": "Xăng cần đổ lại đúng như khi mượn.",
-        "Bảo hiểm xe": "Đã bao gồm bảo hiểm xe.",
-        "Bảo hiểm mất cắp": "Đã bao gồm bảo hiểm mất cắp.",
-        "Hủy thuê xe": "Việc thuê xe có thể hủy trong 48h trước thời hạn.",
-        "Phụ phí": "Đã tính thuế và phí phụ.",
+        "Fuel Cost": "Xăng cần đổ lại đúng như khi mượn.",
+        "Damage Insurance": "Đã bao gồm bảo hiểm xe.",
+        "Stolen Insurance": "Đã bao gồm bảo hiểm mất cắp.",
+        "Order Canceling": "Việc thuê xe có thể hủy trong 48h trước thời hạn.",
+        "Adjust": "Đã tính thuế và phí phụ.",
       }
     }
   },

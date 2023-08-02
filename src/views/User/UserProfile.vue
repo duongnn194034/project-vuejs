@@ -12,7 +12,7 @@
                 <a>{{ user?.fullName }}</a>
               </p>
               <div class="badges hidden-xs">
-                <span class="color-white">ID not verified</span>
+                <span class="color-white">ID chưa xác nhận</span>
               </div>
             </div>
             <div class="row ml-0 mr-0 mt-3 details">
@@ -22,7 +22,7 @@
                 </p>
               </div>
               <div class="col-lg-4 col-sm-4 col-xs-12 border-white">
-                <p class="no-margin">Phone: {{ user?.phoneNumber }}</p>
+                <p class="no-margin">SĐT: {{ user?.phoneNumber }}</p>
               </div>
               <div class="col-lg-3 col-sm-3 col-xs-12 border-white">
                 <div class="row">
@@ -125,9 +125,9 @@
       reviews() {
         const rev = this.ratings?.length
         if (rev > 1) {
-          return `This user's vehicles have received ${rev} reivews.`
+          return `Xe của người này có ${rev} đánh giá.`
         } else {
-          return `This user's vehicles have received ${rev} reivew.`
+          return `Xe của người này có ${rev} đánh giá.`
         }
       },
 

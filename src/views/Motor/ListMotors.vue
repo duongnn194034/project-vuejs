@@ -3,7 +3,7 @@
   <div class="container-fluid body" v-else>
     <div class="row mt-4">
       <div class="col-xs-12 col-md-5 no-padding">
-        <input class="form-control location-input" type="text" placeholder="Town, city or Postcode" v-model="query" @input="input">
+        <input class="form-control location-input" type="text" placeholder="Địa chỉ hoặc mã bưu điện" v-model="query" @input="input">
         <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-show="this.suggest">
           <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
             <strong>{{ ad.display_name }}</strong>
@@ -26,7 +26,7 @@
             </template>
           </DatePicker>
           <select class="form-control col-md-2" v-model="puTime">
-            <option value="-1" selected>--Time--</option>
+            <option value="-1" selected>--Thời gian--</option>
             <option v-for="(value, index) in timestamp" :value="index">{{ value }}</option>
           </select>
           <DatePicker v-model="dropOff">
@@ -42,13 +42,13 @@
             </template>
           </DatePicker>
           <select class="form-control col-md-2" v-model="doTime">
-            <option value="-1" selected>--Time--</option>
+            <option value="-1" selected>--Thời gian--</option>
             <option v-for="(value, index) in timestamp" :value="index">{{ value }}</option>
           </select>
         </div>
       </div>
       <div class="col-md-1">
-          <button type="submit" class="btn btn-purple" @click="click">GO</button>
+          <button type="submit" class="btn btn-purple" @click="click">Tìm kiếm</button>
       </div>
     </div>
     <div class="row">
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       len : 0,
-      title: "Result for: ",
+      title: "Kết quả cho: ",
       motors : null,
       loading: true,
       query: null,
@@ -104,7 +104,7 @@ export default {
       .then((res) => {
         this.motors = res.data.content;
         this.len = this.motors ? this.motors.length : 0;
-        this.title = "Result for: " + this.query;
+        this.title = "Kết quả cho: " + this.query;
         this.loading = false;
       })
       .catch((error) => console.log(error));
@@ -125,7 +125,7 @@ export default {
       if (this.pickUp && this.puTime < 0 || !this.pickUp && this.puTime >= 0
         || this.dropOff && this.doTime < 0 || !this.dropOff && this.doTime >=0) {
           swal({
-            text: "Select both date and time",
+            text: "Chọn cả ngày và giờ",
             icon: "warning",
             closeOnClickOutside: true
           });

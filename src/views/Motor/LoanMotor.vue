@@ -4,16 +4,16 @@
       <div class="row my-3">
         <div class="form-select col-md-8 col-xs-12">
           <select name="vehicle" id="vehicle" class="form-control" v-model="vehicle">
-            <option label="Select Vehicle" selected></option> 
-            <option value="Motor">Motor</option>
+            <option label="Chọn loại phương tiện" selected></option> 
+            <option value="Motor">Xe máy</option>
           </select>
         </div>
       </div>
     </div>
     <section v-show="vehicle == 'Motor'">
-      <h3 class="py-3 text-center">Add your motorbike</h3>
+      <h3 class="py-3 text-center">Cho thuê xe của bạn</h3>
       <div class="row py-3">
-        <h6 class="ml-5 col-12">Motor Images</h6>
+        <h6 class="ml-5 col-12">Ảnh xe</h6>
         <div class="float-left" v-for="i in index">
           <AddImage :baseURL="baseURL"  @addImage="addImage" />
         </div>
@@ -21,44 +21,44 @@
       <div class="container">
         <form class="row">
           <div class="form-group col-md-6">
-            <label>Production name</label>
+            <label>Hãng</label>
             <input type="text" class="form-control" v-model="production" required>
           </div>
           <div class="form-group col-md-6">
-            <label>Model</label>
+            <label>Mẫu</label>
             <input type="text" class="form-control" v-model="model" required>
           </div>
           <div class="form-group col-md-4">
-            <label>License Plate</label>
+            <label>Biển số</label>
             <input type="text" class="form-control" v-model="license" required>
           </div>
           <div class="form-group col-md-4">
-            <label>Engine Size</label>
+            <label>Dung tích</label>
             <input type="text" class="form-control" v-model="engineSize" required>
           </div>
           <div class="form-group col-md-4">
-            <label>Fuel</label>
+            <label>Loại xăng</label>
             <input type="text" class="form-control" v-model="fuel" required>
           </div>
           <div class="form-group col-md-4">
-            <label>Type</label>
+            <label>Loại</label>
             <select class="form-control" v-model="type" required>
-              <option value="AUTOMATIC">AUTOMATIC</option>
-              <option value="MANUAL">MANUAL</option>
+              <option value="AUTOMATIC">XE GA</option>
+              <option value="MANUAL">xE SỐ</option>
             </select>
           </div>
           <div class="form-group col-md-4">
-            <label>Price</label>
+            <label>Giá</label>
             <input type="number" class="form-control" v-model="price" required>
           </div>
           <div class="form-group col-md-4">
-            <label>Year</label>
+            <label>Năm</label>
             <input type="number" class="form-control" v-model="year">
           </div>
           <div class="form-group col-12">
-            <label>Address</label>
+            <label>Địa chỉ</label>
             <div id="map"></div>
-            <input class="form-control map" type="text" placeholder="Search your address here or double click on map." v-model="query" @input="input">
+            <input class="form-control map" type="text" placeholder="Tìm kiếm hoặc nháy đúp trên bản đồ." v-model="query" @input="input">
             <div id="autocomplete-list" class="autocomplete-items margin-right-10-sm margin-right-10-md" v-if="this.suggest">
               <div v-for="(ad, index) in this.suggestedAddress" :key="index" @click="select">
                 <strong>{{ ad.display_name }}</strong>
@@ -67,44 +67,44 @@
             </div>
           </div>
           <div class="form-group col-12">
-            <label>Max Distance (km)</label>
+            <label>Khoảng cách nhận xe (km)</label>
             <input class="form-control" type="number" v-model="radius">
           </div>
           <div class="form-group col-12">
-            <label>Note</label>
+            <label>Chú ý</label>
             <textarea v-model="note" name="note" id="note" cols="12" rows="5" class="form-control"></textarea>
           </div>
           <div class="form-group col-md-6">
-            <label for="minAge">Minimum Age</label>
+            <label for="minAge">Tuổi tối thiểu</label>
             <input type="number" class="form-control" id="minAge" placeholder="Age" v-model="minAge">
           </div>
           <div class="form-group col-md-6">
-            <label>Minimum Driving</label>
+            <label>Số năm lái tối thiểu</label>
             <input type="number" class="form-control" v-model="minDriving" required>
           </div>
           <div class="form-group col-md-6">
-            <label>Minimum Duration</label>
+            <label>Thời gian thuê tối thiểu</label>
             <div class="input-group">
               <input type="number" class="form-control" id="minDay" v-model="minDurDay" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="minDay">Day(s)</label>
+                <label class="input-group-text" for="minDay">Ngày</label>
               </div>
               <input type="number" class="form-control" id="minHour" v-model="minDurHour" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="minHour">Hour(s)</label>
+                <label class="input-group-text" for="minHour">Giờ</label>
               </div>
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label>Maximum Duration</label>
+            <label>Thời gian thuê tối đa</label>
             <div class="input-group">
               <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="maxDay">Day(s)</label>
+                <label class="input-group-text" for="maxDay">Giờ</label>
               </div>
               <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="maxHour">Hour(s)</label>
+                <label class="input-group-text" for="maxHour">Ngày</label>
               </div>
             </div>
           </div>
@@ -113,39 +113,39 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
               <label class="form-check-label" for="damageInsurance">
-                Damage Insurance included.
+                Bảo hiểm hư hại.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="stolenInsurance" v-model="sI">
               <label class="form-check-label" for="stolenInsurance">
-                Stolen Insurance included.
+                Bảo hiểm mất cắp.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="orderCanceling" v-model="oC">
               <label class="form-check-label" for="orderCanceling">
-                Order can be cancel at least 2 days before.
+                Yêu cầu có thể hủy trước 2 ngày.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="fuelCost" v-model="fC">
               <label class="form-check-label" for="fuelCost">
-                Fuel cost included.
+                Chưa bao gồm giá xăng.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="adjust" v-model="aJ">
               <label class="form-check-label" for="adjust">
-                Tax, other charge included.
+                Đã bao gồm thuế và phụ phí.
               </label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="others" v-model="oCheck">
               <label class="form-check-label" for="others">
-                Others.
+                Khác.
               </label>
-              <input class="form-control" type="text" placeholder="List other features, seperated by commas." 
+              <input class="form-control" type="text" placeholder="Nhập cách nhau bởi dấu phẩy." 
                 :disabled="!oCheck"
                 v-model="others"
               >

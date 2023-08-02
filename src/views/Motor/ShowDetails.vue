@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="card-body bg-secondary text-white">
-            <h3>Owner Note</h3>
+            <h3>Chú ý của chủ xe</h3>
             <p class="note">{{ motor.note }}</p>
           </div>
           <div class="card-body">
@@ -35,27 +35,27 @@
               <dl>
                 <div class="row">
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Make</dt>
+                    <dt>Hãng</dt>
                     <dd>{{ motor.production }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Fuel</dt>
+                    <dt>Loại xăng</dt>
                     <dd>{{ motor.fuel }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6 pb-4">
-                    <dt>Model</dt>
+                    <dt>Mẫu</dt>
                     <dd>{{ motor.model }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Vehicle Type</dt>
+                    <dt>Loại xe</dt>
                     <dd>{{ motor.type }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Engine Size</dt>
+                    <dt>Dung tích</dt>
                     <dd>{{ motor.engineSize }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
-                    <dt>Year</dt>
+                    <dt>Năm</dt>
                     <dd>{{ motor.year }}</dd>
                   </div>
                 </div>
@@ -63,7 +63,7 @@
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Vehicle features</h5>
+              <h5 class="pb-3 mt-4">Thông tin khác</h5>
               <div class="row">
                 <div class="col-lg-4 col-xs-6 pb-3" v-for="f in features">
                   <span><abbr :title="this.toolTip[f]">{{ f }}</abbr></span>
@@ -72,25 +72,25 @@
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Restrictions</h5>
+              <h5 class="pb-3 mt-4">Ràng buộc</h5>
               <div class="row">
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Age: {{ motor.minAge }}</span>
+                  <span>Tuổi tối thiểu: {{ motor.minAge }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-3">
-                  <span>Minimum Driving Years: {{ motor.minDriving }}</span>
+                  <span>Số năm kinh nghiệm lái tốt thiểu: {{ motor.minDriving }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Minimum Duration: {{ toDateString(motor.minDur) }}</span>
+                  <span>Thời gian thuê tối thiểu: {{ toDateString(motor.minDur) }}</span>
                 </div>
                 <div class="col-lg-6 col-xs-6 pb-4">
-                  <span>Maximum Duration: {{ toDateString(motor.maxDur) }}</span>
+                  <span>Thời gian thuê tối đa: {{ toDateString(motor.maxDur) }}</span>
                 </div>
               </div>
             </section>
             <hr>
             <section>
-              <h5 class="pb-3 mt-4">Pick up location</h5>
+              <h5 class="pb-3 mt-4">Nơi nhận xe</h5>
               <div id="map"></div>
             </section>
           </div>
@@ -105,7 +105,7 @@
                 <router-link :to="{ name: 'UserProfile', params: {id: this.motor.owner?.id} }">{{ motor.owner?.fullName }}</router-link>
               </p>
               <div class="badges hidden-xs">
-                <span class="color-white">ID not verified</span>
+                <span class="color-white">ID chưa xác minh</span>
               </div>
             </div>
             <div class="row ml-0 mr-0 mt-3 details">
@@ -115,7 +115,7 @@
                 </p>
               </div>
               <div class="col-lg-4 col-sm-4 col-xs-12 border-white">
-                <p class="no-margin">Phone: {{ user?.phoneNumber }}</p>
+                <p class="no-margin">SĐT: {{ user?.phoneNumber }}</p>
               </div>
               <div class="col-lg-3 col-sm-3 col-xs-12 border-white">
                 <div class="row">
@@ -161,15 +161,15 @@
           />
           <div class="card-body pt-0">
             <section class="pb-4">
-              <h6>Pick-up</h6>
+              <h6>Bắt đầu</h6>
               <input type="datetime-local" class="form-control" v-model="startTime" @input="calcPrice"/>
-              <h6>Drop-off</h6>
+              <h6>Kết thúc</h6>
               <input type="datetime-local" class="form-control" v-model="endTime" @input="calcPrice"/>
             </section>
             <section>
               <div v-show="view == 'price'" id="price" class="d-flex justify-content-around pb-4">
-                <span><strong>{{ motor.price }}₫</strong>/hour</span>
-                <span><strong>{{ motor.price * 24 }}₫</strong>/day</span>
+                <span><strong>{{ motor.price }}₫</strong>/giờ</span>
+                <span><strong>{{ motor.price * 24 }}₫</strong>/ngày</span>
               </div>
               <Loader v-show="view == 'loading'"/>
               <div class="cost text-center" v-show="view =='cost'">
@@ -181,7 +181,7 @@
                   class="btn btn-primary ml-auto btn-full-width border-radius-5 w-50" 
                   :disabled="!valid"
                   @click="goToCheckout"
-                  >Offer
+                  >Thuê xe
                 </button>
               </div>
             </section>
@@ -218,11 +218,11 @@ export default {
       },
       features: [],
       toolTip: {
-        "Fuel Cost": "Guest have to refill fuel before returning.",
-        "Damage Insurance": "Damage Insurance included.",
-        "Stolen Insurance": "Stolen Insurance included.",
-        "Order Canceling": "Order can be canceled at least 2 days before ordered date.",
-        "Adjust": "Tax, others fee included.",
+        "Fuel Cost": "Xăng cần đổ lại đúng như khi mượn.",
+        "Damage Insurance": "Đã bao gồm bảo hiểm xe.",
+        "Stolen Insurance": "Đã bao gồm bảo hiểm mất cắp.",
+        "Order Canceling": "Việc thuê xe có thể hủy trong 48h trước thời hạn.",
+        "Adjust": "Đã tính thuế và phí phụ.",
       },
       view: "price",
       valid: false,
@@ -266,7 +266,7 @@ export default {
         .then(res => {
           if (!res.data) return;
           res.data.forEach(element => {
-            if (element.status != 'CANCELED') {
+            if (element.status != 'ĐÃ HỦY') {
               this.dates.push([new Date(element.startTime), new Date(element.endTime)]);
             }
           });
@@ -275,7 +275,7 @@ export default {
             highlight: "red",
             dates: this.dates,
             popover: {
-              label: "Not available"
+              label: "Không khả dụng"
             } 
           });
         })
@@ -293,14 +293,14 @@ export default {
       const hour = Math.floor((timestamp % 86400000) / 3600000);
       let res = '';
       if (day > 1) {
-        res = res + day + ' days ';
+        res = res + day + ' ngày ';
       } else if (day > 0) {
-        res = res + '1 day ';
+        res = res + ' 1 ngày ';
       }
       if (hour > 1) {
-        res = res + hour + ' hours'
+        res = res + hour + ' giờ'
       } else {
-        res = res + hour + ' hour';
+        res = res + hour + ' giờ';
       }
       return res;
     },
@@ -353,7 +353,7 @@ export default {
       if (!this.token) {
         swal({
           icon: "warning",
-          text: "You must login first. Login now?",
+          text: "Bạn phải đăng nhập trước. Đăng nhập ngay?",
           buttons: {
             confirm: {
               text: "OK",
@@ -388,9 +388,9 @@ export default {
     reviews() {
       const rev = this.motor.ratings?.length
       if (rev > 1) {
-        return `This vehicle has received ${rev} reivews.`
+        return `Có ${rev} đánh giá.`
       } else {
-        return `This vehicle has received ${rev} reivew.`
+        return `Có ${rev} đánh giá.`
       }
     }
   },
@@ -525,5 +525,11 @@ a {
   text-decoration: none;
   font-size: 22px;
   color: #fff;
+}
+
+img.contact {
+  height: 40px;
+  width: 40px;
+  margin-left: 1rem;
 }
 </style>
