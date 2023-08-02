@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="col-md-1">
-          <button type="submit" class="btn btn-purple" @click="click">Tìm kiếm</button>
+          <button type="submit" class="btn btn-purple" @click="click">GO</button>
       </div>
     </div>
     <div class="row">
