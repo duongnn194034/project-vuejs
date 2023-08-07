@@ -44,7 +44,7 @@
             <label>Loại</label>
             <select class="form-control" v-model="type" required>
               <option value="AUTOMATIC">XE GA</option>
-              <option value="MANUAL">xE SỐ</option>
+              <option value="MANUAL">XE SỐ</option>
             </select>
           </div>
           <div class="form-group col-md-4">
@@ -100,16 +100,16 @@
             <div class="input-group">
               <input type="number" class="form-control" id="maxDay" v-model="maxDurDay" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="maxDay">Giờ</label>
+                <label class="input-group-text" for="maxDay">Ngày</label>
               </div>
               <input type="number" class="form-control" id="maxHour" v-model="maxDurHour" required>
               <div class="input-group-append">
-                <label class="input-group-text" for="maxHour">Ngày</label>
+                <label class="input-group-text" for="maxHour">Giờ</label>
               </div>
             </div>
           </div>
           <div class="form-group col-12">
-            <label>Feature</label>
+            <label>Tính năng</label>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="damageInsurance" v-model="dI">
               <label class="form-check-label" for="damageInsurance">

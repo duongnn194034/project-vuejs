@@ -69,7 +69,7 @@ export default {
       })
       .then((res) => {
         swal({
-          text: "Bank info has been updated.",
+          text: "Thông tin số thẻ đã được cập nhật.",
           icon: "success",
         });
         this.$emit("fetchData");

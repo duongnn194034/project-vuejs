@@ -90,7 +90,7 @@ export default {
       event.preventDefault();
       swal({
         icon: "warning",
-        text: "Confirm",
+        text: "Lưu thay đổi",
         buttons: {
           confirm: {
             text: "OK",
@@ -112,7 +112,7 @@ export default {
           })
           .then(() => {
             swal({
-              text: "User profile has been updated.",
+              text: "Thông tin địa chỉ đã được cập nhật.",
               icon: "success",
             });
             this.$emit("fetchData");

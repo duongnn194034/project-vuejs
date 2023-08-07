@@ -104,8 +104,8 @@
           .catch(err => console.log(err));
       },
       
-      async getMotors(limit) {
-        await axios.get(`${this.baseURL}motor/list?limit=${limit}`, {
+      async getMotors(id, limit) {
+        await axios.get(`${this.baseURL}motor/list/${id}?limit=${limit}`, {
           headers: {
             token: localStorage.getItem("token")
           }
@@ -132,14 +132,14 @@
       },
 
       title() {
-        return `${this.user?.fullName}'s vehicles`;
+        return `Xe của ${this.user?.fullName}`;
       }
     },
     mounted() {
       const id = this.$route.params.id;
       this.getUser(id);
       this.getRatings(id);
-      this.getMotors(5);
+      this.getMotors(id, 5);
     }
   }
 </script>

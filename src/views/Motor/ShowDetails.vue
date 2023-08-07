@@ -96,7 +96,7 @@
           </div>
         </div>
         <div class="card w-100 no-bg owner">
-          <section class="bg-primary profile">
+          <section class="bg-success profile">
             <div class="row m-0 image-row">
               <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
             </div>
@@ -115,15 +115,15 @@
                 </p>
               </div>
               <div class="col-lg-4 col-sm-4 col-xs-12 border-white">
-                <p class="no-margin">SĐT: {{ user?.phoneNumber }}</p>
+                <p class="no-margin">SĐT: {{ this.motor.owner?.phoneNumber }}</p>
               </div>
               <div class="col-lg-3 col-sm-3 col-xs-12 border-white">
                 <div class="row">
-                  <a :href="user?.facebookUrl" target="_blank">
-                    <img src="../../assets/facebook.png" alt="fb" class="contact" v-if="user?.facebookUrl">
+                  <a :href="this.motor.owner?.facebookUrl" target="_blank">
+                    <img src="../../assets/facebook.png" alt="fb" class="contact" v-if="this.motor.owner?.facebookUrl">
                   </a>
-                  <a :href="user?.zaloUrl" target="_blank">
-                    <img src="../../assets/zalo.png" alt="zalo" class="contact" v-if="user?.zaloUrl">
+                  <a :href="this.motor.owner?.zaloUrl" target="_blank">
+                    <img src="../../assets/zalo.png" alt="zalo" class="contact" v-if="this.motor.owner?.zaloUrl">
                   </a>
                 </div>
               </div>
