@@ -15,7 +15,14 @@
       <div class="row py-3">
         <h6 class="ml-5 col-12">Ảnh xe</h6>
         <div class="float-left" v-for="i in index">
-          <AddImage :baseURL="baseURL"  @addImage="addImage" />
+          <AddImage v-if="i < index" :img="{ name: `image${i}`, url: this.URLs[i-1] }" 
+            :baseURL="baseURL"
+            :index="i"
+            del="true" 
+            @addImage="addImage" 
+            @remove="removeImage"              
+          />
+          <AddImage v-else="editMode" :baseURL="baseURL" @addImage="addImage"/>
         </div>
       </div>
       <div class="container">
@@ -208,6 +215,14 @@ export default {
         this.index = this.index + 1;
         this.URLs.push(url);
         this.images.push(url.slice(`${this.baseURL}fileUpload/files/`.length));
+      },
+
+      removeImage(index) {
+        this.index = this.index - 1;
+        console.log(this.URLs);
+        this.URLs = this.URLs.filter((val, idx) => idx != index - 1);
+        console.log(this.URLs);
+        this.images = this.images.filter((val, idx) => idx != index - 1);
       },
       
       async submit() {

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row pt-5">
-      <h2>{{ offer.vehicle.model }}</h2>
+      <h2>{{ offer.vehicle.production }} {{ offer.vehicle.model }} {{ offer.vehicle.year }}</h2>
     </div>
     <div class="row pt-3">
       <div class="col-md-7 col-xs-12">
@@ -315,6 +315,7 @@
                 text: "Đã trả thành công. Đợi chủ xe xác nhận.",
                 icon: "success",
               });
+              this.$emit("fetchData");
             })
             .catch(err => {
               console.log(err);

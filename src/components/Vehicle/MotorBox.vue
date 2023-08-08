@@ -12,7 +12,7 @@
         <span><strong>{{ motor.price }}<sup>VND</sup>/giờ</strong></span>
       </div>
       <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
-        ><h5 class="card-title">{{ motor.model }}</h5></router-link
+        ><h5 class="card-title">{{motor.production}} {{ motor.model }} {{ motor.year }}</h5></router-link
       >
       <div class="address">
         <p class="card-text font-italic">

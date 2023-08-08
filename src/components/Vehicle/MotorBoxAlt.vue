@@ -13,7 +13,7 @@
           <span><strong>{{ motor.price }}VND</strong>/giờ</span>
         </div>
         <router-link :to="{ name: 'ShowDetails', params: { id: motor?.id } }"
-          ><h5 class="card-title">{{ motor.model }}</h5></router-link
+          ><h5 class="card-title">{{motor.production}} {{ motor.model }} {{ motor.year }}</h5></router-link
         >
         <div class="info-container">
           <img src="../../assets/geopin-dark-grey.svg" alt="geopin" id="icon">

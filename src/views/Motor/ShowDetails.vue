@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row pt-5">
-      <h2>{{ motor.model }}</h2>
+      <h2>{{ title }}</h2>
     </div>
     <div class="row pt-3">
       <div class="col-md-7 col-xs-12">
@@ -376,13 +376,16 @@ export default {
     },
   },
   computed: {
+    title() {
+      return `${this.motor.production} ${this.motor.model} ${this.motor.year}`;
+    },
     imageUrls() {
       return this.motor.imageUrl.slice(1);
     },
 
     createdAt() {
       const createdDate = new Date(this.motor.owner?.createdAt).toLocaleDateString();
-      return `Member since ${createdDate}`; 
+      return `Thành viên từ ${createdDate}`; 
     },
 
     reviews() {

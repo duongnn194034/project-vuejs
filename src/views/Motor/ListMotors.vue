@@ -18,7 +18,7 @@
               <input
                 class="form-control datetime-input-1 col-md-4"
                 type="text"
-                placeholder="Pick-up date"
+                placeholder="Ngày bắt đầu"
                 :value="pickUp?.toLocaleDateString()"
                 readonly
                 @click="togglePopover"
@@ -34,7 +34,7 @@
               <input
                 class="form-control datetime-input-2 col-md-4"
                 type="text"
-                placeholder="Drop-off date"
+                placeholder="Ngày trả xe"
                 :value="dropOff?.toLocaleDateString()"
                 readonly
                 @click="togglePopover"
@@ -111,6 +111,7 @@ export default {
     },
 
     async click() {
+      this.suggest = false;
       this.loading = true;
       if (this.query && (!this.lat || !this.lng)) {
         await axios
