@@ -25,6 +25,7 @@ import EditMotor from '../views/Motor/EditMotor.vue'
 import MyOffers from '../views/Offer/MyOffers.vue'
 import OfferDetails from '../views/Offer/OfferDetails.vue'
 import ManageOffers from '../views/Offer/ManageOffers.vue'
+import MotorOffers from '../views/Offer/MotorOffers.vue'
 
 import Signup from '../views/Signup.vue'
 import Signin from '../views/Signin.vue'
@@ -121,6 +122,11 @@ const routes = [
     path: '/admin/:id/offers',
     name: 'ManageOffers',
     component: ManageOffers
+  },
+  {
+    path: '/motors/:id/offers',
+    name: 'MotorOffers',
+    component: MotorOffers
   },
   // Page Not found
   {
