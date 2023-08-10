@@ -9,25 +9,17 @@
       <div class="container">
         <ul class="nav">
           <li class="nav-item pb-0">
-            <router-link :to="{ name: 'MyOffers', query: { filter: 'upcoming' }}" class="nav-link" id="upcoming" 
-              @click="">Đang đặt</router-link>
+            <router-link :to="{ name: 'MotorOffers', query: { filter: 'confirm' }}" class="nav-link" id="confirm" 
+              @click="linkHandler">Đang đoi xac nhan</router-link>
           </li>
           <li class="nav-item pb-0">
-            <router-link :to="{ name: 'MyOffers', query: { filter: 'completed' }}" class="nav-link" id="completed"
-              @click="">Đã trả</router-link>
-          </li>
-          <li class="nav-item pb-0">
-            <router-link :to="{ name: 'MyOffers', query: { filter: 'canceled' }}" class="nav-link" id="canceled"
-              @click="">Đã hủy</router-link>
-          </li>
-          <li class="nav-item pb-0">
-            <router-link :to="{ name: 'MyOffers', query: { filter: 'all' }}" class="nav-link" id="all"
-              @click="">Tất cả</router-link>
+            <router-link :to="{ name: 'MotorOffers', query: { filter: 'all' }}" class="nav-link" id="all"
+              @click="linkHandler">Tất cả</router-link>
           </li>
         </ul>
       </div>
     </div>
-    <div class="row mt-5" v-if="true">
+    <div class="row mt-5" v-if="loading">
       <div class="col-12">
         <Loader/>
       </div>
@@ -83,6 +75,103 @@
 <script>
   import Loader from '../../components/Atomic/Loader.vue';
   export default {
+    data() {
+      return {
+        motorId: null,
+        active: 'confirm',
+        offers: [],
+        bookings: [],
+        loading: true,    
+      }
+    },
+    name: 'MotorOffers',
+    props: ["baseURL", "user"],
+    components: { Loader },
+    methods: {
+      linkHandler(e) {
+        e.preventDefault();
+        this.active = e.target.id;
+        document.getElementsByClassName("active")[0].setAttribute("class", "nav-link");
+        e.target.setAttribute("class", "nav-link active");
+      },
 
+      filter() {
+        switch(this.active) {
+          case 'all': 
+            this.offers = this.bookings;
+            break;
+          case 'confirm':
+            this.offers = this.bookings.filter(booking => booking.status == 'RETURNED');
+            break;
+        }
+        console.log(this.offers);
+      },
+
+      async fetchOffer() {
+        await axios.get(`${this.baseURL}offer/motor/${this.motorId}`)
+        .then(res => {
+          if (res.status == 200) {
+            this.bookings = this.bookings.concat(res.data);
+          }
+          this.filter();
+          this.loading = false;
+        })
+        .catch(err => console.log(err));
+      },
+    },
+
+    watch: {
+      active() {
+        this.filter();
+      }
+    },
+
+    mounted() {
+      this.motorId = this.$route.params.id;
+      if (this.$route.query.filter) {
+        this.active = this.$route.query.filter;
+      }
+      document.getElementById(this.active).setAttribute("class", "nav-link active");
+      this.fetchOffer();
+      this.filter();
+    }
   }
 </script>
+<style>
+    h3.text-center {
+    font-weight: 700;
+  }
+
+  .active {
+      font-weight: bold;
+      cursor: pointer;
+  }
+
+  .card {
+    background-color: white;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.2);
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .white-text {
+    color: #fff;
+  }
+
+  .mx-center {
+    margin-top: 1rem;
+    margin-left: calc(50% - 5rem);
+  }
+
+  img.clock {
+    height: 18px;
+    margin-right: 5px;
+  }
+
+  .card-img-top {
+    aspect-ratio: 3 / 2;
+  }
+</style>
