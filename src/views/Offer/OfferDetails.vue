@@ -105,10 +105,9 @@
                   <span><b>Trạng thái:  </b></span>
                   <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Đã xác nhận</span>
                   <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Đã trả</span>
-                  <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
-                    || offer.status == 'BOOKING'">Đã đặt</span>
-                  <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
-                    && offer.status != 'RETURNED'">Quá hạn</span>
+                  <span class="badge badge-primary" v-else-if="offer.status == 'BOOKING'">Đang đặt</span>
+                  <span class="badge badge-danger" v-else-if="offer.endTime > new Date().getTime() 
+                    && offer.status != 'RETURNED' || offer.status == 'OUTDATED'">Quá hạn</span>
                   <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Đã hủy</span>
                 </div>
                 <div class="col-12">
@@ -125,8 +124,11 @@
                 </div>
                 <div class="col-12 mt-5 d-flex justify-content-center">
                   <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" 
-                    :disabled="!(offer.status == 'BOOKING') || (!offer.status == 'RETURNED' && offer.endTime < new Date().getMilliseconds())"
+                    :disabled="offer.status == 'RETURNED' || offer.status == 'CANCELED'"
                   >Trả xe</button>
+                  <button class="btn btn-danger ml-4" @click="cancel" 
+                    :disabled="offer.status == 'RETURNED' || offer.status == 'CANCELED'"
+                  >Hủy đặt</button>
                 </div>
               </div>
             </section>
@@ -274,6 +276,45 @@
           var star = document.getElementById('star' + i);
           star.style.opacity = this.starState[i - 1];
         }
+      },
+
+      cancel() {
+        swal({
+          icon: "warning",
+          text: "Xác nhận hủy thuê? ",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: "OK"
+            },
+            cancel: true,
+          },
+        })
+        .then(value => {
+          if (value == "OK") {
+            axios.patch(`${this.baseURL}offer/${this.id}`, {
+              status: 'CANCELED'
+            }, {
+              headers: {
+                token: localStorage.getItem("token")
+              }
+            })
+            .then(() => {
+              swal({
+                text: "Hoàn tất.",
+                icon: "success",
+              });
+              this.$emit("fetchData");
+            })
+            .catch(err => {
+              console.log(err);
+              swal({
+                text: err.message,
+                icon: "error",
+              })
+            })
+          }
+        });
       },
 
       async sendRate(e) {

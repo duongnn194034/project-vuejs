@@ -48,13 +48,12 @@
               <div class="d-flex align-items-center justify-content-between">
                 <router-link :to="{ name: 'OfferDetails', params: { id: offer.id } }"
                   ><h5 class="card-title">{{ offer.vehicle.model }}</h5></router-link>
-                <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Đã xác nhận</span>
-                <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Đã trả</span>
-                <span class="badge badge-primary" v-else-if="offer.endTime >= new Date().getMilliseconds() 
-                  || offer.status == 'BOOKING'">Đang đặt</span>
-                <span class="badge badge-danger" v-else-if="offer.endTime < new Date().getMilliseconds() 
-                  && offer.status != 'RETURNED'">Quá hạn</span>
-                <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Đã hủy</span>
+                  <span class="badge badge-success" v-if="!offer.status || offer.status == 'COMPLETED'">Đã xác nhận</span>
+                  <span class="badge badge-info" v-else-if="offer.status == 'RETURNED'">Đã trả</span>
+                  <span class="badge badge-primary" v-else-if="offer.status == 'BOOKING'">Đang đặt</span>
+                  <span class="badge badge-danger" v-else-if="offer.endTime > new Date().getTime() 
+                    && offer.status != 'RETURNED' || offer.status == 'OUTDATED'">Quá hạn</span>
+                  <span class="badge badge-warning" v-else-if="offer.status == 'CANCELED'">Đã hủy</span>
               </div>
               <div class="info-container">
                 <div class="d-flex align-items-center">
@@ -131,10 +130,10 @@
             this.offers = this.bookings;
             break;
           case 'upcoming':
-            this.offers = this.bookings.filter(booking => booking.endTime > new Date());
+            this.offers = this.bookings.filter(booking => (booking.endTime > new Date() || booking.status == 'BOOKING'));
             break;
           case 'completed':
-            this.offers = this.bookings.filter(booking => booking.endTime <= new Date() && booking.status != 'CANCELED');
+            this.offers = this.bookings.filter(booking => booking.status == 'COMPLETED');
             break;
           case 'canceled':
             this.offers = this.bookings.filter(booking => booking.status == 'CANCELED');
