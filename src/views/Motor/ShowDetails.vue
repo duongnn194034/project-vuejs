@@ -48,7 +48,7 @@
                   </div>
                   <div class="col-lg-4 col-xs-6">
                     <dt>Loại xe</dt>
-                    <dd>{{ motor.type }}</dd>
+                    <dd>{{ type[motor.type] }}</dd>
                   </div>
                   <div class="col-lg-4 col-xs-6">
                     <dt>Dung tích</dt>
@@ -98,7 +98,7 @@
         <div class="card w-100 no-bg owner">
           <section class="bg-success profile">
             <div class="row m-0 image-row">
-              <ImageCircle :image="{ url: this.user.avatarUrl, name: 'avatar'}" :option2="true"/>
+              <ImageCircle :image="{ url: this.motor.owner?.avatarUrl, name: 'avatar'}" :option2="true"/>
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
@@ -223,6 +223,10 @@ export default {
         "Stolen Insurance": "Đã bao gồm bảo hiểm mất cắp.",
         "Order Canceling": "Việc thuê xe có thể hủy trong 48h trước thời hạn.",
         "Adjust": "Đã tính thuế và phí phụ.",
+      },
+      type: {
+        'MANUAL': 'Xe số',
+        'AUTOMATIC': 'Xe ga'
       },
       view: "price",
       valid: false,

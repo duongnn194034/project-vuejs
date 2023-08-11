@@ -5,8 +5,8 @@
     <div id="background-div" class="page-holder bg-cover">
 
       <div class="container py-5">
-        <h1 class="pt-3 text-center text-custom" id="heading">Local vehicle hire</h1>
-        <h3 class="pt-3 text-center text-custom" id="heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+        <h1 class="pt-3 text-center text-custom" id="heading">AAA</h1>
+        <h3 class="pt-3 text-center text-custom" id="heading">Nơi chia sẻ xe máy của bạn.</h3>
         <header class="text-center text-white py-5">
           <h3 class="mb-4 rounded"><a href="#start-shopping" class="bg-white px-2 py-2 rounded" id="heading">Bắt đầu</a></h3>
         </header>

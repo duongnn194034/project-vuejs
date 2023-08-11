@@ -43,7 +43,7 @@
         <router-link class="ml-4" v-if="admin" :to="{ name: 'MotorOffers', params: { id: motor?.id } }"
           ><span>Yêu cầu thuê</span></router-link
         >
-        <span id="num" v-if="motor.offerNum">{{ motor.offerNum }}</span>
+        <span id="num" v-if="motor.offerNum && admin">{{ motor.offerNum }}</span>
       </div>
     </div>
   </div>
