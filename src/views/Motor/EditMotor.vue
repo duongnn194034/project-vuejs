@@ -184,6 +184,7 @@ export default {
         engineSize: null,
         fuel: null,
         price: 0,
+        deposit: 0,
         year: null,
         note: null,
         dI: false,
@@ -229,6 +230,7 @@ export default {
             this.license = motor.licensePlate;
             this.engineSize = motor.engineSize;
             this.price = motor.price;
+            this.deposit = motor.deposit;
             this.fuel = motor.fuel;
             this.year = motor.year;
             this.type = motor.type;
@@ -291,6 +293,7 @@ export default {
           model: this.model,
           type: this.type,
           price: this.price,
+          deposit: this.deposit,
           license: this.license,
           engineSize: this.engineSize,
           fuel: this.fuel,

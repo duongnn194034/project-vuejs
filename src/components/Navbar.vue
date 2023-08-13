@@ -55,7 +55,7 @@
               class="dropdown-item" 
               v-if="token" 
               :to="{ name: 'ManageAccounts' }"
-            >Accounts</router-link>
+            >Quản lý tài khoản</router-link>
           </div>
         </li>
       </ul>

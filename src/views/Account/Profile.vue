@@ -91,7 +91,7 @@ export default {
                 },
             }).then(value => {
                 if (value == "OK") {
-                    axios.patch(`${this.baseURL}user/update`, {
+                    axios.put(`${this.baseURL}user/update`, {
                         fullname: this.fullname,
                         phoneNumber: this.phoneNumber,
                         email: this.email,

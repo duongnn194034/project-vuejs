@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 
 import Dashboard from '../views/Admin/Dashboard.vue'
 import ManageAccounts from '../views/Admin/ManageAccount.vue'
+import AccountDetails from '../views/Admin/AccountDetails.vue'
 
 import Profile from '../views/Account/Profile.vue'
 import ChangePassword from '../views/Account/ChangePassword.vue'
@@ -49,6 +50,11 @@ const routes = [
     path: '/admin/accounts',
     name: 'ManageAccounts',
     component: ManageAccounts
+  },
+  {
+    path: '/admin/accounts/:id',
+    name: 'AccountDetails',
+    component: AccountDetails
   },
   // motor route
   {

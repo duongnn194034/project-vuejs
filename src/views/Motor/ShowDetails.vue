@@ -102,7 +102,10 @@
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
-                <router-link :to="{ name: 'UserProfile', params: {id: this.motor.owner?.id} }">{{ motor.owner?.fullName }}</router-link>
+                <router-link :to="{ name: 'UserProfile', params: {id: this.motor.owner?.id} }">
+                  {{ motor.owner?.fullName }}
+                </router-link><br>
+                <span>{{ motor.owner?.email }}</span>
               </p>
               <div class="badges hidden-xs">
                 <span class="color-white">ID chưa xác minh</span>
@@ -167,7 +170,8 @@
               <input type="datetime-local" class="form-control" v-model="endTime" @input="calcPrice"/>
             </section>
             <section>
-              <div v-show="view == 'price'" id="price" class="d-flex justify-content-around pb-4">
+              <span class="deposit">Tiền cọc: <strong>{{ motor.deposit ? motor.deposit : 0 }}₫</strong></span>
+              <div v-show="view == 'price'" id="price" class="d-flex justify-content-around pb-4 mt-4">
                 <span><strong>{{ motor.price }}₫</strong>/giờ</span>
                 <span><strong>{{ motor.price * 24 }}₫</strong>/ngày</span>
               </div>
@@ -324,6 +328,9 @@ export default {
       }
       this.view = 'loading';
       this.cost = this.motor.price * duration / 3600000;
+      if (this.motor.deposit) {
+        this.cost = this.cost + this.motor.deposit;
+      }
       this.view = 'cost';
       this.valid = true;
     },
@@ -367,6 +374,21 @@ export default {
           }}).then(value => {
             if (value == 'OK') {
               this.$router.push({ name: 'Signin' });
+            }
+          });
+      } else if (!this.user.isVerified) {
+        swal({
+          icon: "warning",
+          text: "Bạn cần phải xác thực CMT/CCCD trước. Nhập thông tin?",
+          buttons: {
+            confirm: {
+              text: "OK",
+              value: "OK"
+            },
+            cancel: true,
+          }}).then(value => {
+            if (value == 'OK') {
+              this.$router.push({ name: 'IdLicense' });
             }
           });
       } else {
@@ -496,10 +518,17 @@ section.reviews {
 
 .m-0 > p.text-left {
   display: inline-block;
-  font-size: 25px;
-  font-weight: 700;
   margin: 85px 20px 5px;
   color: white;
+}
+
+.text-left > a {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.text-left > span {
+  font-size: 18px;
 }
 
 .m-0 > .badges {
@@ -538,5 +567,9 @@ img.contact {
   height: 40px;
   width: 40px;
   margin-left: 1rem;
+}
+
+.deposit {
+  margin-left: 35%;
 }
 </style>

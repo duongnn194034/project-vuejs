@@ -32,7 +32,7 @@ export default {
         }
     },
     components: { ImageBox, ImageCircle },
-    props : ["baseURL", "rounded", "img", "index", "del"],
+    props : ["baseURL", "rounded", "img", "index", "del", "required"],
     methods : {
         onFileSelected(event){
             //this will always update the selected file whenever user changes files

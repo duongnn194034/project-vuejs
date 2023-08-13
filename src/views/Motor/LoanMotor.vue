@@ -47,20 +47,27 @@
             <label>Loại xăng</label>
             <input type="text" class="form-control" v-model="fuel" required>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label>Loại</label>
             <select class="form-control" v-model="type" required>
               <option value="AUTOMATIC">XE GA</option>
               <option value="MANUAL">XE SỐ</option>
             </select>
           </div>
-          <div class="form-group col-md-4">
-            <label>Giá</label>
-            <input type="number" class="form-control" v-model="price" required>
-          </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label>Năm</label>
             <input type="number" class="form-control" v-model="year">
+          </div>
+          <div class="col-12">
+            <p class="note"><strong>Chú ý: </strong>10% tiền nhận được (không tính cọc) sẽ được sẽ được tính là phí sử dụng nền tảng.</p>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Giá cọc</label>
+            <input type="number" class="form-control" v-model="deposit" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Giá</label>
+            <input type="number" class="form-control" v-model="price" required>
           </div>
           <div class="form-group col-12">
             <label>Địa chỉ</label>
@@ -181,6 +188,7 @@ export default {
         license: null,
         engineSize: null,
         fuel: null,
+        deposit: 0,
         price: 0,
         year: null,
         note: null,
@@ -232,6 +240,7 @@ export default {
           model: this.model,
           type: this.type,
           price: this.price,
+          deposit: this.deposit,
           license: this.license,
           engineSize: this.engineSize,
           fuel: this.fuel,
@@ -410,5 +419,10 @@ input.map {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important;
   color: #ffffff;
+}
+
+.note {
+  margin-left: 1rem;
+  font-size: 12px;
 }
 </style>

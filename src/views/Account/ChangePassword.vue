@@ -48,12 +48,12 @@ export default {
         async saveChanged() {
             if (this.newPass != this.newPassRe) {
                 swal({
-                    text: "Wrong re-input-password",
+                    text: "Mật khẩu nhập lại sai.",
                     icon: "error",
                     closeOnClickOutside: false,
                 });
             } else {
-                await axios.post(`${this.baseURL}user/changePassword?token=${this.token}&password=${this.password}&newPassword=${this.newPass}`
+                await axios.put(`${this.baseURL}user/changePassword?token=${this.token}&password=${this.password}&newPassword=${this.newPass}`
                 ).then((res) => {
                     let status = res.data.success
                     let msg = res.data.message

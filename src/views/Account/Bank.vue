@@ -57,7 +57,7 @@ export default {
   components: { ProfileNav },
   methods: {
     async submitHandler() {
-      await axios.patch(`${this.baseURL}user/update/bank`, {
+      await axios.put(`${this.baseURL}user/update/bank`, {
         bankName: this.bankName,
         holderName: this.holderName,
         accountNumber: this.number,

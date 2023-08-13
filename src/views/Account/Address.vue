@@ -100,7 +100,7 @@ export default {
         },
       }).then(value => {
         if (value == "OK") {
-          axios.patch(`${this.baseURL}user/update/address`, {
+          axios.put(`${this.baseURL}user/update/address`, {
             line: this.line,
             city: this.city,
             country: this.country,

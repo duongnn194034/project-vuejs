@@ -9,7 +9,8 @@
             </div>
             <div class="row m-0 name">
               <p class="text-left" itemprop="name">
-                <a>{{ user?.fullName }}</a>
+                <a>{{ user?.fullName }}</a><br>
+                <span>{{ user?.email }}</span>
               </p>
               <div class="badges hidden-xs">
                 <span class="color-white">ID chưa xác nhận</span>
@@ -119,7 +120,7 @@
     computed: {
       createdAt() {
         const createdDate = new Date(this.user?.createdAt).toLocaleDateString();
-        return `Member since ${createdDate}`; 
+        return `Tham gia từ ${createdDate}`; 
       },
 
       reviews() {
@@ -186,10 +187,17 @@ section.reviews {
 
 .m-0 > p.text-left {
   display: inline-block;
-  font-size: 25px;
-  font-weight: 700;
   margin: 85px 20px 5px;
   color: white;
+}
+
+.text-left > a {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.text-left > span {
+  font-size: 18px;
 }
 
 .m-0 > .badges {
