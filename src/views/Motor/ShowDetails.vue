@@ -108,7 +108,11 @@
                 <span>{{ motor.owner?.email }}</span>
               </p>
               <div class="badges hidden-xs">
-                <span class="color-white">ID chưa xác minh</span>
+                <span class="color-white" v-if="motor.owner?.verified">
+                  <img src="../../assets/tick-white.svg" alt="tick" style="{ height: 14px; width: 14px;}">
+                  ID đã xác minh
+                </span>
+                <span class="color-white" v-else>ID chưa xác minh</span>
               </div>
             </div>
             <div class="row ml-0 mr-0 mt-3 details">

@@ -28,8 +28,11 @@
       <dt class="col-sm-3 text-truncate">Nơi cấp</dt>
       <dd class="col-sm-9">{{ this.user.idCard?.issuedWhere }}</dd>
 
-      <span class="col-12 mt-5" v-if="user.idCard?.front && user.idCard?.back && user.idCard?.selfie">
+      <span class="col-12 mt-5" v-if="user.idCard?.front && user.idCard?.back && user.idCard?.selfie && !user.verified">
         Đăng tải thành công. Quản trị viên sẽ xác nhận thông tin và thông báo cho bạn qua email trong tối đa 7 ngày tới.
+      </span>
+      <span class="col-12 mt-5" v-else-if="user.verified">
+        Đã xác minh thành công. Cần<a class="ml-1" data-toggle="modal" data-target="#exampleModal">thay đổi</a> thông tin CMT/CCCD?
       </span>
 
       <div class="col-sm-4 pt-3">

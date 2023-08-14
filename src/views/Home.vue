@@ -159,7 +159,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .page-holder {
     min-height: 100vh;
   }
