@@ -376,7 +376,7 @@ export default {
               this.$router.push({ name: 'Signin' });
             }
           });
-      } else if (!this.user.isVerified) {
+      } else if (!this.user.verified) {
         swal({
           icon: "warning",
           text: "Bạn cần phải xác thực CMT/CCCD trước. Nhập thông tin?",

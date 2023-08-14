@@ -33,12 +33,12 @@ export default {
   data() {
     return {
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['07/08', '08/08', '09/08', '10/08', '11/08', '12/08', '13/08'],
         datasets: [
           {
-            label: 'Data One',
+            label: 'Số xe thuê trong 7 ngày vừa qua',
             backgroundColor: '#f87979',
-            data: [40, 39, 10, 40, 39, 80, 40]
+            data: [1, 0, 2, 2, 3, 2, 4]
           }
         ]
       },
