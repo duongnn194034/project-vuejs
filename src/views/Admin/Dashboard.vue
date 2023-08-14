@@ -1,12 +1,15 @@
 <template>
-  <BarChart />
+  <LineChartSample />
 </template>
 
 <script>
-import BarChart from '../../components/Chart/BarChart'
-
+import LineChartSample from '../../components/Chart/LineChartSample'
+import LineChart from '../../components/Chart/LineChart.vue'
 export default {
   name: 'App',
-  components: { BarChart }
+  components: { LineChartSample, LineChart },
+  mounted() {
+    
+  }
 }
 </script>
