@@ -66,7 +66,7 @@
               <h5 class="pb-3 mt-4">Thông tin khác</h5>
               <div class="row">
                 <div class="col-lg-4 col-xs-6 pb-3" v-for="f in features">
-                  <span><abbr :title="this.toolTip[f]">{{ f }}</abbr></span>
+                  <span><abbr :title="this.toolTip[f]">{{ trans(f) }}</abbr></span>
                 </div>
               </div>
             </section>
@@ -402,6 +402,23 @@ export default {
         localStorage.setItem("end", this.endTime);
         localStorage.setItem("price", this.cost.toString());
         this.$router.push({ name: 'Checkout'})
+      }
+    },
+
+    trans(key) {
+      switch (key) {
+        case 'Order Canceling':
+          return 'Hủy đặt sớm';
+        case 'Adjust':
+          return 'Phụ phí ngoài';
+        case 'Fuel Cost':
+          return 'Không bao gồm giá xăng';
+        case 'Stolen Insurance':
+          return 'Bảo hiểm mất cắp';
+        case 'Damage Insurance':
+          return 'Bảo hiểm hư hại';
+        default:
+          return key;
       }
     },
   },

@@ -44,7 +44,7 @@
             type="button" class="btn btn-secondary ml-2 mb-2" 
             data-bs-toggle="tooltip" data-bs-placement="right" :title="this.toolTip[key]"
           >
-            {{ key }}
+            {{ trans(key) }}
           </button>
         </div>
       </div>
@@ -78,6 +78,7 @@ export default {
         params: { id: this.motor?.id },
       });
     },
+
     calStar(star) {
       this.stars = Math.round(star);
       if (star - Math.trunc(star) > 0.25 && star - Math.trunc(star) < 0.75) {
@@ -85,14 +86,33 @@ export default {
       }
       this.opaqueStars = 5 - this.stars - this.halfStars;
     },
+
     rounded(decimal) {
       return Math.round((decimal + Number.EPSILON) * 100) / 100;
     },
+
     stringfy(string) {
       return string
         .replace(/([A-Z])/g, ' $1')
         .replace(/^./, function(str){ return str.toUpperCase(); })
-    }
+    },
+
+    trans(key) {
+      switch (key) {
+        case 'Order Canceling':
+          return 'Hủy đặt sớm';
+        case 'Adjust':
+          return 'Phụ phí ngoài';
+        case 'Fuel Cost':
+          return 'Không bao gồm giá xăng';
+        case 'Stolen Insurance':
+          return 'Bảo hiểm mất cắp';
+        case 'Damage Insurance':
+          return 'Bảo hiểm hư hại';
+        default:
+          return key;
+      }
+    },
   },
   computed: {
     imageURL() {
